@@ -22,7 +22,14 @@ export function AdminSidebar() {
 
   const menu = [
     { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
-    { name: "Users", href: "/admin/users", icon: Users },
+    {
+      name: "Category",
+      icon: Package,
+      submenu: [
+        { name: "All Category", href: "/admin/category" },
+        { name: "Add Category", href: "/admin/category/add-category" },
+      ],
+    },
     {
       name: "Products",
       icon: Package,
@@ -34,14 +41,7 @@ export function AdminSidebar() {
         { name: "Deleted Product", href: "/admin/products/deleted-product" },
       ],
     },
-    {
-      name: "Category",
-      icon: Package,
-      submenu: [
-        { name: "All Category", href: "/admin/category" },
-        { name: "Add Category", href: "/admin/category/add-category" },
-      ],
-    },
+    { name: "Users", href: "/admin/users", icon: Users },
     {
       name: "Settings",
       icon: Settings,
