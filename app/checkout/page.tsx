@@ -2,10 +2,14 @@ import React from "react";
 import Navbar from "../shared/navbar/page";
 import Link from "next/link";
 import CheckoutForm from "../components/checkoutForm";
+import { getProductBySKU } from "@/lib/products";
 
 const CheckOut = async ({ searchParams }: any) => {
   const { sku, qty } = await searchParams;
-  console.log(sku, qty);
+  
+  const product = await getProductBySKU(sku)
+
+  console.log([product]);
 
   return (
     <div className="bg-gray-100">
