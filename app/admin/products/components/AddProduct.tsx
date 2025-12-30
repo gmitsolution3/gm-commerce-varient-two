@@ -5,8 +5,13 @@ import { Upload, X, Plus, Trash2, Save, Eye, EyeOff } from "lucide-react";
 import { UploadeImage } from "@/app/components/uploadeImage";
 import { PreviewImages, ProductFormData } from "@/utils/product";
 
+// interface CategoryProps {
+//   allCategory:
+// }
 
-export default function AddProductForm() {
+export default function AddProductForm({ allCategory }: any) {
+  console.log(allCategory);
+
   const [formData, setFormData] = useState<ProductFormData>({
     title: "",
     slug: "",
@@ -48,6 +53,7 @@ export default function AddProductForm() {
     thumbnail: null,
     gallery: [],
   });
+  const [thumbnailUpload, setThumbnailUpload] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState("basic");
 
   // Handle basic inputs
@@ -125,7 +131,7 @@ export default function AddProductForm() {
       try {
         const url = await UploadeImage(file);
         console.log(url);
-
+        setThumbnailUpload(url);
         setPreviewImages((prev) => ({
           ...prev,
           thumbnail: url as string,
@@ -160,6 +166,18 @@ export default function AddProductForm() {
     });
   };
 
+  const generateSKU = (productTitle: string, color: string, size: string) => {
+    const productCode = productTitle.substring(0, 3).toUpperCase();
+    const colorCode = color ? color.substring(0, 3).toUpperCase() : "NA";
+    const sizeCode = size ? size.substring(0, 3).toUpperCase() : "ST";
+    const random = Math.floor(100 + Math.random() * 900);
+
+    return `${productCode}-${colorCode}-${sizeCode}-${random}`;
+  };
+
+  // Example Usage:
+  const productTitle = formData.title;
+
   const removeGalleryImage = (index: number) => {
     setPreviewImages((prev) => ({
       ...prev,
@@ -172,12 +190,36 @@ export default function AddProductForm() {
   };
 
   // Handle variants
+  // const handleVariantChange = (e: ChangeEvent<HTMLInputElement>) => {
+  //   const { name, value } = e.target;
+  //   const skuResult = generateSKU(productTitle, variantForm)
+  //   setVariantForm((prev) => ({
+  //     ...prev,
+  //     [name]: value,
+  //     sku: skuResult
+  //   }));
+  // };
+
   const handleVariantChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setVariantForm((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+
+    setVariantForm((prev) => {
+      const updated = {
+        ...prev,
+        [name]: value,
+      };
+
+      // auto SKU generate only when color or size changes
+      if (name === "color" || name === "size") {
+        updated.sku = generateSKU(
+          productTitle,
+          name === "color" ? value : prev.color,
+          name === "size" ? value : prev.size
+        );
+      }
+
+      return updated;
+    });
   };
 
   const addVariant = () => {
@@ -217,17 +259,17 @@ export default function AddProductForm() {
     const payload = {
       ...formData,
       categoryId: formData.category.slice(0, 4),
+      thumbnail: thumbnailUpload,
       subCategoryId: formData.subCategory
         ? formData.subCategory.slice(0, 4)
         : "",
-        isDelete: false,
-        deletedAt: "",
-        createdAt: new Date().toLocaleString(),
+      isDelete: false,
+      deletedAt: "",
+      createdAt: new Date().toLocaleString(),
     };
 
     console.log("Payload:", payload);
 
-    console.log(formData.categoryId);
     const res = await fetch("http://localhost:5000/api/products", {
       method: "POST",
       headers: {
@@ -245,6 +287,8 @@ export default function AddProductForm() {
     }
 
     const result = await res.json();
+
+    alert(result);
     // if(result.inser)
     console.log("result", result);
   };
@@ -416,10 +460,11 @@ export default function AddProductForm() {
                     required
                   >
                     <option value="">Select a category</option>
-                    <option value="Electronics">Electronics</option>
-                    <option value="Clothing">Clothing</option>
-                    <option value="Watch">Watch</option>
-                    <option value="Books">Books</option>
+                    {allCategory.map((ctg: any, index: number) => (
+                      <option key={index} value={ctg.name}>
+                        {ctg.name}
+                      </option>
+                    ))}
                   </select>
                 </div>
 
@@ -826,9 +871,7 @@ export default function AddProductForm() {
                         type="text"
                         name="sku"
                         value={variantForm.sku}
-                        onChange={handleVariantChange}
-                        required
-                        placeholder="e.g., PRD-001-RED-M"
+                        readOnly
                         className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0970B4] focus:border-transparent"
                       />
                     </div>

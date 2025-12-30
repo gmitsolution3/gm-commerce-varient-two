@@ -1,10 +1,15 @@
 import React from "react";
 import AddProductForm from "../components/AddProduct";
+import { getCategories } from "@/lib/categories";
 
-const AddProduct = () => {
+const AddProduct =async () => {
+
+  const category = await getCategories();
+
+
   return (
     <div>
-      <AddProductForm />
+      <AddProductForm allCategory={category.data} />
     </div>
   );
 };
