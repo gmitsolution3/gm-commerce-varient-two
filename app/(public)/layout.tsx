@@ -29,7 +29,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className="bg-gray-100">
+        <div className="bg-gray-100 min-h-screen">
           <Navbar />
           <div className="flex max-w-400 mx-auto mt-10 gap-5">
             <SidebarWrapper />

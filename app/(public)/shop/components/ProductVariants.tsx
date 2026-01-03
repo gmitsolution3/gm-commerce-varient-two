@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FaWhatsapp } from "react-icons/fa";
 import { CardButtons } from "./cardButtons";
+import { addToCart, getCart } from "@/utils/cartStorage";
 
 type Variant = {
   attributes: {
@@ -16,9 +17,18 @@ type Variant = {
   stock: number;
 };
 
+interface productDetails {
+  productPrice: number;
+  title: string;
+  slug: string;
+  thumbnail: File | null;
+}
+
 type Props = {
   variants: Variant[];
   from: string;
+  productDetails: productDetails;
+  onCloseModal?: () => void;
 };
 
 // function that cover color name to hex code
@@ -48,7 +58,12 @@ function resolveColor(color: string, hex?: string) {
   return resolveColorFromName(color);
 }
 
-export default function ProductVariant({ variants, from }: Props) {
+export default function ProductVariant({
+  variants,
+  from,
+  productDetails,
+  onCloseModal,
+}: Props) {
   const router = useRouter();
 
   // catch out all the color exit in the variants
@@ -66,6 +81,13 @@ export default function ProductVariant({ variants, from }: Props) {
 
   const [selectedColor, setSelectedColor] = useState(colors[0]);
   const [selectedSize, setSelectedSize] = useState(sizes[0]);
+
+  const productSize = selectedSize.split(",");
+  console.log(productSize[0]);
+
+  const [selectedProductSize, setSelectedProductSize] = useState(
+    productSize[0]
+  );
   const [quantity, setQuantity] = useState(1);
 
   //   increase or decrease the quantity of product
@@ -73,7 +95,49 @@ export default function ProductVariant({ variants, from }: Props) {
   const handleDecrease = () => setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
 
   //   here open the add card modal
+  // const handleAddToCart = () => {
+  //   const addToCardProductDetails = {
+  //     ...productDetails,
+  //     selectedColor,
+  //     productSize,
+  //     selectedVariant,
+  //     sku,
+  //     quantity,
+  //   };
+
+  //   console.log(addToCardProductDetails)
+
+  //   alert(`Added ${quantity} item(s) to cart`);
+  // };
+
   const handleAddToCart = () => {
+    if (!selectedVariant) {
+      alert("Please select a variant");
+      return;
+    }
+
+    console.log(selectedProductSize);
+
+    const cartItem = {
+      selectedProductSize,
+      quantity,
+      selectedColor,
+      selectedVariant,
+      sku,
+      productPrice: productDetails.productPrice,
+      slug: productDetails.slug,
+      title: productDetails.title,
+      thumbnail: productDetails.thumbnail,
+    };
+
+
+    console.log(cartItem)
+    // addToCart(cartItem);
+
+    // const localSorageData = getCart();
+
+    // console.log(localSorageData)
+
     alert(`Added ${quantity} item(s) to cart`);
   };
 
@@ -135,6 +199,7 @@ export default function ProductVariant({ variants, from }: Props) {
   // check the sku is exit or not
   const sku = selectedVariant?.sku ?? "N/A";
 
+
   //   main components
   return (
     <div className="space-y-2">
@@ -192,13 +257,13 @@ export default function ProductVariant({ variants, from }: Props) {
         </p>
 
         <div className="flex flex-wrap gap-2">
-          {sizes.map((size) => (
+          {productSize.map((size) => (
             <button
               key={size}
-              onClick={() => setSelectedSize(size)}
+              onClick={() => setSelectedProductSize(size)}
               className={`rounded-md border px-4 py-2 text-sm capitalize transition
                 ${
-                  selectedSize === size
+                  selectedProductSize === size
                     ? "border-black bg-black text-white"
                     : "border-gray-300"
                 }`}
@@ -208,52 +273,75 @@ export default function ProductVariant({ variants, from }: Props) {
           ))}
         </div>
       </div>
-      <div className="grid grid-cols-2 gap-4 mt-4">
+
+      <div className="flex flex-wrap gap-3 mt-4 items-stretch">
         {/* Quantity selector */}
-        <div className="flex items-center justify-center border rounded-lg border-gray-400 bg-blue-50">
+        <div className="flex items-center border rounded-lg border-gray-400 bg-blue-50">
           <button
             onClick={handleDecrease}
-            className="px-4 py-1 text-2xl font-bold hover:bg-gray-100 rounded-l-lg"
+            className="px-4 py-2 text-xl font-bold hover:bg-gray-100 rounded-l-lg"
           >
             <Minus />
           </button>
-          <span className="px-6 border border-blue-400 rounded-lg bg-white">
+
+          <span className="px-6 py-2 border-x border-blue-400 bg-white font-semibold">
             {quantity}
           </span>
+
           <button
             onClick={handleIncrease}
-            className="px-4 py-1 text-2xl font-bold hover:bg-gray-100 rounded-r-lg"
+            className="px-4 py-2 text-xl font-bold hover:bg-gray-100 rounded-r-lg"
           >
             <Plus />
           </button>
         </div>
 
         {from === "productDetails" && (
-          <div>
-            {/* Buttons */}
+          <>
+            {/* Add to cart */}
             <button
               onClick={handleAddToCart}
-              className="px-4 py-2 border border-blue-500 text-blue-500 rounded-lg hover:bg-blue-50 flex items-center gap-2"
+              className="flex items-center gap-2 px-4 py-2 border border-blue-500 text-blue-600 rounded-lg hover:bg-[#0970B4] hover:text-white hover:cursor-pointer"
             >
-              <ShoppingCart className="text-blue-600" /> ADD TO CART
+              <ShoppingCart size={18} /> Add to Cart
             </button>
 
+            {/* WhatsApp */}
             <button
               onClick={handleOrderWhatsApp}
-              className="w-full bg-linear-to-t from-[#073d19] to-[#09b442] hover:from-[#09b442] hover:to-[#073d19] hover:cursor-pointer text-white py-3 rounded-lg font-semibold flex items-center justify-center text-sm gap-2 hover:bg-green-700 transition"
+              className="flex items-center gap-2 px-4 py-2 bg-linear-to-t from-[#073d19] to-[#09b442] hover:from-[#09b442] hover:to-[#073d19] text-white rounded-lg font-semibold hover:opacity-90 hover:cursor-pointer"
             >
-              <FaWhatsapp />
-              ORDER VIA WHATSAPP
+              <FaWhatsapp size={18} />
+              WhatsApp
             </button>
+
+            {/* Buy Now */}
             <button
               onClick={handleBuyNow}
-              className="block w-full border-b border-b-gray-100 px-4 py-3 text-sm text-center bg-linear-to-t from-[#0970B4] to-[#3CB1FF] font-semibold hover:cursor-pointer text-white rounded-lg hover:from-[#3CB1FF] hover:to-[#0970B4]"
+              className="px-5 py-2 bg-linear-to-t from-[#0970B4] to-[#3CB1FF] text-white rounded-lg font-semibold hover:opacity-90 hover:from-[#3CB1FF] hover:cursor-pointer hover:to-[#0970B4]"
             >
-              BUY NOW
+              Buy Now
             </button>
-          </div>
+          </>
         )}
       </div>
+      {from === "cardButton" && (
+        <div className="flex gap-3 mt-4">
+          <button
+            onClick={() => onCloseModal?.()}
+            className="flex-1 border border-gray-300 py-2 rounded-lg text-sm hover:bg-gray-100"
+          >
+            Continue Shopping
+          </button>
+
+          <button
+            onClick={handleAddToCart}
+            className="flex-1 bg-[#269ED9] text-white py-2 rounded-lg text-sm hover:bg-[#1d82b5]"
+          >
+            Go to Cart
+          </button>
+        </div>
+      )}
     </div>
   );
 }

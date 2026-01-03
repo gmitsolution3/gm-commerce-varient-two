@@ -1,31 +1,3 @@
-// import { ProductFormData } from '@/utils/product';
-// import { ShoppingBag, ShoppingCart } from 'lucide-react';
-// import React from 'react'
-// import { FaWhatsapp } from 'react-icons/fa';
-
-// interface Product {
-//   product: ProductFormData
-// }
-
-// export const CardButtons = ({ product }: Product) => {
-//   return (
-//     <div className="space-y-3">
-//       <button className="w-full bg-linear-to-t border-b-gray-100 from-[#0970B4] to-[#3CB1FF] hover:from-[#3CB1FF] hover:to-[#0970B4] hover:cursor-pointer text-white py-3 rounded-lg font-semibold flex items-center justify-center text-sm gap-2 transition">
-//         <ShoppingBag /> BUY NOW
-//       </button>
-
-//       <button className="w-full bg-linear-to-t from-[#073d19] to-[#09b442] hover:from-[#09b442] hover:to-[#073d19] hover:cursor-pointer text-white py-3 rounded-lg font-semibold flex items-center justify-center text-sm gap-2 hover:bg-green-700 transition">
-//         <FaWhatsapp />
-//         ORDER VIA WHATSAPP
-//       </button>
-
-//       <button className="w-full border border-[[#269ED9]] text-[#269ED9] py-2 rounded-lg font-semibold flex items-center justify-center gap-2 hover:bg-[#269ED9] hover:text-white transition hover:cursor-pointer">
-//         <ShoppingCart /> ADD TO CART
-//       </button>
-//     </div>
-//   );
-// };
-
 "use client"
 
 import { useState } from "react";
@@ -49,6 +21,28 @@ export const CardButtons = ({ product }: Product) => {
   const closeModal = () => {
     setIsCartModalOpen(false);
   };
+
+
+    const productPrice =
+      product.discount.type === "percentage"
+        ? Math.floor(
+            Number(product.basePrice) -
+              (Number(product.basePrice) * Number(product.discount.value)) / 100
+          )
+        : Math.max(
+            Number(product.basePrice) - Number(product.discount.value),
+            0
+          );
+
+    const { title, slug, thumbnail } = product;
+
+    const productDetails = {
+      productPrice,
+      title,
+      slug,
+      thumbnail,
+    };
+
 
   return (
     <>
@@ -89,20 +83,12 @@ export const CardButtons = ({ product }: Product) => {
 
             <p className="text-sm text-gray-600 mb-4">{product.title}</p>
             <div>
-              <ProductVariant variants={product.variants} from={from} />
-            </div>
-
-            <div className="flex gap-3">
-              <button
-                onClick={() => setIsCartModalOpen(false)}
-                className="flex-1 border border-gray-300 py-2 rounded-lg text-sm hover:bg-gray-100"
-              >
-                Continue Shopping
-              </button>
-
-              <button className="flex-1 bg-[#269ED9] text-white py-2 rounded-lg text-sm hover:bg-[#1d82b5]">
-                Go to Cart
-              </button>
+              <ProductVariant
+                variants={product.variants}
+                from={from}
+                productDetails={productDetails}
+                onCloseModal={closeModal}
+              />
             </div>
           </div>
         </div>

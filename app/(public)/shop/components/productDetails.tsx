@@ -8,8 +8,29 @@ interface ProductDetailsProps {
 }
 
 export const ProductDetail = ({ product }: ProductDetailsProps) => {
+  console.log(product);
 
-  const from = "productDetails"
+  const closeModal = () => {};
+
+  const productPrice =
+    product.discount.type === "percentage"
+      ? Math.floor(
+          Number(product.basePrice) -
+            (Number(product.basePrice) * Number(product.discount.value)) / 100
+        )
+      : Math.max(Number(product.basePrice) - Number(product.discount.value), 0);
+
+  const { title, slug, thumbnail } = product;
+
+
+  const productDetails = {
+    productPrice,
+    title,
+    slug,
+    thumbnail,
+  };
+
+  const from = "productDetails";
   return (
     <div className="space-y-10">
       <div className="flex flex-col md:flex-row gap-10">
@@ -20,8 +41,6 @@ export const ProductDetail = ({ product }: ProductDetailsProps) => {
               alt={`${product.title}`}
               width={271}
               height={253}
-              // placeholder="blur"
-              // blurDataURL={`${product.thumbnail}`}
               className="object-cover rounded"
             />
           </div>
@@ -42,18 +61,7 @@ export const ProductDetail = ({ product }: ProductDetailsProps) => {
           <h1 className="text-2xl text-black font-bold">{product.title}</h1>
           <div className="flex items-center gap-2">
             <span className="text-2xl font-bold text-gray-900">
-              {product.discount.type === "percentage"
-                ? Math.floor(
-                    Number(product.basePrice) -
-                      (Number(product.basePrice) *
-                        Number(product.discount.value)) /
-                        100
-                  )
-                : Math.max(
-                    Number(product.basePrice) - Number(product.discount.value),
-                    0
-                  )}
-              ৳
+              {productPrice}৳
             </span>
             <span className="text-lg text-red-500 line-through ml-2">
               {product.basePrice}৳
@@ -62,7 +70,12 @@ export const ProductDetail = ({ product }: ProductDetailsProps) => {
           <div>
             <p>{product.shortDescription}</p>
             <div className="mt-4">
-              <ProductVariants variants={product.variants} from={from} />
+              <ProductVariants
+                variants={product.variants}
+                from={from}
+                productDetails={productDetails}
+                
+              />
             </div>
           </div>
         </div>
