@@ -7,6 +7,7 @@ import { FaWhatsapp } from "react-icons/fa";
 import { CardButtons } from "./cardButtons";
 import { addToCart, getCart } from "@/utils/cartStorage";
 import { toast } from "react-toastify";
+import { fbEvent } from "@/utils/fbPixel";
 
 type Variant = {
   attributes: {
@@ -118,15 +119,44 @@ export default function ProductVariant({
     };
     addToCart(cartItem);
 
-    const bookData = getCart();
-    console.log(bookData);
+    fbEvent("AddToCart", {
+      content_ids: [cartItem.sku || cartItem.slug],
+      content_type: "product",
+      content_name: cartItem.title,
+      value: cartItem.productPrice,
+      currency: "BDT",
+    });
 
     toast.success("Product added successfully");
     onCloseModal?.();
   };
 
   const handleBuyNow = () => {
-    handleAddToCart();
+    if (!selectedVariant) {
+      alert("Please select a variant");
+      return;
+    }
+
+    const cartItem = {
+      selectedProductSize,
+      quantity,
+      selectedColor,
+      selectedVariant,
+      sku,
+      productPrice: productDetails.productPrice,
+      slug: productDetails.slug,
+      title: productDetails.title,
+      thumbnail: productDetails.thumbnail,
+    };
+    addToCart(cartItem);
+
+    fbEvent("InitiateCheckout", {
+      content_ids: [cartItem.sku || cartItem.slug],
+      content_type: "product",
+      content_name: cartItem.title,
+      value: cartItem.productPrice,
+      currency: "BDT",
+    });
 
     router.push("/checkout");
   };
@@ -141,28 +171,6 @@ export default function ProductVariant({
     );
   };
 
-  //   redirect the checkout page from here
-  // const handleBuyNow = () => {
-  //   if (!selectedVariant) return alert("Please select a variant first!");
-
-  //   const cartItem = {
-  //     selectedProductSize,
-  //     quantity,
-  //     selectedColor,
-  //     selectedVariant,
-  //     sku,
-  //     productPrice: productDetails.productPrice,
-  //     slug: productDetails.slug,
-  //     title: productDetails.title,
-  //     thumbnail: productDetails.thumbnail,
-  //   };
-  //   addToCart(cartItem);
-
-  //   const checkoutUrl = `/checkout?sku=${sku}&qty=${quantity}`;
-
-  //   router.push(checkoutUrl);
-  //   // alert(`Buying ${quantity} item(s) now`);
-  // };
 
   //   function  normalize
   function normalize(value: string) {
@@ -314,7 +322,7 @@ export default function ProductVariant({
           <>
             {/* Add to cart */}
             <button
-              onClick={handleAddToCart}
+              onClick={() => handleAddToCart()}
               className="flex items-center gap-2 px-4 py-2 border border-blue-500 text-blue-600 rounded-lg hover:bg-[#0970B4] hover:text-white hover:cursor-pointer"
             >
               <ShoppingCart size={18} /> Add to Cart
@@ -356,7 +364,7 @@ export default function ProductVariant({
             </button>
           ) : (
             <button
-              onClick={handleAddToCart}
+              onClick={() => handleAddToCart()}
               className="flex-1 bg-[#269ED9] text-white py-2 rounded-lg text-sm hover:bg-[#1d82b5]"
             >
               Add to card

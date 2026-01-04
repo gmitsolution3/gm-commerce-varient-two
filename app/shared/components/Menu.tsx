@@ -29,9 +29,8 @@ export const MenuNavbar = ({ categories }: any) => {
           </button>
         </Link>
         {categories.map((category: any) => (
-          <Link href={`/shop/${category._id}`}>
+          <Link href={`/shop/${category._id}`} key={category._id}>
             <button
-              key={category._id}
               onClick={() => handleClick(category._id)}
               className={clsx(
                 "py-2 text-sm text-gray-900 font-semibold hover:cursor-pointer  ml-4 px-3",
