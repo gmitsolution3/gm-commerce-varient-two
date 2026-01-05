@@ -12,8 +12,10 @@ import {
   Settings,
   LogOut,
   ChevronDown,
+  ChartNoAxesGantt,
 } from "lucide-react";
 import { ComLogo } from "@/app/shared/components/ComLogo";
+import { AiOutlineProduct } from "react-icons/ai";
 
 export function AdminSidebar() {
   const pathname = usePathname();
@@ -22,6 +24,14 @@ export function AdminSidebar() {
 
   const menu = [
     { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
+    {
+      name: "Order",
+      icon: ChartNoAxesGantt,
+      submenu: [
+        { name: "All Order", href: "/admin/order/all-order" },
+        { name: "Manage Order", href: "/admin/order/manage-order" },
+      ],
+    },
     {
       name: "Category",
       icon: Package,
@@ -32,7 +42,7 @@ export function AdminSidebar() {
     },
     {
       name: "Products",
-      icon: Package,
+      icon: AiOutlineProduct,
       submenu: [
         { name: "All Product", href: "/admin/products/all-product" },
         { name: "Add Product", href: "/admin/products/add-product" },

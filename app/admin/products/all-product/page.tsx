@@ -7,10 +7,17 @@ const AllProductShow =async () => {
   const res = await AllProduct();
     const products = res.data;
 
+    const productDescription = {
+      title: "Products",
+      subTitle: "Manage your product inventory",
+    };
 
   return (
     <div>
-      <ProductTable INITIAL_PRODUCTS={products} />
+      <ProductTable
+        INITIAL_PRODUCTS={products}
+        description={productDescription}
+      />
     </div>
   );
 }

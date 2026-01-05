@@ -1,10 +1,10 @@
-"use client"
-
+"use client";
 
 import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { Edit2, Trash2 } from "lucide-react";
 import StockStatusDropdown from "./stockStatusDropdown";
+import { MdPublishedWithChanges } from "react-icons/md";
 
 // ============ TYPE DEFINITIONS ============
 interface Discount {
@@ -54,10 +54,15 @@ interface Product {
   createdAt: string;
 }
 
-interface ProductProps {
-  INITIAL_PRODUCTS: Product[]
+interface productDescription {
+  title: string;
+  subTitle: string;
 }
 
+interface ProductProps {
+  INITIAL_PRODUCTS: Product[];
+  description?: productDescription;
+}
 
 interface EditFormData {
   title: string;
@@ -461,36 +466,22 @@ const EditModal: React.FC<EditModalProps> = ({ product, onClose, onSave }) => {
 };
 
 // ============ MAIN TABLE COMPONENT ============
-const ProductTable = ({ INITIAL_PRODUCTS }: ProductProps) => {
+const ProductTable = ({ INITIAL_PRODUCTS, description }: ProductProps) => {
   const [products, setProducts] = useState<Product[]>(INITIAL_PRODUCTS);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
 
-//   const handleStatusToggle = (id: string): void => {
-//     setProducts(
-//       products.map((p) =>
-//         p._id === id
-//           ? {
-//               ...p,
-//               stockStatus:
-//                 p.stockStatus === "in-stock" ? "out-of-stock" : "in-stock",
-//             }
-//           : p
-//       )
-//     );
-//   };
-
-const handleStatusToggle = (id: string, status: any): void => {
-  setProducts((prev) =>
-    prev.map((p) =>
-      p._id === id
-        ? {
-            ...p,
-            stockStatus: status, // ✅ direct set
-          }
-        : p
-    )
-  );
-};
+  const handleStatusToggle = (id: string, status: any): void => {
+    setProducts((prev) =>
+      prev.map((p) =>
+        p._id === id
+          ? {
+              ...p,
+              stockStatus: status, // ✅ direct set
+            }
+          : p
+      )
+    );
+  };
 
   const handleEdit = (product: Product): void => {
     setEditingProduct(product);
@@ -535,9 +526,9 @@ const handleStatusToggle = (id: string, status: any): void => {
       <div className="max-w-7xl mx-auto">
         <div className="mb-6">
           <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
-            Products
+            {description?.title}
           </h1>
-          <p className="text-gray-600 mt-1">Manage your product inventory</p>
+          <p className="text-gray-600 mt-1">{description?.subTitle}</p>
         </div>
 
         {/* Desktop Table */}
@@ -632,6 +623,14 @@ const handleStatusToggle = (id: string, status: any): void => {
                         >
                           <Trash2 size={18} />
                         </button>
+                        {description?.title === "Draft Product" && (
+                          <button
+                            className="p-2 hover:bg-green-50 rounded-lg transition-colors text-green-600 hover:text-green-700"
+                            title="Publish Now"
+                          >
+                            <MdPublishedWithChanges size={18}/>
+                          </button>
+                        )}
                       </div>
                     </td>
                   </tr>

@@ -62,3 +62,20 @@ export async function AllProduct() {
   return res.json()
 
 }
+
+
+export async function getDraftProduct() {
+  const res = await fetch("http://localhost:5000/api/products/draft",{
+    next: {revalidate: 300},
+  });
+
+  return res.json()
+}
+
+export async function getDeletedProduct() {
+  const res = await fetch("http://localhost:5000/api/products/delete-product",{
+    next: {revalidate: 300},
+  });
+
+  return res.json()
+}

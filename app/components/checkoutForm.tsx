@@ -82,11 +82,6 @@ export default function CheckoutForm() {
     console.log(updatedItems);
   };
 
-  // const handleRemoveItem = (id: string) => {
-  //   setCartItems((prev) => prev.filter((item) => item.slug !== id));
-  //   toast.success("Product remove successfully");
-  //   // clearCart()
-  // };
 
   const handleRemoveItem = (index: number) => {
       const updatedItems = cartItems.filter((_, i) => i !== index);
@@ -117,7 +112,7 @@ export default function CheckoutForm() {
     ];
 
     if (formData.email && !/^\S+@\S+\.\S+$/.test(formData.email)) {
-      toast("Please enter a valid email address!");
+      toast.success("Please enter a valid email address!");
       return;
     }
 
@@ -157,8 +152,12 @@ export default function CheckoutForm() {
       paymentMethod: paymentMethod,
       deliveryMethod: deliveryMethod,
       promoCode: formData.promoCode,
+      orderStatus: "pending",
+      paymentStatus: "pending",
     };
 
+
+ 
     if (isSubmitting) return;
     setIsSubmitting(true);
 
@@ -167,7 +166,6 @@ export default function CheckoutForm() {
         "http://localhost:5000/create-order",
         orderData
       );
-      console.log(response.data);
 
       if (response.data.success) {
         Swal.fire({
