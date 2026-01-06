@@ -17,11 +17,11 @@ import {
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
 import { Badge } from "@/components/ui/badge";
-import type { Order } from "./types";
 import { formatDate, getStatusBadgeVariant } from "./utlis";
+import { Order } from "./AllProductTable";
 
 interface OrdersTableProps {
-  orders: Order[];
+  orders: any;
   selectedOrders: Set<string>;
   onToggleOrderSelection: (orderId: string) => void;
   onToggleSelectAll: () => void;
@@ -114,7 +114,7 @@ export default function OrdersTable({
               </TableCell>
             </TableRow>
           ) : (
-            orders.map((order) => (
+            orders.map((order: any) => (
               <TableRow
                 key={order._id}
                 className={
@@ -145,7 +145,8 @@ export default function OrdersTable({
                   {formatDate(order.createdAt)}
                 </TableCell>
                 <TableCell className="px-2 sm:px-4 text-center font-medium text-xs sm:text-sm">
-                  {order.quantity}
+                  {/* {order.quantity} */}
+                  {order.products.map((q: any) => q.quantity)}
                 </TableCell>
                 <TableCell className="hidden lg:table-cell px-2 sm:px-4 text-xs sm:text-sm">
                   {order.courierName}
@@ -153,7 +154,7 @@ export default function OrdersTable({
                 <TableCell className="hidden lg:table-cell px-2 sm:px-4">
                   <Badge
                     className={`text-xs ${
-                      courierStatusColors[order.courierStatus] ||
+                      courierStatusColors[order.courierStatus as string] ||
                       "bg-gray-100 text-gray-800"
                     }`}
                   >
@@ -162,14 +163,14 @@ export default function OrdersTable({
                 </TableCell>
                 <TableCell className="px-2 sm:px-4">
                   <Badge
-                    variant={getStatusBadgeVariant(order.status)}
+                    variant={getStatusBadgeVariant(order.status!)}
                     className="text-xs"
                   >
-                    {order.status}
+                    {order.orderStatus}
                   </Badge>
                 </TableCell>
                 <TableCell className="hidden xl:table-cell px-2 sm:px-4 text-xs max-w-32 truncate">
-                  {order.note || "—"}
+                  {order.note! || "—"}
                 </TableCell>
                 <TableCell className="hidden sm:table-cell px-2 sm:px-4 font-medium text-xs sm:text-sm text-right">
                   ৳

@@ -1,12 +1,20 @@
 import type { Metadata } from "next";
 import ManageOrders from "../components/ManageOrders";
+import { getAllOrder } from "@/lib/order";
 
 export const metadata: Metadata = {
   title: "Manage Orders",
   description: "Manage and track all customer orders",
 };
 
-export default function ManageOrdersPage() {
+export default async function ManageOrdersPage() {
+
+
+  const response = await getAllOrder();
+
+  console.log(response.data)
+
+
   return (
     <div className="min-h-screen p-4 md:p-8">
       <div className="max-w-7xl mx-auto">
@@ -14,7 +22,7 @@ export default function ManageOrdersPage() {
         <p className="text-muted-foreground mb-6">
           View, filter, and manage all customer orders
         </p>
-        <ManageOrders />
+        <ManageOrders MOCK_ORDERS={response.data} />
       </div>
     </div>
   );

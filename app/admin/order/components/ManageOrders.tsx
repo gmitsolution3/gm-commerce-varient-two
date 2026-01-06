@@ -33,90 +33,8 @@ const ORDER_STATUSES = [
   "Completed",
 ];
 
-const MOCK_ORDERS: Order[] = [
-  {
-    _id: "695baa0c4e9a977281036b5b",
-    customerInfo: {
-      firstName: "Tariqul",
-      lastName: "Khan",
-      phone: "01817247388",
-      email: "anik@gmail.com",
-    },
-    quantity: 7,
-    courierName: "Pathao",
-    courierStatus: "Pending",
-    status: "Pending",
-    note: "Handle with care",
-    createdAt: "2026-01-05T12:09:48.266Z",
-    grandTotal: 17376,
-  },
-  {
-    _id: "695baa2c4e9a977281036b5c",
-    customerInfo: {
-      firstName: "Tariqul",
-      lastName: "Khan",
-      phone: "01817247388",
-      email: "anik@gmail.com",
-    },
-    quantity: 2,
-    courierName: "Steadfast",
-    courierStatus: "Pending",
-    status: "Processing",
-    note: "Standard delivery",
-    createdAt: "2026-01-05T12:10:20.885Z",
-    grandTotal: 7730,
-  },
-  {
-    _id: "695baa3f4e9a977281036b5d",
-    customerInfo: {
-      firstName: "Tariqul",
-      lastName: "Khan",
-      phone: "01817247388",
-      email: "anik@gmail.com",
-    },
-    quantity: 2,
-    courierName: "TigerParse",
-    courierStatus: "Pending",
-    status: "Courier",
-    note: "Outside Dhaka",
-    createdAt: "2026-01-05T12:10:39.823Z",
-    grandTotal: 765,
-  },
-  {
-    _id: "695baa5b4e9a977281036b5e",
-    customerInfo: {
-      firstName: "Tariqul",
-      lastName: "Khan",
-      phone: "01817247388",
-      email: "anik@gmail.com",
-    },
-    quantity: 2,
-    courierName: "Pathao",
-    courierStatus: "In Transit",
-    status: "Courier",
-    note: "",
-    createdAt: "2026-01-05T12:11:07.353Z",
-    grandTotal: 4672,
-  },
-  {
-    _id: "695bb1ba8f783c30fede9144",
-    customerInfo: {
-      firstName: "Tariqul",
-      lastName: "Khan",
-      phone: "01817247388",
-      email: "anik@gmail.com",
-    },
-    quantity: 1,
-    courierName: "Steadfast",
-    courierStatus: "Delivered",
-    status: "Completed",
-    note: "Completed successfully",
-    createdAt: "2026-01-05T12:42:34.996Z",
-    grandTotal: 412.5,
-  },
-];
 
-export default function ManageOrders() {
+export default function ManageOrders({ MOCK_ORDERS }: { MOCK_ORDERS : Order[]}) {
   const [selectedOrders, setSelectedOrders] = useState<Set<string>>(new Set());
   const [filterStatus, setFilterStatus] = useState<string | null>(null);
   const [bulkActionDropdownOpen, setBulkActionDropdownOpen] = useState(false);
@@ -126,7 +44,9 @@ export default function ManageOrders() {
     let result = MOCK_ORDERS;
 
     if (filterStatus) {
-      result = result.filter((order) => order.status === filterStatus);
+      result = result.filter(
+        (order) => order.orderStatus === filterStatus.toLowerCase()
+      );
     }
 
     if (searchQuery.trim()) {
@@ -237,7 +157,7 @@ export default function ManageOrders() {
                   {ORDER_STATUSES.map((status) => (
                     <DropdownMenuCheckboxItem
                       key={status}
-                      checked={filterStatus === status}
+                      checked={filterStatus === status.toLowerCase()}
                       onCheckedChange={() => setFilterStatus(status)}
                     >
                       {status}

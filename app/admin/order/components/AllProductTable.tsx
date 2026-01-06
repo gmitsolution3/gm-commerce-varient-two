@@ -50,8 +50,7 @@ interface OrderProduct {
   subtotal: number;
   variant: OrderVariant;
 }
-
-interface Order {
+export interface Order {
   _id: string;
   customerInfo: CustomerInfo;
   shippingAddress: ShippingAddress;
@@ -63,144 +62,12 @@ interface Order {
   deliveryMethod: string;
   promoCode: string;
   createdAt: string;
-  status?: "pending" | "confirmed" | "shipped" | "delivered";
+  courierName?: string;
+  courierStatus?: string;
+  note?: string;
+  orderStatus?: "pending" | "confirmed" | "shipped" | "delivered";
   paymentStatus?: "pending" | "paid";
 }
-
-const INITIAL_ORDERS: Order[] = [
-  {
-    _id: "695baa0c4e9a977281036b5b",
-    customerInfo: {
-      firstName: "Tariqul",
-      lastName: "Khan",
-      phone: "01817247388",
-      email: "anik@gmail.com",
-    },
-    shippingAddress: {
-      street: "Mirpur",
-      city: "Dhaka",
-      region: "dhaka",
-      postalCode: "1216",
-    },
-    products: [
-      {
-        productId: "6953b9442801a9159834ce79",
-        title: "Wireless Bluetooth Earbuds",
-        slug: "wireless-bluetooth-earbuds",
-        quantity: 2,
-        price: 2296,
-        subtotal: 4592,
-        variant: {
-          attributes: { color: "black", size: "standard" },
-          sku: "WIR-BLA-STR-961",
-          stock: 56,
-        },
-      },
-      {
-        productId: "6953b53c2801a9159834ce77",
-        title: "Stainless Steel Kitchen Knife Set",
-        slug: "stainless-steel-kitchen-knife-set",
-        quantity: 4,
-        price: 2816,
-        subtotal: 11264,
-        variant: {
-          attributes: { color: "white", size: "standard" },
-          sku: "STA-WHI-STA-342",
-          stock: 10,
-        },
-      },
-    ],
-    subtotal: 17296,
-    deliveryCharge: 80,
-    grandTotal: 17376,
-    paymentMethod: "cash",
-    deliveryMethod: "inside",
-    promoCode: "",
-    createdAt: "2026-01-05T12:09:48.266Z",
-    status: "pending",
-    paymentStatus: "pending",
-  },
-  {
-    _id: "695baa2c4e9a977281036b5c",
-    customerInfo: {
-      firstName: "Tariqul",
-      lastName: "Khan",
-      phone: "01817247388",
-      email: "anik@gmail.com",
-    },
-    shippingAddress: {
-      street: "Mirpur",
-      city: "Dhaka",
-      region: "dhaka",
-      postalCode: "1216",
-    },
-    products: [
-      {
-        productId: "6953b1e32801a9159834ce74",
-        title: "Men Winter Puffer Jacket",
-        slug: "men-winter-puffer-jacket",
-        quantity: 2,
-        price: 3825,
-        subtotal: 7650,
-        variant: {
-          attributes: { color: "brown", size: "L" },
-          sku: "MEN-BRO-L-107",
-          stock: 20,
-        },
-      },
-    ],
-    subtotal: 7650,
-    deliveryCharge: 80,
-    grandTotal: 7730,
-    paymentMethod: "cash",
-    deliveryMethod: "inside",
-    promoCode: "",
-    createdAt: "2026-01-05T12:10:20.885Z",
-    status: "pending",
-    paymentStatus: "pending",
-  },
-  {
-    _id: "695baa3f4e9a977281036b5d",
-    customerInfo: {
-      firstName: "Tariqul",
-      lastName: "Khan",
-      phone: "01817247388",
-      email: "anik@gmail.com",
-    },
-    shippingAddress: {
-      street: "Mirpur",
-      city: "Dhaka",
-      region: "chittagong",
-      postalCode: "1216",
-    },
-    products: [
-      {
-        productId: "6953b4272801a9159834ce76",
-        title: "Fast Charging Type-C Cable",
-        slug: "fast-charging-type-c-cable",
-        quantity: 2,
-        price: 332.5,
-        subtotal: 665,
-        variant: {
-          attributes: { color: "White", size: "standard" },
-          sku: "FAS-WHI-STA-771",
-          stock: 120,
-        },
-      },
-    ],
-    subtotal: 665,
-    deliveryCharge: 100,
-    grandTotal: 765,
-    paymentMethod: "cash",
-    deliveryMethod: "outside",
-    promoCode: "",
-    createdAt: "2026-01-05T12:10:39.823Z",
-    status: "pending",
-    paymentStatus: "pending",
-  },
-];
-
-
 
 
 
@@ -600,12 +467,12 @@ const AllProductTable = ({ INITIAL_ORDERS }: { INITIAL_ORDERS :Order[]}) => {
                       <div className="flex flex-col gap-1">
                         <span
                           className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                            order.status === "pending"
+                            order.orderStatus === "pending"
                               ? "bg-yellow-100 text-yellow-800"
                               : "bg-green-100 text-green-800"
                           }`}
                         >
-                          {order.status || "pending"}
+                          {order.orderStatus || "pending"}
                         </span>
                       </div>
                     </td>
@@ -740,12 +607,12 @@ const AllProductTable = ({ INITIAL_ORDERS }: { INITIAL_ORDERS :Order[]}) => {
                 <div className="mb-4 flex gap-2">
                   <span
                     className={`flex-1 text-center py-1 rounded text-xs font-semibold ${
-                      order.status === "pending"
+                      order.orderStatus === "pending"
                         ? "bg-yellow-100 text-yellow-800"
                         : "bg-green-100 text-green-800"
                     }`}
                   >
-                    {order.status || "pending"}
+                    {order.orderStatus || "pending"}
                   </span>
                   <span
                     className={`flex-1 text-center py-1 rounded text-xs font-semibold ${

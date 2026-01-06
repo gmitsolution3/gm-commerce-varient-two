@@ -13,4 +13,5 @@ export interface Order {
   note: string;
   createdAt: string;
   grandTotal: number;
+  orderStatus: string
 }
