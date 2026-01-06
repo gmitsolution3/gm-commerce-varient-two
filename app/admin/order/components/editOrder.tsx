@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { Trash2, Search } from "lucide-react";
+import axios from "axios";
 
 // Types
 interface Variant {
@@ -50,12 +51,13 @@ interface OrderData {
   deliveryMethod: string;
   promoCode: string;
   createdAt: string;
-  status: string;
+  orderStatus: string;
   paymentStatus: string;
 }
 
 interface FormInputs {
-  status: string;
+  orderStatus: string;
+  paymentStatus: string,
   firstName: string;
   lastName: string;
   phone: string;
@@ -72,11 +74,13 @@ interface FormInputs {
 
 const OrderDetailsPage = ({ orderData }: { orderData : OrderData}) => {
 
+
   const [products, setProducts] = useState<Product[]>(orderData.products);
   const [searchId, setSearchId] = useState<string>("");
   const { control, handleSubmit } = useForm<FormInputs>({
     defaultValues: {
-      status: orderData.status,
+      orderStatus: orderData.orderStatus,
+      paymentStatus: orderData.paymentStatus,
       firstName: orderData.customerInfo.firstName,
       lastName: orderData.customerInfo.lastName,
       phone: orderData.customerInfo.phone,
@@ -131,7 +135,7 @@ const OrderDetailsPage = ({ orderData }: { orderData : OrderData}) => {
     );
   };
 
-  const onSubmit: SubmitHandler<FormInputs> = (data: FormInputs): void => {
+  const onSubmit: SubmitHandler<FormInputs> =async (data: FormInputs) => {
     const updatedOrderData: Partial<OrderData> & Partial<FormInputs> = {
       ...orderData,
       ...data,
@@ -150,6 +154,20 @@ const OrderDetailsPage = ({ orderData }: { orderData : OrderData}) => {
       },
     };
 
+    try {
+      const res = await axios.put(
+        `http://localhost:5000/create-order/update-order/${orderData._id}`,
+        updatedOrderData
+      );
+
+      if (res.data.success) {
+        alert("Order updated successfully!");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Failed to update order");
+    }
+
     console.log("Updated Order Data:", updatedOrderData);
     alert("Order updated successfully!");
   };
@@ -161,7 +179,7 @@ const OrderDetailsPage = ({ orderData }: { orderData : OrderData}) => {
   );
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-gray-50 to-gray-100 p-4 md:p-8">
+    <div className="min-h-screen p-4 md:p-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8">
@@ -172,13 +190,13 @@ const OrderDetailsPage = ({ orderData }: { orderData : OrderData}) => {
         </div>
 
         {/* Status and Search Section */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-2">
               Update Status
             </label>
             <Controller
-              name="status"
+              name="orderStatus"
               control={control}
               render={({ field }) => (
                 <select
@@ -192,6 +210,24 @@ const OrderDetailsPage = ({ orderData }: { orderData : OrderData}) => {
                   <option value="cancelled">Cancelled Order</option>
                   <option value="return">Return Order</option>
                   <option value="completed">Completed Order</option>
+                </select>
+              )}
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
+              Payment Status
+            </label>
+            <Controller
+              name="paymentStatus"
+              control={control}
+              render={({ field }) => (
+                <select
+                  {...field}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
+                >
+                  <option value="pending">Pending</option>
+                  <option value="success">Success</option>
                 </select>
               )}
             />

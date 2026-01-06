@@ -166,7 +166,7 @@ const OrderDetailModal: React.FC<OrderDetailModalProps> = ({
             <div className="bg-green-50 p-3 rounded-lg border border-green-200 text-center">
               <p className="text-xs text-gray-600">Order Status</p>
               <p className="text-sm font-semibold text-gray-900 capitalize mt-1">
-                {order.status || "pending"}
+                {order.orderStatus || "pending"}
               </p>
             </div>
             <div className="bg-orange-50 p-3 rounded-lg border border-orange-200 text-center">

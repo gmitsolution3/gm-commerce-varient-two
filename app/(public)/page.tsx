@@ -15,7 +15,16 @@ const MainPage = async () => {
 
   return (
     <div className="bg-white p-4 rounded-xl">
-      <ProductCard products={products} />
+
+      <div>
+        
+      </div>
+
+
+
+      <div>
+        <ProductCard products={products} />
+      </div>
     </div>
   );
 };
