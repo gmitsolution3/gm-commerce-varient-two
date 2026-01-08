@@ -13,6 +13,8 @@ import {
 } from "lucide-react";
 import { ComLogo } from "@/app/shared/components/ComLogo";
 import Link from "next/link";
+import { Badge } from "@/components/ui/badge";
+import { getOrderStatusClass } from "./OrdersTable";
 
 // ============ TYPE DEFINITIONS ============
 interface CustomerInfo {
@@ -465,15 +467,13 @@ const AllProductTable = ({ INITIAL_ORDERS }: { INITIAL_ORDERS :Order[]}) => {
                     </td>
                     <td className="px-6 py-4">
                       <div className="flex flex-col gap-1">
-                        <span
-                          className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                            order.orderStatus === "pending"
-                              ? "bg-yellow-100 text-yellow-800"
-                              : "bg-green-100 text-green-800"
-                          }`}
+                        <Badge
+                          className={`text-xs flex justify-center ${getOrderStatusClass(
+                            order.orderStatus
+                          )}`}
                         >
-                          {order.orderStatus || "pending"}
-                        </span>
+                          {order.orderStatus}
+                        </Badge>
                       </div>
                     </td>
                     <td>

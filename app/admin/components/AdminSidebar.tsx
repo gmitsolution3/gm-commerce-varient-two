@@ -61,6 +61,15 @@ export function AdminSidebar() {
         { name: "Shipping", href: "/admin/settings/shipping" },
       ],
     },
+    {
+      name: "Fb-Integration",
+      icon: Settings,
+      submenu: [
+        { name: "Facebook-Credential", href: "/admin/facebook/setting/fb-credential" },
+        { name: "Payment", href: "/admin/settings/payment" },
+        { name: "Shipping", href: "/admin/settings/shipping" },
+      ],
+    },
   ];
 
   const toggleSubmenu = (index: number) => {

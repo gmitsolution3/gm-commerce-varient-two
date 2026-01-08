@@ -8,8 +8,6 @@ const ShowAllProduct = async () => {
   const result = await getFeaturedProduct();
   const products = res.data;
 
-  console.log(products);
-
   if (products.length === 0) {
     return (
       <div className="min-h-screen flex justify-center items-center text-3xl text-blue-800">

@@ -27,7 +27,7 @@ const ORDER_STATUSES = [
   "Pending",
   "Processing",
   "Courier",
-  "On Hold",
+  "On-Hold",
   "Cancelled",
   "Return",
   "Completed",
@@ -42,12 +42,17 @@ export default function ManageOrders({ MOCK_ORDERS }: { MOCK_ORDERS : Order[]}) 
 
   const filteredOrders = useMemo(() => {
     let result = MOCK_ORDERS;
+    // order.orderStatus === filterStatus.toLowerCase()
 
     if (filterStatus) {
       result = result.filter(
         (order) => order.orderStatus === filterStatus.toLowerCase()
       );
     }
+
+    
+
+
 
     if (searchQuery.trim()) {
       const query = searchQuery.toLowerCase();

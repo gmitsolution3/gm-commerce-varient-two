@@ -6,6 +6,7 @@ import { Trash2, Search } from "lucide-react";
 import axios from "axios";
 import config from "@/lib/config";
 
+
 // Types
 interface Variant {
   attributes: {
@@ -74,6 +75,10 @@ interface FormInputs {
 }
 
 const OrderDetailsPage = ({ orderData }: { orderData: OrderData }) => {
+
+  const BASE_URL = process.env.NEXT_PUBLIC_EXPRESS_SERVER_BASE_URL;
+
+
   const [products, setProducts] = useState<Product[]>(orderData.products);
   const [searchId, setSearchId] = useState<string>("");
   const { control, handleSubmit } = useForm<FormInputs>({
@@ -153,11 +158,16 @@ const OrderDetailsPage = ({ orderData }: { orderData: OrderData }) => {
       },
     };
 
+    
+
     try {
       const res = await axios.put(
-        `${process.env.NEXT_EXPRESS_SERVER_BASE_URL}/create-order/update-order/${orderData._id}`,
+        `${BASE_URL}/create-order/update-order/${orderData._id}`,
         updatedOrderData
       );
+
+
+    
 
       if (res.data.success) {
         alert("Order updated successfully!");

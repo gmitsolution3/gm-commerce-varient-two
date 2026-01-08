@@ -35,6 +35,28 @@ const courierStatusColors: Record<string, string> = {
   Failed: "bg-red-100 text-red-800",
 };
 
+
+export const getOrderStatusClass = (status?: string) => {
+  switch (status) {
+    case "pending":
+      return "bg-yellow-100 text-yellow-800 hover:bg-yellow-200 cursor-pointer";
+    case "processing":
+      return "bg-blue-100 text-blue-800 hover:bg-blue-200 cursor-pointer";
+    case "courier":
+      return "bg-indigo-100 text-indigo-800 hover:bg-indigo-200 cursor-pointer";
+    case "on-hold":
+      return "bg-orange-100 text-orange-800 hover:bg-orange-200 cursor-pointer";
+    case "cancelled":
+      return "bg-red-100 text-red-800 hover:bg-red-200 cursor-pointer";
+    case "return":
+      return "bg-purple-100 text-purple-800 hover:bg-purple-200 cursor-pointer";
+    case "completed":
+      return "bg-green-100 text-green-800 hover:bg-green-200 cursor-pointer";
+    default:
+      return "bg-gray-100 text-gray-800 hover:bg-gray-200 cursor-pointer";
+  }
+};
+
 export default function OrdersTable({
   orders,
   selectedOrders,
@@ -163,12 +185,14 @@ export default function OrdersTable({
                 </TableCell>
                 <TableCell className="px-2 sm:px-4">
                   <Badge
-                    variant={getStatusBadgeVariant(order.status!)}
-                    className="text-xs"
+                    className={`text-xs ${getOrderStatusClass(
+                      order.orderStatus
+                    )}`}
                   >
                     {order.orderStatus}
                   </Badge>
                 </TableCell>
+
                 <TableCell className="hidden xl:table-cell px-2 sm:px-4 text-xs max-w-32 truncate">
                   {order.note! || "—"}
                 </TableCell>

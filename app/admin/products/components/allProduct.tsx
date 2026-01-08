@@ -369,7 +369,7 @@ const ProductTable = ({ INITIAL_PRODUCTS, description }: ProductProps) => {
         p._id === id
           ? {
               ...p,
-              stockStatus: status, // ✅ direct set
+              stockStatus: status,
             }
           : p
       )
