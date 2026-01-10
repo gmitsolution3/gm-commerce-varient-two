@@ -1,16 +1,23 @@
 import { ComLogo } from "../components/ComLogo";
 import HeaderSearchBar from "../components/HeaderSearchBar";
 import { BookCard } from "../components/BookCard";
-import Link from "next/link";
-import clsx from "clsx";
-import { Menu } from "lucide-react";
 import { getCategories } from "@/lib/categories";
 import { MenuNavbar } from "../components/Menu";
 import AccountDropdown from "../components/AccountDropdown";
 import MarqueeText from "../components/marquee";
+import { getBrandInfo } from "@/lib/social";
 
 const Navbar = async () => {
   const getAllCategories = await getCategories();
+
+  const brandInfoRaw = await getBrandInfo();
+
+  const brandInfo = {
+    logo: brandInfoRaw?.data?.logo ?? "/placeholder.svg",
+    name: brandInfoRaw?.data?.name ?? "GMIT",
+    phone: brandInfoRaw?.data?.phone ?? "+88001234567",
+    socials: brandInfoRaw?.data?.socials ?? [],
+  };
 
   return (
     <header className="w-full bg-white">
@@ -36,9 +43,13 @@ const Navbar = async () => {
         </div>
         <div className="border-b border-gray-300">
           <div className="max-w-7xl mx-auto px-4 flex flex-row gap-4 lg:gap-0 justify-between items-center py-5">
-            <ComLogo />
+            <ComLogo logo={brandInfo.logo} />
             <div className="hidden md:block">
-              <HeaderSearchBar categories={getAllCategories.data} />
+              <HeaderSearchBar
+                categories={getAllCategories.data}
+                name={brandInfo.name}
+                phone={brandInfo.phone}
+              />
             </div>
             <BookCard />
           </div>
@@ -47,7 +58,7 @@ const Navbar = async () => {
           <MenuNavbar categories={getAllCategories.data} />
         </div>
         <div className="bg-white border-b border-gray-300 shadow-md">
-          <MarqueeText/>
+          <MarqueeText />
         </div>
       </div>
     </header>

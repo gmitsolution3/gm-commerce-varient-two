@@ -1,13 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
 
-export const ComLogo = () => {
+export const ComLogo = ({logo}:{logo:string}) => {
   return (
     <Link href="/">
       <div className="hover:cursor-pointer">
         <Image
-          src="https://i.postimg.cc/WbTN2bBF/image-70.png"
+          src={logo || "/placeholder.svg"}
           alt="logo"
           width={79}
           height={66}

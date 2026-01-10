@@ -35,47 +35,6 @@ export const Banner = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // 📤 Upload handler
-  //   const handleBannerChange = async (
-  //     e: React.ChangeEvent<HTMLInputElement>,
-  //     type: BannerKey
-  //   ) => {
-  //     const files = Array.from(e.target.files || []);
-  //     if (!files.length) return;
-
-  //     const remaining = BANNER_LIMIT[type] - banners[type].length;
-  //     if (remaining <= 0) return;
-
-  //     const selectedFiles = files.slice(0, remaining);
-
-  //     setIsUploading(true);
-  //     setUploaded(false);
-
-  //     try {
-  //       const url = await UploadeImage(selectedFiles[0]);
-
-  //       setBanners((prev) => ({
-  //         ...prev,
-  //         [type]: [...prev[type], ...url],
-  //       }));
-
-  //       const previewUrls = selectedFiles.map((file) =>
-  //         URL.createObjectURL(file)
-  //       );
-
-  //       setPreviews((prev) => ({
-  //         ...prev,
-  //         [type]: [...prev[type], ...previewUrls],
-  //       }));
-  //     } catch (error) {
-  //       alert("Uploade faild");
-  //     } finally {
-  //       setIsUploading(false);
-  //       setUploaded(true);
-  //       e.target.value = "";
-  //     }
-  //   };
-
   const handleBannerChange = async (
     e: React.ChangeEvent<HTMLInputElement>,
     type: BannerKey
@@ -151,8 +110,6 @@ export const Banner = () => {
         thirdBanner: banners.third,
       };
 
-  
-
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_EXPRESS_SERVER_BASE_URL}/banner`,
         {
@@ -189,11 +146,20 @@ export const Banner = () => {
 
       <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:bg-gray-50 transition">
         <label className="cursor-pointer">
-          <div className="flex flex-col items-center gap-2">
-            <Upload className="text-gray-400" size={32} />
-            <span className="text-sm text-gray-600">
-              Click to upload or drag & drop
-            </span>
+          <div>
+            {isUploading && !uploaded ? (
+              <div className="flex flex-col items-center gap-2">
+                <Loader2 className="animate-spin text-gray-400" size={32} />
+                <span className="text-sm text-gray-600">Uploading...</span>
+              </div>
+            ) : (
+              <div className="flex flex-col items-center gap-2">
+                <Upload className="text-gray-400" size={32} />
+                <span className="text-sm text-gray-600">
+                  Click to upload or drag & drop
+                </span>
+              </div>
+            )}
           </div>
 
           <input

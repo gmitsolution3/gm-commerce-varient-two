@@ -17,7 +17,7 @@ import {
 import { ComLogo } from "@/app/shared/components/ComLogo";
 import { AiOutlineProduct } from "react-icons/ai";
 
-export function AdminSidebar() {
+export function AdminSidebar({ brandInfo }: { brandInfo: any }) {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [expandedMenu, setExpandedMenu] = useState<number | null>(null);
@@ -65,7 +65,10 @@ export function AdminSidebar() {
       name: "Fb-Integration",
       icon: Settings,
       submenu: [
-        { name: "Facebook-Credential", href: "/admin/facebook/setting/fb-credential" },
+        {
+          name: "Facebook-Credential",
+          href: "/admin/facebook/setting/fb-credential",
+        },
         { name: "Payment", href: "/admin/settings/payment" },
         { name: "Shipping", href: "/admin/settings/shipping" },
       ],
@@ -75,6 +78,7 @@ export function AdminSidebar() {
   const toggleSubmenu = (index: number) => {
     setExpandedMenu(expandedMenu === index ? null : index);
   };
+
 
   return (
     <>
@@ -101,17 +105,25 @@ export function AdminSidebar() {
         } `}
       >
         <div className="w-full flex justify-center mt-12 border-b border-b-gray-300">
-          <ComLogo />
+          <ComLogo logo={brandInfo.logo} />
         </div>
 
         {/* Logo Section */}
         <div className="p-6 border-b border-gray-200">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-lg bg-[#0970B4] flex items-center justify-center">
-              <span className="text-white font-bold text-xl">A</span>
+              {brandInfo.name ? (
+                <span className="text-white font-bold text-xl">
+                  {brandInfo.name.charAt(0)}
+                </span>
+              ) : (
+                <span className="text-white font-bold text-xl">A</span>
+              )}
             </div>
             <div>
-              <h2 className="text-lg font-bold text-gray-900">Admin</h2>
+              <h2 className="text-lg font-bold text-gray-900">
+                {brandInfo.name}
+              </h2>
               <p className="text-xs text-gray-500">Control Panel</p>
             </div>
           </div>

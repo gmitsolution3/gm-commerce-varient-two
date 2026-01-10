@@ -8,15 +8,22 @@ interface ParamsProps {
   };
 }
 
-const EditOrder =async ({ params }:ParamsProps) => {
-
-    const {id} = await params
+const EditOrder = async ({ params }: ParamsProps) => {
+  const { id } = await params;
 
   const result = await getOrderById(id);
 
+  if (!result?.success) {
+    return (
+      <div className="min-h-screen flex justify-center items-center text-blue-600">
+        Order not found
+      </div>
+    );
+  }
+
   return (
     <div>
-      <OrderDetailsPage orderData={result.data}/>
+      <OrderDetailsPage orderData={result.data} />
     </div>
   );
 };

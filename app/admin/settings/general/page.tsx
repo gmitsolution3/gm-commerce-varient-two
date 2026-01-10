@@ -1,6 +1,8 @@
 import React from "react";
 import { Banner } from "../components/banner";
 import ProductSliderSection from "@/app/components/heroSlider";
+import BrandForm from "../components/socialInfo";
+import { Controller } from "../components/controller";
 
 const GeneralSection = async () => {
   const result = await fetch(
@@ -26,7 +28,6 @@ const GeneralSection = async () => {
 
   const mainSlider = { id: "main", images: toArray(mainBanner) };
 
-
   if (!result.success) {
     return (
       <div className="min-w-full mx-auto">Failed to load banner data.</div>
@@ -36,14 +37,7 @@ const GeneralSection = async () => {
   return (
     <div className="space-y-10">
       <div>
-        <h1>preview</h1>
-        <ProductSliderSection
-          mainSlider={mainSlider}
-          sideSliders={secondSlider}
-        />
-      </div>
-      <div>
-        <Banner />
+        <Controller mainSlider={mainSlider} sideSliders={secondSlider} />
       </div>
     </div>
   );

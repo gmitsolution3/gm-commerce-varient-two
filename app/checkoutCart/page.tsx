@@ -1,47 +1,22 @@
-"use client";
+import React from "react";
+import { CheckoutCart } from "./components/checkoutCarts";
+import { getBrandInfo } from "@/lib/social";
 
-import React, { useEffect, useState } from "react";
-import Navbar from "../shared/navbar/page";
-import { ComLogo } from "../shared/components/ComLogo";
-import { getCart } from "@/utils/cartStorage";
-import CheckoutCartTable from "../components/checkoutCartTable";
+const CheckOut = async () => {
+  const brandInfoRaw = await getBrandInfo();
 
-const CheckoutCart = () => {
-  const [cartData, setCartData] = useState([]);
-
-  useEffect(() => {
-    const updateCart = () => {
-      setCartData(getCart());
-    };
-
-    updateCart();
-
-    window.addEventListener("cart_updated", updateCart);
-
-    return () => {
-      window.removeEventListener("cart_updated", updateCart);
-    };
-  }, []);
+  const brandInfo = {
+    logo: brandInfoRaw?.data?.logo ?? "/placeholder.svg",
+    name: brandInfoRaw?.data?.name ?? "GMIT",
+    phone: brandInfoRaw?.data?.phone ?? "+88001234567",
+    socials: brandInfoRaw?.data?.socials ?? [],
+  };
 
   return (
     <div>
-      <nav className="min-h-30 bg-gray-200 w-full flex justify-center items-center">
-        <div className="p-4 rounded-xl bg-white">
-          <ComLogo />
-        </div>
-      </nav>
-
-      {cartData === undefined || cartData.length === 0 ? (
-        <div className="min-h-screen flex justify-center items-center text-blue-700 text-2xl">
-          No Data found
-        </div>
-      ) : (
-        <section>
-          <CheckoutCartTable products={cartData} />
-        </section>
-      )}
+      <CheckoutCart brandInfo={brandInfo} />
     </div>
   );
 };
 
-export default CheckoutCart;
+export default CheckOut;

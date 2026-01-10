@@ -19,3 +19,13 @@ export const getOrderById = async (id: string) => {
 
   return res.json();
 };
+
+export const getHistory = async (phone: string) => {
+  const res = await fetch(
+    `${process.env.NEXT_EXPRESS_SERVER_LOCAL_URL}/create-order/get-history/${phone}`,
+    {
+      next: { revalidate: 300 },
+    }
+  );
+  return res.json();
+};

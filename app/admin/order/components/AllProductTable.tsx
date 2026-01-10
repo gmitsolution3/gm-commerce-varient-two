@@ -10,6 +10,7 @@ import {
   Calendar,
   Package,
   X,
+  History,
 } from "lucide-react";
 import { ComLogo } from "@/app/shared/components/ComLogo";
 import Link from "next/link";
@@ -70,8 +71,6 @@ export interface Order {
   orderStatus?: "pending" | "confirmed" | "shipped" | "delivered";
   paymentStatus?: "pending" | "paid";
 }
-
-
 
 // ============ ORDER DETAIL MODAL ============
 interface OrderDetailModalProps {
@@ -306,7 +305,7 @@ const OrderDetailModal: React.FC<OrderDetailModalProps> = ({
 };
 
 // ============ MAIN ORDER TABLE COMPONENT ============
-const AllProductTable = ({ INITIAL_ORDERS }: { INITIAL_ORDERS :Order[]}) => {
+const AllProductTable = ({ INITIAL_ORDERS }: { INITIAL_ORDERS: Order[] }) => {
   const [orders, setOrders] = useState<Order[]>(INITIAL_ORDERS);
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
 
@@ -370,7 +369,7 @@ const AllProductTable = ({ INITIAL_ORDERS }: { INITIAL_ORDERS :Order[]}) => {
 
   return (
     <div className="min-h-screen p-4 md:p-6 lg:p-8">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-400 mx-auto">
         <div className="mb-8">
           <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
             Orders
@@ -521,6 +520,16 @@ const AllProductTable = ({ INITIAL_ORDERS }: { INITIAL_ORDERS :Order[]}) => {
                         >
                           <Trash2 size={18} />
                         </button>
+
+                        <Link href={`/admin/order/history/${order.customerInfo.phone}`}>
+                          <button
+                            // onClick={() => handleDelete(order._id)}
+                            className="p-2 hover:bg-red-50 rounded-lg text-red-600"
+                            title="Delete"
+                          >
+                            <History size={18} />
+                          </button>
+                        </Link>
                       </div>
                     </td>
                   </tr>
@@ -625,7 +634,7 @@ const AllProductTable = ({ INITIAL_ORDERS }: { INITIAL_ORDERS :Order[]}) => {
                   </span>
                 </div>
 
-                <div className="grid grid-cols-4 gap-2">
+                <div className="grid grid-cols-5 gap-2">
                   <button
                     onClick={() => setSelectedOrder(order)}
                     className="py-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition-colors text-sm font-medium flex items-center justify-center"
@@ -649,6 +658,13 @@ const AllProductTable = ({ INITIAL_ORDERS }: { INITIAL_ORDERS :Order[]}) => {
                     className="py-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors text-sm font-medium flex items-center justify-center"
                   >
                     <Trash2 size={16} />
+                  </button>
+                  <button
+                    // onClick={() => handleDelete(order._id)}
+                    className="py-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors text-sm font-medium flex items-center justify-center"
+                    title="Delete"
+                  >
+                    <History size={18} />
                   </button>
                 </div>
               </div>

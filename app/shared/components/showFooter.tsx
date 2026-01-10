@@ -1,6 +1,7 @@
 import React from 'react';
 import { Mail, MapPin, Phone, Linkedin, Facebook, Instagram, Youtube } from 'lucide-react';
 import { ComLogo } from './ComLogo';
+import { getBrandInfo } from '@/lib/social';
 
 interface SocialLink {
   icon: React.ReactNode;
@@ -13,8 +14,17 @@ interface FooterLink {
   url: string;
 }
 
-const ShowFooter: React.FC = () => {
+const ShowFooter: React.FC =async () => {
   const currentYear: number = new Date().getFullYear();
+
+  const brandInfoRaw = await getBrandInfo();
+  
+    const brandInfo = {
+      logo: brandInfoRaw?.data?.logo ?? "/placeholder.svg",
+      name: brandInfoRaw?.data?.name ?? "GMIT",
+      phone: brandInfoRaw?.data?.phone ?? "+88001234567",
+      socials: brandInfoRaw?.data?.socials ?? [],
+    };
 
   const quickLinks: FooterLink[] = [
     { label: 'Home', url: '#' },
@@ -59,7 +69,7 @@ const ShowFooter: React.FC = () => {
           {/* Column 1: Company Description */}
           <div className="lg:col-span-1">
             <div className="mb-4">
-              <ComLogo />
+              <ComLogo logo={brandInfo.logo} />
             </div>
             <p className="text-gray-300 text-sm md:text-base leading-relaxed mb-6">
               Your trusted online destination for quality products and

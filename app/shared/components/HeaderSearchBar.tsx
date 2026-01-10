@@ -6,7 +6,7 @@ import { useState } from "react";
 import { ChevronDown, ChevronUp, Search, Phone } from "lucide-react"; // optional: lucide icons
 import Link from "next/link";
 
-export default function HeaderSearchBar({ categories }: any) {
+export default function HeaderSearchBar({ categories, name, phone }: any) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectCategory, setSelectCategory] = useState<string>("Categories");
 
@@ -14,7 +14,9 @@ export default function HeaderSearchBar({ categories }: any) {
     setIsOpen(!isOpen);
   };
 
-  const hotlineNumber = "123-456-7890";
+
+
+  const hotlineNumber = phone || "(12) 345 67895";
 
   return (
     <div className="flex flex-col md:flex-row items-center gap-4 w-full">
@@ -85,12 +87,12 @@ export default function HeaderSearchBar({ categories }: any) {
           </a>
         </div>
         <div className="text-sm md:text-lg font-medium text-gray-800">
-          Call Us Now <br />
+          {`${name} Hotline`} <br />
           <a
             href={`tel:${hotlineNumber}`}
             aria-label={`Call our hotline at ${hotlineNumber}`}
           >
-            <span className="text-[#0970B4]">(12) 345 67895</span>
+            <span className="text-[#0970B4]">{phone}</span>
           </a>
         </div>
       </div>
