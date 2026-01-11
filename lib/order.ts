@@ -30,13 +30,21 @@ export const getHistory = async (phone: string) => {
   return res.json();
 };
 
-
 export const MainDashboardAnalytics = async ()=>{
-  const res = await fetch(
-    `${process.env.NEXT_EXPRESS_SERVER_BASE_URL}/create-order/dashboard-analytics`,{
-      next: {revalidate:300},
-    }
-  );
+  const baseUrl = process.env.NEXT_EXPRESS_SERVER_BASE_URL;
+
+  if (!baseUrl) {
+    throw new Error("API Base URL is not defined in environment variables");
+  }
+  const res = await fetch(`${baseUrl}/create-order/dashboard-analytics`, {
+    next: { revalidate: 300 },
+  });
+
+  if (!res.ok) {
+    const text = await res.text();
+    console.error("Fetch failed:", text);
+    return { data: null };
+  }
 
   return res.json();
 }
