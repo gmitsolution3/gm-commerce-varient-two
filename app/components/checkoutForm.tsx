@@ -152,14 +152,18 @@ export default function CheckoutForm() {
       promoCode: formData.promoCode,
       orderStatus: "pending",
       paymentStatus: "pending",
+      sourceUrl: window.location.href,
     };
+
+
+ 
 
     if (isSubmitting) return;
     setIsSubmitting(true);
 
     try {
       const response = await axios.post(
-        `${process.env.NEXT_EXPRESS_SERVER_BASE_URL}/create-order`,
+        `${process.env.NEXT_PUBLIC_EXPRESS_SERVER_BASE_URL}/create-order`,
         orderData
       );
 
@@ -183,7 +187,7 @@ export default function CheckoutForm() {
       console.error("Order submission error:", error);
       toast.error(
         error.response?.data?.message ||
-          "Something went wrong. Please try again."
+          "Something went wrong. Please try again letter."
       );
     } finally {
       setIsSubmitting(false);

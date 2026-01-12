@@ -2,35 +2,24 @@
 
 import { useAuth } from "@/app/context/AuthContext";
 import Link from "next/link";
-import { useState } from "react";
-import { toast } from "sonner";
+import React, { useState } from "react";
+import { toast } from "react-toastify";
 
-export default function AccountDropdown() {
-  const [open, setOpen] = useState(false);
+export const NavBarMenu = () => {
   const { user, isAuthenticated, logout, loading } = useAuth();
-    const [dropdownOpen, setDropdownOpen] = useState(false);
-  
-    if (loading) return null;
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
 
-    const handleLogout =()=>{
-      toast.success("Logout successfully"),
-      logout()
-    }
+  if (loading) return <div className="animate">loading...</div>;
 
+  const handleLogout = () => {
+    logout();
+    toast.success("Logout successfully");
+  };
 
   return (
-    <div className="relative">
-      {!isAuthenticated && (
-        <h5
-          onClick={() => setOpen(!open)}
-          className="cursor-pointer hover:underline border px-3 py-2 text-sm rounded-lg font-bold bg-[#136481] text-white"
-        >
-          My Account
-        </h5>
-      )}
-
-      {open ? (
+    <div className="hidden md:flex items-center gap-4 relative">
+      {!isAuthenticated ? (
         <>
           <Link
             href="/auth/sign-in"
@@ -50,7 +39,8 @@ export default function AccountDropdown() {
           {/* Profile circle */}
           <div
             className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold cursor-pointer"
-            onClick={() => setDropdownOpen((prev) => !prev)}
+            onMouseEnter={() => setDropdownOpen(true)}
+            // onMouseLeave={() => setDropdownOpen(false)}
           >
             {user?.name?.charAt(0).toUpperCase() || "U"}
           </div>
@@ -76,7 +66,7 @@ export default function AccountDropdown() {
               </h5>
 
               <button
-                onClick={()=>handleLogout()}
+                onClick={handleLogout}
                 className="w-full text-left px-4 py-2 text-gray-700 hover:bg-[#0970B4] hover:text-white hover:cursor-pointer border-t border-gray-300"
               >
                 Logout
@@ -87,4 +77,4 @@ export default function AccountDropdown() {
       )}
     </div>
   );
-}
+};

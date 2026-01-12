@@ -35,7 +35,8 @@ const LoginForm = () => {
       };
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_EXPRESS_SERVER_BASE_URL}/api/v1/auth/sign-in`,
-        payload
+        payload,
+        { withCredentials: true }
       );
 
       if (!res.data.success) {
@@ -43,8 +44,9 @@ const LoginForm = () => {
       }
       setLoading(false);
       setSuccessMessage(
-        "Account created successfully! Redirecting to login..."
+        "User Login in successfully"
       );
+      toast.success(res.data.message)
       router.push("/")
     } catch (err: any) {
       const message = err?.response?.data?.message || "Something went wrong";

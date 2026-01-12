@@ -4,6 +4,8 @@ import "./globals.css";
 import Script from "next/script";
 import { ToastContainer } from "react-toastify";
 import { Toaster } from "sonner";
+import { AuthProvider } from "./context/AuthContext";
+import { getFacebookPixelCredential } from "@/lib/facebook";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,11 +22,13 @@ export const metadata: Metadata = {
   description: "Developed by GM IT Solution",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const facebookCredential = await getFacebookPixelCredential();
+
   return (
     <html lang="en">
       <head>
@@ -41,7 +45,7 @@ export default function RootLayout({
               t.src=v;s=b.getElementsByTagName(e)[0];
               s.parentNode.insertBefore(t,s)}(window, document,'script',
               'https://connect.facebook.net/en_US/fbevents.js');
-              fbq('init', '${process.env.NEXT_PUBLIC_FB_PIXEL_ID}');
+              fbq('init', '${facebookCredential?.fbPixelId}');
               fbq('track', 'PageView');
             `,
           }}
@@ -51,18 +55,20 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
-        <ToastContainer />
-        <Toaster
-          closeButton
-          position="top-right"
-          toastOptions={{
-            style: {
-              backgroundColor: "#0970B4", 
-              color: "white",
-            },
-          }}
-        />
+        <AuthProvider>
+          {children}
+          <ToastContainer />
+          <Toaster
+            closeButton
+            position="top-right"
+            toastOptions={{
+              style: {
+                backgroundColor: "#0970B4",
+                color: "white",
+              },
+            }}
+          />
+        </AuthProvider>
       </body>
     </html>
   );

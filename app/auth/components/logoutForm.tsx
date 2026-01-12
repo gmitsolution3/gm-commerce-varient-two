@@ -17,6 +17,7 @@ import {
 import Link from "next/link";
 import { toast } from "sonner";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 const LogoutForm = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -24,6 +25,7 @@ const LogoutForm = () => {
   const [loading, setLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("")
+  const router = useRouter()
 
   const {
     register,
@@ -60,6 +62,7 @@ const LogoutForm = () => {
         "Account created successfully! Redirecting to login..."
       );
       toast.success(res.data.message);
+      router.push("/auth/sign-in")
     } catch (err: any) {
       const message = err?.response?.data?.message || "Something went wrong";
 

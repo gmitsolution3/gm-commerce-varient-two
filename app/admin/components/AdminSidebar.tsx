@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { ComLogo } from "@/app/shared/components/ComLogo";
 import { AiOutlineProduct } from "react-icons/ai";
+import Image from "next/image";
 
 export function AdminSidebar({ brandInfo }: { brandInfo: any }) {
   const pathname = usePathname();
@@ -105,7 +106,7 @@ export function AdminSidebar({ brandInfo }: { brandInfo: any }) {
         } `}
       >
         <div className="w-full flex justify-center mt-12 border-b border-b-gray-300">
-          <ComLogo logo={brandInfo.logo} />
+          <Image src={brandInfo.logo} alt={brandInfo.name} width={80} height={40}/>
         </div>
 
         {/* Logo Section */}

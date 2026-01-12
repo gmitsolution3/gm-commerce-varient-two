@@ -1,89 +1,131 @@
-"use client"
+"use client";
 
-import { useState } from "react";
-import { Bell, Settings, LogOut, User } from "lucide-react";
+import { useState, useRef, useEffect } from "react";
+import { Bell, Settings, LogOut, User, Menu, X } from "lucide-react";
+import { useAuth } from "@/app/context/AuthContext";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export function AdminHeader() {
+  const { user, logout } = useAuth();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const router = useRouter()
 
-  const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
+  /* Close dropdown on outside click */
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(e.target as Node)
+      ) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const handleLogout = () => {
+    logout();
+    setIsDropdownOpen(false);
+    setIsMobileMenuOpen(false);
+    router.push("/auth/sign-in")
+  };
 
   return (
-    <header className="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-4 sm:px-6 lg:px-8 shadow-sm relative">
-      {/* Left side - Logo/Brand */}
+    <header className="h-16 bg-white border-b border-gray-200 shadow-sm flex items-center justify-between px-4 sm:px-6">
+      {/* Left */}
       <div className="flex items-center gap-3">
+        <button
+          className="sm:hidden p-2 rounded-lg hover:bg-gray-100"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        >
+          {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+        </button>
+
         <div className="w-8 h-8 rounded-lg bg-[#0970B4] flex items-center justify-center">
           <span className="text-white font-bold text-lg">A</span>
         </div>
+
         <div className="hidden sm:block">
           <h1 className="text-lg font-bold text-gray-900">Admin Panel</h1>
           <p className="text-xs text-gray-500">E-commerce Dashboard</p>
         </div>
       </div>
 
-      {/* Right side - Actions */}
-      <div className="flex items-center gap-2 relative">
+      {/* Right */}
+      <div className="flex items-center gap-2 relative" ref={dropdownRef}>
         {/* Notifications */}
-        <button className="relative p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition">
+        <button className="relative p-2 text-gray-600 hover:bg-gray-100 rounded-lg">
           <Bell size={20} />
-          <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+          <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full" />
         </button>
 
-        {/* Settings - desktop only */}
-        <button className="hidden sm:inline-flex p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition">
+        {/* Settings desktop */}
+        <Link href="/admin/settings/general" className="hidden sm:inline-flex p-2 text-gray-600 hover:bg-gray-100 rounded-lg">
           <Settings size={20} />
+        </Link>
+
+        {/* User */}
+        <button
+          onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+          className="flex items-center gap-2 ml-2 pl-2 border-l border-gray-200"
+        >
+          <div className="w-9 h-9 rounded-full bg-[#0970B4] text-white flex items-center justify-center font-semibold">
+            {user?.name?.slice(0, 2).toUpperCase() || "AD"}
+          </div>
+
+          <div className="hidden sm:flex flex-col text-left">
+            <p className="text-sm font-medium text-gray-900">
+              {user?.name || "Admin"}
+            </p>
+            <p className="text-xs text-gray-500">
+              {user?.role || "Administrator"}
+            </p>
+          </div>
         </button>
 
-        {/* User Profile */}
-        <div className="relative">
-          <button
-            onClick={toggleDropdown}
-            className="flex items-center gap-2 ml-2 pl-2 border-l border-gray-200"
-          >
-            <div className="w-9 h-9 rounded-full bg-[#0970B4] flex items-center justify-center text-white font-semibold">
-              JA
+        {/* Dropdown (Desktop + Mobile same) */}
+        {isDropdownOpen && (
+          <div className="absolute right-0 top-full mt-2 w-52 bg-white border rounded-lg shadow-lg z-50">
+            <div className="p-3 border-b">
+              <p className="text-sm font-medium">{user?.name}</p>
+              <p className="text-xs text-gray-500">{user?.role}</p>
             </div>
 
-            {/* Desktop name/role */}
-            <div className="hidden sm:flex flex-col text-left">
-              <p className="text-sm font-medium text-gray-900">John Admin</p>
-              <p className="text-xs text-gray-500">Super Admin</p>
-            </div>
-          </button>
-
-          {/* Dropdown menu for mobile */}
-          {isDropdownOpen && (
-            <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-50 sm:hidden">
-              <div className="p-3 border-b border-gray-100">
-                <p className="text-sm font-medium text-gray-900">John Admin</p>
-                <p className="text-xs text-gray-500">Super Admin</p>
-              </div>
-              <ul className="flex flex-col">
-                <li>
-                  <button className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 flex items-center gap-2">
-                    <User size={16} /> Profile
-                  </button>
-                </li>
-                <li>
-                  <button className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 flex items-center gap-2">
-                    <Settings size={16} /> Settings
-                  </button>
-                </li>
-                <li>
-                  <button className="w-full text-left px-4 py-2 text-red-600 hover:bg-red-50 flex items-center gap-2">
-                    <LogOut size={16} /> Logout
-                  </button>
-                </li>
-              </ul>
-            </div>
-          )}
-        </div>
-
-        {/* Logout - desktop only */}
-        <button className="hidden sm:inline-flex p-2 text-gray-600 hover:text-red-600 hover:bg-red-50 rounded-lg transition ml-2">
-          <LogOut size={20} />
-        </button>
+            <ul>
+              <li className="border-b hover:bg-[#0970B4] hover:text-white">
+                <Link
+                  href="/profile"
+                  className="dropdown-item flex gap-2 justify-center items-center py-2 px-3"
+                >
+                  <User size={16} /> Profile
+                </Link>
+              </li>
+              <li className="border-b hover:bg-[#0970B4] hover:text-white">
+                <Link
+                  href="/admin/settings/general"
+                  className="dropdown-item flex gap-2 justify-center items-center py-2 px-3"
+                >
+                  <Settings size={16} /> Settings
+                </Link>
+              </li>
+              <li className="border-b text-red-600 hover:bg-red-50">
+                <button
+                  onClick={handleLogout}
+                  className="dropdown-item flex gap-2 justify-center items-center py-2 px-3"
+                >
+                  <LogOut size={16} /> Logout
+                </button>
+              </li>
+            </ul>
+          </div>
+        )}
       </div>
     </header>
   );
 }
+
