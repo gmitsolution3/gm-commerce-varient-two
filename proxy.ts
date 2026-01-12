@@ -38,13 +38,14 @@
 
 
 
+import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 // Protected routes that require authentication
 const protectedRoutes = ["/admin", "/profile"];
 
-export function proxy(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
   // Check if the current path is a protected route
@@ -55,8 +56,10 @@ export function proxy(request: NextRequest) {
   if (!isProtectedRoute) {
     return NextResponse.next();
   }
+  const cookieStore =await cookies();
 
-  const token = request.cookies.get("token")?.value;
+
+  const token = cookieStore.get("token");
 
   // If no token, redirect to login
   if (!token) {
