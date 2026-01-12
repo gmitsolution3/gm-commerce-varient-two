@@ -31,7 +31,7 @@ export const getHistory = async (phone: string) => {
 };
 
 export const MainDashboardAnalytics = async ()=>{
-  const baseUrl = process.env.NEXT_EXPRESS_SERVER_BASE_URL;
+  const baseUrl = process.env.NEXT_PUBLIC_EXPRESS_SERVER_BASE_URL;
 
   if (!baseUrl) {
     throw new Error("API Base URL is not defined in environment variables");
