@@ -1,5 +1,4 @@
 import { MainDashboardAnalytics } from "@/lib/order";
-import { AnalyticsDashboard } from "./components/adminDashboard";
 import Dashboard from "./components/adminMainDashboard";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
@@ -24,13 +23,15 @@ export default async function AdminDashboard() {
     redirect("/auth/sign-in");
   }
 
-  if (decoded.role !== "admin") {
+  console.log(decoded.role)
+
+  if (decoded.role?.toLowerCase() !== "admin") {
+    console.log("Role mismatch, actual:", decoded.role);
     redirect("/auth/sign-in");
   }
 
   return (
     <div>
-      {/* <AnalyticsDashboard /> */}
       <Dashboard result={result.data} />
     </div>
   );
