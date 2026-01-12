@@ -6,7 +6,9 @@ const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET!);
 export async function proxy(req: NextRequest) {
   const token = req.cookies.get("token")?.value;
 
-  console.log(token)
+  console.log("try to find token",token)
+
+  console.log("cookies header:", req.headers.get("cookie"));
 
 
 
