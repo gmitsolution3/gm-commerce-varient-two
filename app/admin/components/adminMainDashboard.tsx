@@ -53,7 +53,7 @@ export default function Dashboard({ result }: any) {
               Welcome back! Here's your sales overview.
             </p>
           </div>
-          <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg border border-gray-200">
+          <div className="flex items-center max-w-45  gap-2 px-4 py-2 bg-white rounded-lg border border-gray-200">
             <Calendar className="w-5 h-5 text-gray-400" />
             <select className="bg-white text-gray-700 text-sm font-medium outline-none">
               <option>This Month</option>
@@ -66,7 +66,7 @@ export default function Dashboard({ result }: any) {
 
       {/* Main Content */}
       <div className="max-w-400 mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Key Metrics */}
+        
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           <MetricCard
             title="Total Orders"
@@ -106,10 +106,8 @@ export default function Dashboard({ result }: any) {
           <PaymentAnalytics analytics={analytics} />
         </div>
 
-        {/* Revenue Summary Card */}
+       
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-          
-          {/* Revenue Chart */}
           <Card>
             <CardHeader>
               <CardTitle className="text-lg">Revenue Summary</CardTitle>
@@ -145,7 +143,7 @@ export default function Dashboard({ result }: any) {
             </CardContent>
           </Card>
 
-          {/* Order Status Pie Chart */}
+          
           <Card>
             <CardHeader>
               <CardTitle className="text-lg">Order Status</CardTitle>
@@ -177,11 +175,11 @@ export default function Dashboard({ result }: any) {
           </Card>
         </div>
 
-        {/* Bottom Section - Products and Order Details */}
+        
         <div className="my-10">
           <TopProductsList products={data?.productAnalytics || []} />
         </div>
-        {/* Product Analytics Chart */}
+        
         <ProductAnalyticsChart products={data?.productAnalytics || []} />
       </div>
     </div>

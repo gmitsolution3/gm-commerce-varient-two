@@ -14,7 +14,7 @@ export async function getCategories() {
 
 export async function addCategories(data: CategoryFormData) {
   const res = await fetch(
-    `${process.env.NEXT_EXPRESS_SERVER_BASE_URL}/create-category`,
+    `${process.env.NEXT_PUBLIC_EXPRESS_SERVER_BASE_URL}/create-category`,
     {
       method: "POST",
       headers: {

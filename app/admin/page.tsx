@@ -24,7 +24,7 @@ export default function AdminDashboard() {
       const loadData = async () => {
         try {
           const result = await MainDashboardAnalytics();
-          console.log({result:result})
+         
 
           setData(result.data);
         } catch (err) {
@@ -47,7 +47,7 @@ export default function AdminDashboard() {
   }
 
   return (
-    <div>
+    <div className="max-w-400 mx-auto">
       <Dashboard result={data} />
     </div>
   );

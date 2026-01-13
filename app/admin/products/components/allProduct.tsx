@@ -521,7 +521,7 @@ const ProductTable = ({ INITIAL_PRODUCTS, description }: ProductProps) => {
                             className="p-2 hover:bg-green-50 rounded-lg transition-colors text-green-600 hover:text-green-700"
                             title="Publish Now"
                           >
-                            <MdPublishedWithChanges size={18}/>
+                            <MdPublishedWithChanges size={18} />
                           </button>
                         )}
                       </div>
@@ -534,7 +534,7 @@ const ProductTable = ({ INITIAL_PRODUCTS, description }: ProductProps) => {
         </div>
 
         {/* Tablet & Mobile Cards */}
-        <div className="lg:hidden space-y-4">
+        {/* <div className="lg:hidden space-y-4">
           {products.map((product) => (
             <div key={product._id} className="bg-white rounded-lg shadow">
               <div className="p-4 md:p-6">
@@ -576,18 +576,7 @@ const ProductTable = ({ INITIAL_PRODUCTS, description }: ProductProps) => {
 
                 <div className="space-y-3">
                   <div className="flex gap-2">
-                    {/* <button
-                      onClick={() => handleStatusToggle(product._id)}
-                      className={`flex-1 px-3 py-2 rounded-lg text-sm font-semibold transition-colors ${
-                        product.stockStatus === "in-stock"
-                          ? "bg-green-100 text-green-800"
-                          : "bg-red-100 text-red-800"
-                      }`}
-                    >
-                      {product.stockStatus === "in-stock"
-                        ? "In Stock"
-                        : "Out of Stock"}
-                    </button> */}
+                    
                     <StockStatusDropdown
                       product={product}
                       handleStatusToggle={handleStatusToggle}
@@ -609,6 +598,79 @@ const ProductTable = ({ INITIAL_PRODUCTS, description }: ProductProps) => {
                       Delete
                     </button>
                   </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div> */}
+
+        <div className="lg:hidden space-y-4 max-w-[320px]">
+          {products.map((product) => (
+            <div
+              key={product._id}
+              className="bg-white rounded-xl shadow-sm border "
+            >
+              <div className="p-4 space-y-4">
+              
+                <div className="flex gap-3">
+                  <img
+                    src={product.thumbnail}
+                    alt={product.title}
+                    className="w-16 h-16 rounded-lg object-cover shrink-0"
+                  />
+
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-sm font-semibold text-gray-900 truncate">
+                      {product.title}
+                    </h3>
+                    <p className="text-xs text-gray-500 truncate mt-0.5">
+                      {product.slug}
+                    </p>
+
+                  
+                    <div className="mt-2 flex gap-4 text-xs">
+                      <span className="font-semibold text-[#0970B4]">
+                        ৳{product.basePrice}
+                      </span>
+                      <span className="text-gray-600">
+                        Stock: {product.stockQuantity}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                
+                <div className="flex justify-between text-xs text-gray-600">
+                  <span>Category</span>
+                  <span className="font-medium text-gray-900">
+                    {product.category}
+                  </span>
+                </div>
+
+               
+                <div>
+                  <StockStatusDropdown
+                    product={product}
+                    handleStatusToggle={handleStatusToggle}
+                  />
+                </div>
+
+               
+                <div className="grid grid-cols-2 gap-3 pt-2">
+                  <button
+                    onClick={() => handleEdit(product)}
+                    className="px-4 py-2 rounded-lg text-sm font-semibold text-white"
+                    style={{ backgroundColor: "#0970B4" }}
+                  >
+                    Edit
+                  </button>
+
+                  <button
+                    onClick={() => handleDelete(product._id)}
+                    className="px-4 py-2 rounded-lg text-sm font-semibold text-white bg-red-600 hover:bg-red-700"
+                  >
+                    Delete
+                  </button>
                 </div>
               </div>
             </div>

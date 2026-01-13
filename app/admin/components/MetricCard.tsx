@@ -14,7 +14,7 @@ export function MetricCard({
   trend,
 }: MetricCardProps) {
   return (
-    <Card>
+    <Card className="max-w-full">
       <CardContent className="pt-6">
         <div className="space-y-2">
           <p className="text-sm text-muted-foreground">{title}</p>

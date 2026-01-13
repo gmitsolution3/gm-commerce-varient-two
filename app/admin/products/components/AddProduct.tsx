@@ -382,14 +382,14 @@ export default function AddProductForm({ allCategory }: any) {
         </div>
 
         {/* Tabs */}
-        <div className="bg-white rounded-lg border border-gray-200 mb-6 overflow-hidden">
+        <div className="bg-white rounded-lg border border-gray-200 mb-6 overflow-hidden max-w-80 md:max-w-full">
           <div className="overflow-x-auto">
             <div className="flex border-b border-gray-200">
               {tabs.map((tab) => (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`flex-1 min-w-max sm:flex-none px-4 py-3 font-medium text-sm transition whitespace-nowrap ${
+                  className={`flex-1 min-w-max sm:flex-none text-xs px-4 py-3 font-medium md:text-sm transition whitespace-nowrap ${
                     activeTab === tab.id
                       ? "border-b-2 border-[#0970B4] text-[#0970B4]"
                       : "text-gray-600 hover:text-gray-900"

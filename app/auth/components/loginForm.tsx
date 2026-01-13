@@ -7,6 +7,7 @@ import Link from "next/link";
 import { toast } from "sonner";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/app/context/AuthContext";
 
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -17,6 +18,12 @@ const LoginForm = () => {
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter()
+   const { refetchUser, isAuthenticated } = useAuth();
+
+
+   if(isAuthenticated){
+    return
+   }
 
 
 
@@ -47,6 +54,7 @@ const LoginForm = () => {
         "User Login in successfully"
       );
       toast.success(res.data.message)
+      await refetchUser();
       router.push("/")
     } catch (err: any) {
       const message = err?.response?.data?.message || "Something went wrong";

@@ -6,8 +6,13 @@ import Link from "next/link";
 import { CardButtons } from "../(public)/shop/components/cardButtons";
 import { ProductFormData } from "@/utils/product";
 
-
-const ProductCarousel = ({ products }: { products: ProductFormData[] }) => {
+const ProductCarousel = ({
+  products,
+  topSelling,
+}: {
+  products: ProductFormData[];
+  topSelling?: string;
+}) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [visibleCards, setVisibleCards] = useState(3);
 
@@ -43,12 +48,25 @@ const ProductCarousel = ({ products }: { products: ProductFormData[] }) => {
   return (
     <div className="w-full py-12">
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-2">
-          Featured Products
-        </h2>
-        <p className="text-gray-600 text-center mb-10">
-          Check out our latest products and bestsellers.
-        </p>
+        {topSelling ? (
+          <div>
+            <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-2">
+              Top Selling Products
+            </h2>
+            <p className="text-gray-600 text-center mb-10">
+              Check out our latest top selling products and bestsellers.
+            </p>
+          </div>
+        ) : (
+          <div>
+            <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-2">
+              Featured Products
+            </h2>
+            <p className="text-gray-600 text-center mb-10">
+              Check out our latest products and bestsellers.
+            </p>
+          </div>
+        )}
 
         <div className="relative">
           {/* Carousel Container */}

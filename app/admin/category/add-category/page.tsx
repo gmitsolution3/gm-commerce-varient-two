@@ -1,11 +1,13 @@
 "use client";
 
 import { useForm, useFieldArray } from "react-hook-form";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { slugify } from "@/utils/slugify";
 import { addCategories } from "@/lib/categories";
 import { Trash2, Plus, LayoutGrid } from "lucide-react";
-
+import { ImagePlus } from "lucide-react";
+import { UploadeImage } from "@/app/components/uploadeImage";
+import { toast } from "sonner";
 
 export interface SubCategory {
   id?: string;
@@ -19,7 +21,8 @@ export interface CategoryFormData {
   slug: string;
   isActive: boolean;
   order: number;
-  subCategories: { name: string; isActive: boolean }[]; 
+  image?: string | null;
+  subCategories: { name: string; isActive: boolean }[];
 }
 
 export default function AddCategoryForm() {
@@ -41,6 +44,10 @@ export default function AddCategoryForm() {
     },
   });
 
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [imageFile, setImageFile] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false)
+
   const { fields, append, remove } = useFieldArray({
     control,
     name: "subCategories",
@@ -48,62 +55,79 @@ export default function AddCategoryForm() {
 
   const nameValue = watch("name");
 
-  
   useEffect(() => {
     if (nameValue) {
       setValue("slug", slugify(nameValue));
     }
   }, [nameValue, setValue]);
 
+  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setLoading(true);
+    try {
+      const res = await UploadeImage(file);
+      setImageFile(res);
+      setImagePreview(res);
+    } catch (err: any) {
+      toast.error(
+        `${err.message ? err.message : "Something was wrong try again"}`
+      );
+    }finally{
+      setLoading(false)
+    }
+  };
+
   const onSubmit = async (data: CategoryFormData) => {
     try {
-      
       const finalPayload = {
         ...data,
         order: Number(data.order),
+        image: imageFile ? imageFile : null,
         subCategories: data.subCategories
           .filter((sub) => sub.name.trim() !== "")
           .map((sub) => ({
             name: sub.name,
-            slug: slugify(sub.name), 
+            slug: slugify(sub.name),
             isActive: sub.isActive,
-            id: crypto.randomUUID(), 
+            id: crypto.randomUUID(),
           })),
       };
 
       const result = await addCategories(finalPayload);
-
       if (result) {
-        alert("Category & Subcategories added successfully! 🎉");
+        toast.success("Category added successfully")
+        setImageFile(null);
+        setImagePreview(null);
         reset();
       }
-    } catch (error) {
-      console.error("Submission Error:", error);
-      alert("Failed to save. Please try again.");
+    } catch {
+      toast.error("Failed to save. Please try again.");
     }
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex justify-center items-start py-12 px-4">
+    <div className="min-h-screen flex justify-center items-start py-8 px-3 sm:px-4">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-full max-w-2xl space-y-6 rounded-xl border bg-white p-8 shadow-sm"
+        className="w-full max-w-2xl space-y-6 rounded-xl border bg-white p-5 sm:p-8 shadow-sm"
       >
+        {/* Header */}
         <div className="flex items-center gap-2 border-b pb-4 text-[#0970B4]">
-          <LayoutGrid size={24} />
-          <h2 className="text-2xl font-bold">Add New Category</h2>
+          <LayoutGrid size={22} />
+          <h2 className="text-xl sm:text-2xl font-bold">Add New Category</h2>
         </div>
 
-        {/* Main Category Info */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {/* Main Category */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label className="text-sm font-semibold text-gray-700">
               Category Name
             </label>
             <input
               {...register("name", { required: "Name is required" })}
-              className="mt-1 w-full rounded-lg border border-gray-300 px-4 py-2 outline-none focus:border-2 focus:border-[#0970B4] transition-all"
-              placeholder="e.g. Electronics"
+              className="mt-1 w-full rounded-lg border px-4 py-3 text-sm focus:border-[#0970B4] outline-none"
             />
             {errors.name && (
               <p className="mt-1 text-xs text-red-500">{errors.name.message}</p>
@@ -111,57 +135,84 @@ export default function AddCategoryForm() {
           </div>
 
           <div>
-            <label className="text-sm font-semibold text-gray-700">
-              Slug (Auto)
-            </label>
+            <label className="text-sm font-semibold text-gray-700">Slug</label>
             <input
               {...register("slug")}
               readOnly
-              className="mt-1 w-full rounded-lg border border-gray-100 bg-gray-50 px-4 py-2 text-gray-500 outline-none"
+              className="mt-1 w-full rounded-lg border bg-gray-50 px-4 py-3 text-sm text-gray-500"
             />
           </div>
         </div>
 
-        {/* Subcategories Dynamic Section */}
-        <div className="rounded-lg border bg-gray-50/50 p-4">
-          <label className="mb-3 block text-sm font-bold text-gray-700 uppercase tracking-wider">
-            Sub-Categories
+        {/* Category Image */}
+        <div>
+          <label className="text-sm font-semibold text-gray-700">
+            Category Image
           </label>
 
-          <div className="space-y-3">
+          <div className="mt-2 flex flex-col items-center justify-center gap-3 rounded-lg border-2 border-dashed border-gray-300 p-4 sm:p-6 text-center">
+            {imagePreview ? (
+              <img
+                src={imagePreview}
+                alt="Category Preview"
+                className="h-32 w-32 rounded-lg object-cover"
+              />
+            ) : (
+              <div className="flex flex-col items-center text-gray-500">
+                <ImagePlus size={32} />
+                <p className="text-sm mt-1">Upload category image</p>
+              </div>
+            )}
+
+            <label className="cursor-pointer rounded-lg bg-[#0970B4] px-4 py-2 text-sm font-bold text-white">
+              {loading ? "Uploading..." : "Change Image"}
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+                className="hidden"
+              />
+            </label>
+          </div>
+        </div>
+
+        {/* Sub Categories */}
+        <div className="rounded-lg border bg-gray-50 p-4">
+          <p className="mb-3 text-sm font-bold text-gray-700 uppercase">
+            Sub-Categories
+          </p>
+
+          <div className="space-y-4">
             {fields.map((field, index) => (
               <div
                 key={field.id}
-                className="flex flex-wrap md:flex-nowrap gap-3 items-center bg-white p-3 rounded-md shadow-sm border border-gray-200"
+                className="rounded-lg border bg-white p-4 space-y-3"
               >
-                <div className="flex-1">
-                  <input
-                    {...register(`subCategories.${index}.name` as const, {
-                      required: true,
-                    })}
-                    placeholder="Subcategory Name"
-                    className="w-full rounded border-none bg-transparent px-2 py-1 outline-none focus:ring-0 text-sm"
-                  />
-                </div>
+                <input
+                  {...register(`subCategories.${index}.name` as const)}
+                  placeholder="Subcategory name"
+                  className="w-full rounded border px-3 py-2 text-sm"
+                />
 
-                <div className="flex items-center gap-2 border-l pl-3">
-                  <input
-                    type="checkbox"
-                    {...register(`subCategories.${index}.isActive` as const)}
-                    className="h-4 w-4 rounded border-gray-300 text-[#0970B4] focus:ring-[#0970B4]"
-                  />
-                  <span className="text-xs text-gray-500 font-medium">
+                <div className="flex items-center justify-between">
+                  <label className="flex items-center gap-3 text-sm font-medium">
+                    <input
+                      type="checkbox"
+                      {...register(`subCategories.${index}.isActive` as const)}
+                      className="h-5 w-5 text-[#0970B4]"
+                    />
                     Active
-                  </span>
-                </div>
+                  </label>
 
-                <button
-                  type="button"
-                  onClick={() => remove(index)}
-                  className="rounded-full p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-500 transition-colors"
-                >
-                  <Trash2 size={16} />
-                </button>
+                  <button
+                    type="button"
+                    onClick={() => remove(index)}
+                    className="flex items-center gap-1 text-red-500 text-sm"
+                  >
+                    <Trash2 size={16} />
+                    Remove
+                  </button>
+                </div>
               </div>
             ))}
           </div>
@@ -169,47 +220,41 @@ export default function AddCategoryForm() {
           <button
             type="button"
             onClick={() => append({ name: "", isActive: true })}
-            className="mt-4 flex items-center gap-2 text-sm font-bold text-[#0970B4] hover:text-[#074a77] transition-colors"
+            className="mt-4 w-full sm:w-auto flex justify-center items-center gap-2 rounded-lg border px-4 py-2 text-sm font-bold text-[#0970B4]"
           >
-            <Plus size={18} className="rounded-full border border-[#0970B4]" />
-            Add Another Sub-Category
+            <Plus size={18} />
+            Add Sub-Category
           </button>
         </div>
 
-        {/* Global Settings */}
-        <div className="flex flex-wrap items-center justify-between gap-4 border-t pt-6">
-          <div className="flex items-center gap-6">
-            <div className="w-24">
+        {/* Footer */}
+        <div className="space-y-4 sm:space-y-0 sm:flex sm:items-center sm:justify-between border-t pt-6">
+          <div className="flex flex-col sm:flex-row gap-4">
+            <div>
               <label className="text-xs font-bold text-gray-500 uppercase">
                 Sort Order
               </label>
               <input
                 type="number"
                 {...register("order")}
-                className="w-full rounded border-gray-300 py-1 text-sm outline-none focus:border-[#0970B4]"
+                className="w-28 rounded border px-2 py-1 text-sm"
               />
             </div>
 
-            <div className="flex items-center gap-2 mt-4">
+            <label className="flex items-center gap-2 mt-4 sm:mt-0">
               <input
                 type="checkbox"
-                id="mainActive"
                 {...register("isActive")}
-                className="h-5 w-5 rounded border-gray-300 text-[#0970B4] focus:ring-[#0970B4]"
+                className="h-5 w-5 text-[#0970B4]"
               />
-              <label
-                htmlFor="mainActive"
-                className="text-sm font-bold text-gray-700"
-              >
-                Category Published
-              </label>
-            </div>
+              <span className="text-sm font-bold">Category Published</span>
+            </label>
           </div>
 
           <button
             type="submit"
             disabled={isSubmitting}
-            className="min-w-37.5 rounded-lg bg-[#0970B4] px-6 py-3 font-bold text-white shadow-md hover:bg-[#065a92] disabled:opacity-50 transition-all active:scale-95"
+            className="w-full sm:w-auto rounded-lg bg-[#0970B4] px-6 py-3 font-bold text-white shadow-md"
           >
             {isSubmitting ? "Processing..." : "Save Category"}
           </button>

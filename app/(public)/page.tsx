@@ -5,6 +5,7 @@ import { OurTopCategory } from "../components/outTopCategorry";
 import { FeaturesSection } from "../components/FeaturesSection";
 import { FeaturedProduct } from "../components/featuredProduct";
 import ShowProduct from "./shop/components/showProduct";
+import { TopSellingProduct } from "../components/topSellingProduct";
 
 const MainPage = async () => {
   const res = await AllProduct();
@@ -46,6 +47,24 @@ const MainPage = async () => {
         <OurTopCategory />
       </div>
 
+      <div>
+        <FeaturedProduct />
+      </div>
+
+      <div>
+        <div className="my-5">
+          <h1 className="text-4xl font-bold pl-4 text-center">Why choice us</h1>
+        </div>
+        <div>
+          <FeaturesSection />
+        </div>
+      </div>
+
+      {/* top selling product */}
+      <div>
+        <TopSellingProduct />
+      </div>
+
       <div className="max-w-7xl mx-auto">
         <div className="my-5 border-b-2 border-b-gray-300 pb-3">
           <h1 className="text-4xl font-bold pl-4">Find your best one</h1>
@@ -64,20 +83,6 @@ const MainPage = async () => {
             <ShowProduct products={products} />
           </div>
         )}
-
-        <div>
-          <div className="my-5">
-            <h1 className="text-4xl font-bold pl-4 text-center">
-              Why choice us
-            </h1>
-          </div>
-          <div>
-            <FeaturesSection />
-          </div>
-        </div>
-        <div>
-          <FeaturedProduct />
-        </div>
       </div>
     </div>
   );

@@ -23,6 +23,18 @@ export const getProductDetails = async (slug: string) => {
   return result;
 };
 
+// get top selling product
+
+export const getTopSellingProduct = async()=>{
+  const res = await fetch(
+    `${process.env.NEXT_EXPRESS_SERVER_BASE_URL}/api/products/get-top-selling-product`,{
+      next : {revalidate: 300}
+    }
+  );
+
+  return res.json();
+}
+
 // product by sku
 export const getProductBySKU = async (sku: string) => {
   const res = await fetch(

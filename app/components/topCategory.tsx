@@ -3,6 +3,7 @@
 import React from "react";
 import * as LucideIcons from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 interface SubCategory {
   name: string;
@@ -16,6 +17,7 @@ interface Category {
   name: string;
   order: number;
   slug: string;
+  image?: string;
   subCategories: SubCategory[];
   _id: string;
 }
@@ -55,9 +57,20 @@ export const TopCategories = ({ categories }: TopCategoriesProps) => {
                 className="flex flex-col items-center justify-center gap-2 p-4 bg-white rounded-xl shadow hover:shadow-lg transition cursor-pointer text-center"
               >
                 {/* Icon */}
-                <div className="bg-[#E6F0FA] rounded-full p-3 mb-2">
-                  <IconComponent size={28} className="text-[#0970B4]" />
-                </div>
+                {cat.image ? (
+                  <div>
+                    <Image
+                      src={cat?.image}
+                      alt={cat.name}
+                      width={30}
+                      height={30}
+                    />
+                  </div>
+                ) : (
+                  <div className="bg-[#E6F0FA] rounded-full p-3 mb-2">
+                    <IconComponent size={28} className="text-[#0970B4]" />
+                  </div>
+                )}
 
                 {/* Name */}
                 <span className="text-sm sm:text-base font-medium text-gray-900">
