@@ -5,6 +5,8 @@ import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { Trash2, Search } from "lucide-react";
 import axios from "axios";
 import config from "@/lib/config";
+import Swal from "sweetalert2";
+import { toast } from "sonner";
 
 
 // Types
@@ -100,9 +102,48 @@ const OrderDetailsPage = ({ orderData }: { orderData: OrderData }) => {
     },
   });
 
-  const handleDeleteProduct = (productId: string): void => {
-    setProducts(products.filter((p) => p.productId !== productId));
-  };
+  // const handleDeleteProduct = (productId: string): void => {
+  //   setProducts(products.filter((p) => p.productId !== productId));
+  // };
+
+    const handleDeleteProduct = (id: string) => {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#0970B4",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          try {
+            const response = await axios.delete(
+              `${process.env.NEXT_PUBLIC_EXPRESS_SERVER_BASE_URL}/create-order/delete-order/${id}`
+            );
+
+            if (response.status === 200) {
+              setProducts(products.filter((p) => p.productId !== id));
+              toast.success(response.data.message ?? "Deleted successfully");
+            } else {
+              alert("Failed to delete the order. Please try again.");
+            }
+          } catch (error: any) {
+            console.error("Delete Error:", error);
+            alert(
+              error?.response?.data?.message ||
+                "Something went wrong while deleting."
+            );
+          }
+          Swal.fire({
+            title: "Deleted!",
+            text: "Your file has been deleted.",
+            icon: "success",
+          });
+        }
+      });
+    };
+
 
   const handleProductChange = (
     productId: string,
@@ -162,22 +203,16 @@ const OrderDetailsPage = ({ orderData }: { orderData: OrderData }) => {
 
     try {
       const res = await axios.put(
-        `${BASE_URL}/create-order/update-order/${orderData._id}`,
+        `${process.env.NEXT_PUBLIC_EXPRESS_SERVER_BASE_URL}/create-order/update-order/${orderData._id}`,
         updatedOrderData
       );
-
-
-    
-
       if (res.data.success) {
-        alert("Order updated successfully!");
+        toast.success("Order updated successfully!");
       }
     } catch (error) {
       console.error(error);
-      alert("Failed to update order");
+      toast.error("Failed to update order");
     }
-
-    alert("Order updated successfully!");
   };
 
   const filteredProducts = products.filter(
