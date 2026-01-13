@@ -16,6 +16,8 @@ import { ComLogo } from "@/app/shared/components/ComLogo";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { getOrderStatusClass } from "./OrdersTable";
+import axios from "axios";
+import { toast } from "sonner";
 
 // ============ TYPE DEFINITIONS ============
 interface CustomerInfo {
@@ -318,11 +320,31 @@ const AllProductTable = ({ INITIAL_ORDERS }: { INITIAL_ORDERS: Order[] }) => {
   const getFullAddress = (address: ShippingAddress) =>
     `${address.street}, ${address.city}, ${address.region}`;
 
-  const handleDelete = (id: string): void => {
-    if (window.confirm("Are you sure you want to delete this order?")) {
-      setOrders(orders.filter((o) => o._id !== id));
+  const handleDelete = async (id: string) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this order?"
+    );
+    if (!confirmDelete) return;
+
+    try {
+      const response = await axios.delete(
+        `${process.env.NEXT_PUBLIC_EXPRESS_SERVER_BASE_URL}/create-order/delete-order/${id}`
+      );
+
+      if (response.status === 200) {
+        setOrders((prevOrders) => prevOrders.filter((o) => o._id !== id));
+        toast.success(response.data.message ?? "Deleted successfully");
+      } else {
+        alert("Failed to delete the order. Please try again.");
+      }
+    } catch (error: any) {
+      console.error("Delete Error:", error);
+      alert(
+        error?.response?.data?.message || "Something went wrong while deleting."
+      );
     }
   };
+
   const handlePrint = (order: Order): void => {
     const logoUrl = "https://i.postimg.cc/WbTN2bBF/image-70.png";
     const printWindow = window.open("", "_blank");
@@ -521,7 +543,9 @@ const AllProductTable = ({ INITIAL_ORDERS }: { INITIAL_ORDERS: Order[] }) => {
                           <Trash2 size={18} />
                         </button>
 
-                        <Link href={`/admin/order/history/${order.customerInfo.phone}`}>
+                        <Link
+                          href={`/admin/order/history/${order.customerInfo.phone}`}
+                        >
                           <button
                             // onClick={() => handleDelete(order._id)}
                             className="p-2 hover:bg-red-50 rounded-lg text-red-600"

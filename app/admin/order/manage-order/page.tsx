@@ -8,12 +8,15 @@ export const metadata: Metadata = {
 };
 
 export default async function ManageOrdersPage() {
-
-
   const response = await getAllOrder();
 
-
-
+  if (!response.data.length) {
+    return (
+      <div className="min-h-screen text-2xl text-[#0970B4] flex justify-center items-center">
+        No Order found
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen p-4 md:p-8">

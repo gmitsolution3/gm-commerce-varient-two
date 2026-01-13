@@ -19,6 +19,10 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { formatDate, getStatusBadgeVariant } from "./utlis";
 import { Order } from "./AllProductTable";
+import Link from "next/link";
+import axios from "axios";
+import { toast } from "sonner";
+import Swal from "sweetalert2";
 
 interface OrdersTableProps {
   orders: any;
@@ -34,7 +38,6 @@ const courierStatusColors: Record<string, string> = {
   Delivered: "bg-green-100 text-green-800",
   Failed: "bg-red-100 text-red-800",
 };
-
 
 export const getOrderStatusClass = (status?: string) => {
   switch (status) {
@@ -79,6 +82,46 @@ export default function OrdersTable({
         alert(`Delete order: ${orderId}`);
         break;
     }
+  };
+
+  const handleDelete = (id: string) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#0970B4",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async(result) => {
+      if (result.isConfirmed) {
+        try {
+          const response = await axios.delete(
+            `${process.env.NEXT_PUBLIC_EXPRESS_SERVER_BASE_URL}/create-order/delete-order/${id}`
+          );
+
+          if (response.status === 200) {
+            //  setPrimaryOrders((prevOrders) =>
+            //    prevOrders.filter((o) => o._id !== id)
+            //  );
+            toast.success(response.data.message ?? "Deleted successfully");
+          } else {
+            alert("Failed to delete the order. Please try again.");
+          }
+        } catch (error: any) {
+          console.error("Delete Error:", error);
+          alert(
+            error?.response?.data?.message ||
+              "Something went wrong while deleting."
+          );
+        }
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success",
+        });
+      }
+    });
   };
 
   return (
@@ -211,18 +254,17 @@ export default function OrdersTable({
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end" className="w-40">
-                      <DropdownMenuItem
-                        onClick={() => handleAction("view", order._id)}
+                      {/* <DropdownMenuItem
                       >
                         <Eye className="mr-2 h-4 w-4" />
                         View
-                      </DropdownMenuItem>
-                      <DropdownMenuItem
-                        onClick={() => handleAction("edit", order._id)}
-                      >
-                        <Edit className="mr-2 h-4 w-4" />
-                        Edit
-                      </DropdownMenuItem>
+                      </DropdownMenuItem> */}
+                      <Link href={`/admin/order/edit/${order._id}`}>
+                        <DropdownMenuItem>
+                          <Edit className="mr-2 h-4 w-4" />
+                          Edit
+                        </DropdownMenuItem>
+                      </Link>
                       <DropdownMenuItem
                         onClick={() => handleAction("print", order._id)}
                       >
@@ -230,7 +272,7 @@ export default function OrdersTable({
                         Print
                       </DropdownMenuItem>
                       <DropdownMenuItem
-                        onClick={() => handleAction("delete", order._id)}
+                        onClick={() => handleDelete(order._id)}
                         className="text-destructive"
                       >
                         <Trash2 className="mr-2 h-4 w-4" />

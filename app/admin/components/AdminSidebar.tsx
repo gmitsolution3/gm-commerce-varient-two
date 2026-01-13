@@ -80,7 +80,6 @@ export function AdminSidebar({ brandInfo }: { brandInfo: any }) {
     setExpandedMenu(expandedMenu === index ? null : index);
   };
 
-
   return (
     <>
       {/* Mobile Toggle Button */}
@@ -101,41 +100,44 @@ export function AdminSidebar({ brandInfo }: { brandInfo: any }) {
 
       {/* Sidebar */}
       <aside
-        className={`fixed top-0 lg:relative w-64 h-screen bg-white border-r border-gray-200 shadow-lg lg:shadow-none transition-transform duration-300 ease-in-out z-40 ${
-          isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
-        } `}
+        className={`
+    fixed top-0 left-0 w-64 h-screen bg-white border-r border-gray-200 z-40
+    transform transition-transform duration-300 ease-in-out
+    lg:relative lg:translate-x-0
+    ${isOpen ? "translate-x-0" : "-translate-x-full"}
+    flex flex-col
+  `}
       >
         <div className="w-full flex justify-center mt-12 border-b border-b-gray-300">
-          <Image src={brandInfo.logo} alt={brandInfo.name} width={80} height={40}/>
+          <Image
+            src={brandInfo.logo}
+            alt={brandInfo.name}
+            width={80}
+            height={40}
+          />
         </div>
 
-        {/* Logo Section */}
-        <div className="p-6 border-b border-gray-200">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-[#0970B4] flex items-center justify-center">
-              {brandInfo.name ? (
-                <span className="text-white font-bold text-xl">
-                  {brandInfo.name.charAt(0)}
-                </span>
-              ) : (
-                <span className="text-white font-bold text-xl">A</span>
-              )}
-            </div>
-            <div>
-              <h2 className="text-lg font-bold text-gray-900">
-                {brandInfo.name}
-              </h2>
-              <p className="text-xs text-gray-500">Control Panel</p>
-            </div>
+        {/* Brand / Logo */}
+        <div className="flex items-center gap-3 p-6 border-b border-gray-200">
+          <div className="w-10 h-10 rounded-lg bg-[#0970B4] flex items-center justify-center">
+            <span className="text-white font-bold text-xl">
+              {brandInfo.name ? brandInfo.name.charAt(0) : "A"}
+            </span>
+          </div>
+          <div>
+            <h2 className="text-lg font-bold text-gray-900">
+              {brandInfo.name}
+            </h2>
+            <p className="text-xs text-gray-500">Control Panel</p>
           </div>
         </div>
 
         {/* Navigation */}
-        <nav className="p-4 space-y-2 overflow-y-auto h-[calc(100vh-200px)]">
+        <nav className="flex-1 overflow-y-auto p-4 space-y-2">
           {menu.map((item, index) => (
             <div key={index}>
               {item.submenu ? (
-                <div>
+                <>
                   <button
                     onClick={() => toggleSubmenu(index)}
                     className="w-full flex items-center justify-between px-4 py-3 text-gray-700 hover:bg-gray-200 rounded-lg transition"
@@ -151,6 +153,7 @@ export function AdminSidebar({ brandInfo }: { brandInfo: any }) {
                       }`}
                     />
                   </button>
+
                   {expandedMenu === index && (
                     <div className="ml-4 mt-2 space-y-1">
                       {item.submenu.map((subitem) => (
@@ -169,7 +172,7 @@ export function AdminSidebar({ brandInfo }: { brandInfo: any }) {
                       ))}
                     </div>
                   )}
-                </div>
+                </>
               ) : (
                 <Link
                   href={item.href}
@@ -188,8 +191,8 @@ export function AdminSidebar({ brandInfo }: { brandInfo: any }) {
           ))}
         </nav>
 
-        {/* Footer Section */}
-        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200 bg-gray-50">
+        {/* Footer */}
+        <div className="p-4 border-t border-gray-200 bg-gray-50 shrink-0">
           <button className="w-full flex items-center justify-center gap-2 px-4 py-3 text-red-600 hover:bg-red-50 rounded-lg transition font-medium">
             <LogOut size={20} />
             <span>Logout</span>

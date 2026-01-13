@@ -4,6 +4,7 @@ import { useState, ChangeEvent } from "react";
 import { Upload, X, Plus, Trash2, Save, Eye, EyeOff } from "lucide-react";
 import { UploadeImage } from "@/app/components/uploadeImage";
 import { PreviewImages, ProductFormData } from "@/utils/product";
+import { toast } from "sonner";
 
 // interface CategoryProps {
 //   allCategory:
@@ -285,7 +286,7 @@ export default function AddProductForm({ allCategory }: any) {
     };
 
     const res = await fetch(
-      `${process.env.NEXT_EXPRESS_SERVER_BASE_URL}/api/products`,
+      `${process.env.NEXT_PUBLIC_EXPRESS_SERVER_BASE_URL}/api/products`,
       {
         method: "POST",
         headers: {
@@ -295,18 +296,20 @@ export default function AddProductForm({ allCategory }: any) {
       }
     );
 
+    const result = await res.json();
+
+    if(!result.success){
+      toast.error(result.message)
+    }
+
     if (!res.ok) {
-      throw new Error(`HTTP error! status: ${res.status}`);
+      toast.error(`HTTP error! status: ${res.status}`);
     }
 
     if (res.ok) {
-      alert("Form submitted! Check console for data.");
+      toast.success("Form submitted! Check console for data.");
     }
 
-    const result = await res.json();
-
-    alert(result.message);
-   
     setActiveTab("basic");
   };
 

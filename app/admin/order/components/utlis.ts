@@ -29,3 +29,25 @@ export function getStatusBadgeVariant(
       return "outline";
   }
 }
+export function getStatusBadgeVariant2(
+  status: string
+): "default" | "secondary" | "destructive" | "outline" {
+  switch (status) {
+    case "pending":
+      return "secondary";
+    case "processing":
+      return "default";
+    case "courier":
+      return "default";
+    case "completed":
+      return "default";
+    case "cancelled":
+      return "destructive";
+    case "return":
+      return "destructive";
+    case "on-hold":
+      return "secondary";
+    default:
+      return "outline";
+  }
+}

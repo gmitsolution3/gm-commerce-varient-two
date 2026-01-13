@@ -5,6 +5,7 @@ import { useForm, Controller } from "react-hook-form";
 import { Edit2, Trash2 } from "lucide-react";
 import StockStatusDropdown from "./stockStatusDropdown";
 import { MdPublishedWithChanges } from "react-icons/md";
+import axios from "axios";
 
 // ============ TYPE DEFINITIONS ============
 interface Discount {
@@ -408,15 +409,40 @@ const ProductTable = ({ INITIAL_PRODUCTS, description }: ProductProps) => {
     }
   };
 
-  const handleDelete = (id: string): void => {
-    if (window.confirm("Are you sure you want to delete this product?")) {
-      setProducts(products.filter((p) => p._id !== id));
+  // const handleDelete = (id: string): void => {
+  //   if (window.confirm("Are you sure you want to delete this product?")) {
+  //     setProducts(products.filter((p) => p._id !== id));
+  //   }
+  // };
+
+  const handleDelete = async (id: string): Promise<void> => {
+    if (window.confirm("Are you sure you want to restore this product?")) {
+      try {
+        const response = await axios.patch(
+          `${process.env.NEXT_PUBLIC_EXPRESS_SERVER_BASE_URL}/api/products/primary-delete/${id}`,
+          {
+            isDeleted: false,
+          }
+        );
+
+        console.log({ response: response });
+        if (response.status === 200) {
+          setProducts((prevProducts) =>
+            prevProducts.filter((p) => p._id !== id)
+          );
+
+          alert("Product updated successfully!");
+        }
+      } catch (error) {
+        console.error("Error updating product:", error);
+        alert("Failed to update product. Please try again.");
+      }
     }
   };
 
   return (
     <div className="min-h-screen p-4 md:p-6 lg:p-8">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-400 mx-auto">
         <div className="mb-6">
           <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
             {description?.title}
@@ -509,13 +535,16 @@ const ProductTable = ({ INITIAL_PRODUCTS, description }: ProductProps) => {
                         >
                           <Edit2 size={18} />
                         </button>
-                        <button
-                          onClick={() => handleDelete(product._id)}
-                          className="p-2 hover:bg-red-50 rounded-lg transition-colors text-red-600 hover:text-red-700"
-                          title="Delete"
-                        >
-                          <Trash2 size={18} />
-                        </button>
+                        {description?.title === "Manage Product" && (
+                          <button
+                            onClick={() => handleDelete(product._id)}
+                            className="p-2 hover:bg-red-50 rounded-lg transition-colors text-red-600 hover:text-red-700"
+                            title="Delete"
+                          >
+                            <Trash2 size={18} />
+                          </button>
+                        )}
+
                         {description?.title === "Draft Product" && (
                           <button
                             className="p-2 hover:bg-green-50 rounded-lg transition-colors text-green-600 hover:text-green-700"
@@ -604,14 +633,13 @@ const ProductTable = ({ INITIAL_PRODUCTS, description }: ProductProps) => {
           ))}
         </div> */}
 
-        <div className="lg:hidden space-y-4 max-w-[320px]">
+        <div className="lg:hidden space-y-4 max-w-75">
           {products.map((product) => (
             <div
               key={product._id}
               className="bg-white rounded-xl shadow-sm border "
             >
               <div className="p-4 space-y-4">
-              
                 <div className="flex gap-3">
                   <img
                     src={product.thumbnail}
@@ -627,7 +655,6 @@ const ProductTable = ({ INITIAL_PRODUCTS, description }: ProductProps) => {
                       {product.slug}
                     </p>
 
-                  
                     <div className="mt-2 flex gap-4 text-xs">
                       <span className="font-semibold text-[#0970B4]">
                         ৳{product.basePrice}
@@ -639,7 +666,6 @@ const ProductTable = ({ INITIAL_PRODUCTS, description }: ProductProps) => {
                   </div>
                 </div>
 
-                
                 <div className="flex justify-between text-xs text-gray-600">
                   <span>Category</span>
                   <span className="font-medium text-gray-900">
@@ -647,7 +673,6 @@ const ProductTable = ({ INITIAL_PRODUCTS, description }: ProductProps) => {
                   </span>
                 </div>
 
-               
                 <div>
                   <StockStatusDropdown
                     product={product}
@@ -655,7 +680,6 @@ const ProductTable = ({ INITIAL_PRODUCTS, description }: ProductProps) => {
                   />
                 </div>
 
-               
                 <div className="grid grid-cols-2 gap-3 pt-2">
                   <button
                     onClick={() => handleEdit(product)}

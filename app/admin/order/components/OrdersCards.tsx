@@ -11,7 +11,16 @@ import {
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
 import type { Order } from "./types";
-import { formatDate, getStatusBadgeVariant } from "./utlis";
+import {
+  formatDate,
+  getStatusBadgeVariant,
+  getStatusBadgeVariant2,
+} from "./utlis";
+import Link from "next/link";
+import axios from "axios";
+import { toast } from "sonner";
+import { useState } from "react";
+import Swal from "sweetalert2";
 
 interface OrdersCardsProps {
   orders: Order[];
@@ -31,6 +40,9 @@ export default function OrdersCards({
   selectedOrders,
   onToggleOrderSelection,
 }: OrdersCardsProps) {
+
+  const [primaryOrders, setPrimaryOrders] = useState<Order[]>(orders);
+
   const handleAction = (action: string, orderId: string) => {
     switch (action) {
       case "view":
@@ -42,13 +54,53 @@ export default function OrdersCards({
       case "print":
         window.print();
         break;
-      case "delete":
-        alert(`Delete order: ${orderId}`);
-        break;
+      // case "delete":
+      //   alert(`Delete order: ${orderId}`);
+      //   break;
     }
   };
 
-  if (orders.length === 0) {
+  const handleDelete = (id: string) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#0970B4",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const response = await axios.delete(
+            `${process.env.NEXT_PUBLIC_EXPRESS_SERVER_BASE_URL}/create-order/delete-order/${id}`
+          );
+
+          if (response.status === 200) {
+             setPrimaryOrders((prevOrders) =>
+               prevOrders.filter((o) => o._id !== id)
+             );
+            toast.success(response.data.message ?? "Deleted successfully");
+          } else {
+            alert("Failed to delete the order. Please try again.");
+          }
+        } catch (error: any) {
+          console.error("Delete Error:", error);
+          alert(
+            error?.response?.data?.message ||
+              "Something went wrong while deleting."
+          );
+        }
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success",
+        });
+      }
+    });
+  };
+
+  if (primaryOrders.length === 0) {
     return (
       <div className="text-center py-8 text-muted-foreground text-sm">
         No orders found
@@ -58,7 +110,7 @@ export default function OrdersCards({
 
   return (
     <div className="space-y-3">
-      {orders.map((order) => (
+      {primaryOrders.map((order) => (
         <div
           key={order._id}
           className={`border rounded-lg p-4 transition-colors ${
@@ -130,10 +182,11 @@ export default function OrdersCards({
               {order.courierStatus}
             </Badge>
             <Badge
-              variant={getStatusBadgeVariant(order.status)}
+              variant={getStatusBadgeVariant2(order.orderStatus)}
               className="text-xs"
             >
-              {order.status}
+              {" "}
+              Order Status : {order.orderStatus.toUpperCase()}
             </Badge>
           </div>
 
@@ -147,7 +200,7 @@ export default function OrdersCards({
 
           {/* Actions */}
           <div className="flex gap-2">
-            <Button
+            {/* <Button
               variant="outline"
               size="sm"
               onClick={() => handleAction("view", order._id)}
@@ -155,17 +208,41 @@ export default function OrdersCards({
             >
               <Eye className="h-3 w-3 mr-1" />
               View
-            </Button>
+            </Button> */}
+            <Link href={`/admin/order/edit/${order._id}`}>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => handleAction("edit", order._id)}
+                className="flex-1 text-xs h-8"
+              >
+                <Edit className="h-3 w-3 mr-1" />
+                Edit
+              </Button>
+            </Link>
+            <Link href={`/admin/order/edit/${order._id}`}>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => handleAction("edit", order._id)}
+                className="flex-1 text-xs h-8"
+              >
+                <Printer className="mr-2 h-4 w-4" />
+                Print
+              </Button>
+            </Link>
+
             <Button
               variant="outline"
               size="sm"
-              onClick={() => handleAction("edit", order._id)}
-              className="flex-1 text-xs h-8"
+              onClick={()=> handleDelete(order._id)}
+              className="text-destructive"
             >
-              <Edit className="h-3 w-3 mr-1" />
-              Edit
+              <Trash2 className="mr-2 h-4 w-4" />
+              Delete
             </Button>
-            <DropdownMenu>
+
+            {/* <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
                   variant="outline"
@@ -190,7 +267,7 @@ export default function OrdersCards({
                   Delete
                 </DropdownMenuItem>
               </DropdownMenuContent>
-            </DropdownMenu>
+            </DropdownMenu> */}
           </div>
         </div>
       ))}
