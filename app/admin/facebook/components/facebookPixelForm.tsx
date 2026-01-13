@@ -3,6 +3,7 @@
 import { useForm } from "react-hook-form";
 import { Save, Facebook } from "lucide-react";
 import axios from "axios";
+import { toast } from "sonner";
 
 type FormValues = {
   fbPixelId: string;
@@ -19,7 +20,7 @@ export default function FacebookPixelForm() {
   } = useForm<FormValues>();
 
   const onSubmit = async (data: FormValues) => {
-    
+  
 
     try {
       const result = await axios.post(
@@ -27,12 +28,14 @@ export default function FacebookPixelForm() {
         data
       );
 
-   
+      if(!result.data.success){
+        toast.error(result.data.message)
+      }
 
       reset();
-      alert("Facebook settings saved successfully");
+      toast.success("Facebook settings saved successfully");
     } catch (err) {
-      alert("Failed to save settings");
+      toast.message("Failed to save settings");
     }
   };
 
