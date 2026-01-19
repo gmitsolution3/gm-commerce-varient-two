@@ -394,7 +394,7 @@ export default function AddProductForm({ allCategory }: any) {
                   onClick={() => setActiveTab(tab.id)}
                   className={`flex-1 min-w-max sm:flex-none text-xs px-4 py-3 font-medium md:text-sm transition whitespace-nowrap ${
                     activeTab === tab.id
-                      ? "border-b-2 border-[#0970B4] text-[#0970B4]"
+                      ? "border-b-2 border-[#f58313] text-[#f58313]"
                       : "text-gray-600 hover:text-gray-900"
                   }`}
                 >
@@ -420,7 +420,7 @@ export default function AddProductForm({ allCategory }: any) {
                   value={formData.title}
                   onChange={handleTitleChange}
                   placeholder="Enter product title"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0970B4] focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#f58313] focus:border-transparent"
                   required
                 />
               </div>
@@ -451,7 +451,7 @@ export default function AddProductForm({ allCategory }: any) {
                   required
                   onChange={handleInputChange}
                   placeholder="Brief description for listings"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0970B4] focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#f58313] focus:border-transparent"
                 />
               </div>
 
@@ -466,7 +466,7 @@ export default function AddProductForm({ allCategory }: any) {
                   required
                   placeholder="Detailed product description"
                   rows={5}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0970B4] focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#f58313] focus:border-transparent"
                 />
               </div>
 
@@ -526,7 +526,7 @@ export default function AddProductForm({ allCategory }: any) {
                     required
                     onChange={(e) => setTagInput(e.target.value)}
                     placeholder="Add a tag and press button"
-                    className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0970B4] focus:border-transparent"
+                    className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#f58313] focus:border-transparent"
                     onKeyPress={(e) =>
                       e.key === "Enter" && (e.preventDefault(), addTag())
                     }
@@ -534,7 +534,7 @@ export default function AddProductForm({ allCategory }: any) {
                   <button
                     type="button"
                     onClick={addTag}
-                    className="px-4 py-2 bg-[#0970B4] text-white rounded-lg hover:bg-blue-700 transition"
+                    className="px-4 py-2 bg-[#f58313] text-white rounded-lg hover:bg-[#f58313] transition"
                   >
                     Add
                   </button>
@@ -543,7 +543,7 @@ export default function AddProductForm({ allCategory }: any) {
                   {formData.tags.map((tag, index) => (
                     <span
                       key={index}
-                      className="inline-flex items-center gap-2 px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm"
+                      className="inline-flex items-center gap-2 px-3 py-1 bg-blue-100 text-[#f58313] rounded-full text-sm"
                     >
                       {tag}
                       <button
@@ -574,7 +574,7 @@ export default function AddProductForm({ allCategory }: any) {
                   onChange={handleInputChange}
                   placeholder="0.00"
                   step="0.01"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0970B4] focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#f58313] focus:border-transparent"
                   required
                 />
               </div>
@@ -601,7 +601,7 @@ export default function AddProductForm({ allCategory }: any) {
                           },
                         }))
                       }
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0970B4] focus:border-transparent"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#f58313] focus:border-transparent"
                     >
                       <option value="percentage">Percentage (%)</option>
                       <option value="flat">Flat (৳)</option>
@@ -624,7 +624,7 @@ export default function AddProductForm({ allCategory }: any) {
                         }))
                       }
                       placeholder="0"
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0970B4] focus:border-transparent"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#f58313] focus:border-transparent"
                     />
                   </div>
                 </div>
@@ -645,7 +645,7 @@ export default function AddProductForm({ allCategory }: any) {
                   value={formData.sku}
                   onChange={handleInputChange}
                   placeholder="e.g., PRD-001"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0970B4] focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#f58313] focus:border-transparent"
                   required
                 />
               </div>
@@ -662,7 +662,7 @@ export default function AddProductForm({ allCategory }: any) {
                     onChange={handleInputChange}
                     required
                     placeholder="0"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0970B4] focus:border-transparent"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#f58313] focus:border-transparent"
                   />
                 </div>
 
@@ -675,7 +675,7 @@ export default function AddProductForm({ allCategory }: any) {
                     value={formData.stockStatus}
                     required
                     onChange={handleInputChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0970B4] focus:border-transparent"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#f58313] focus:border-transparent"
                   >
                     <option value="in-stock">In Stock</option>
                     <option value="out-of-stock">Out of Stock</option>
@@ -699,7 +699,7 @@ export default function AddProductForm({ allCategory }: any) {
                     <div className="space-y-4">
                       {isUploading ? (
                         <div className="flex justify-center items-center h-40">
-                          <div className="h-10 w-10 border-4 border-gray-300 border-t-[#0970B4] rounded-full animate-spin"></div>
+                          <div className="h-10 w-10 border-4 border-gray-300 border-t-[#f58313] rounded-full animate-spin"></div>
                         </div>
                       ) : (
                         <img
@@ -872,7 +872,7 @@ export default function AddProductForm({ allCategory }: any) {
                         required
                         onChange={handleVariantChange}
                         placeholder="e.g., Red"
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0970B4] focus:border-transparent"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#f58313] focus:border-transparent"
                       />
                     </div>
                     <div>
@@ -886,7 +886,7 @@ export default function AddProductForm({ allCategory }: any) {
                         onChange={handleVariantChange}
                         required
                         placeholder="e.g., M"
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0970B4] focus:border-transparent"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#f58313] focus:border-transparent"
                       />
                     </div>
                   </div>
@@ -901,7 +901,7 @@ export default function AddProductForm({ allCategory }: any) {
                         name="sku"
                         value={variantForm.sku}
                         readOnly
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0970B4] focus:border-transparent"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#f58313] focus:border-transparent"
                       />
                     </div>
                     <div>
@@ -916,7 +916,7 @@ export default function AddProductForm({ allCategory }: any) {
                         onChange={handleVariantChange}
                         placeholder="0.00"
                         step="0.01"
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0970B4] focus:border-transparent"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#f58313] focus:border-transparent"
                       />
                     </div>
                   </div>
@@ -932,7 +932,7 @@ export default function AddProductForm({ allCategory }: any) {
                       required
                       onChange={handleVariantChange}
                       placeholder="0"
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0970B4] focus:border-transparent"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#f58313] focus:border-transparent"
                     />
                   </div>
 
@@ -940,7 +940,7 @@ export default function AddProductForm({ allCategory }: any) {
                     <button
                       type="button"
                       onClick={addVariant}
-                      className="flex-1 px-4 py-2 bg-[#0970B4] text-white rounded-lg hover:bg-blue-700 transition"
+                      className="flex-1 px-4 py-2 bg-[#f58313] text-white rounded-lg hover:bg-[#f58313] transition"
                     >
                       Add Variant
                     </button>
@@ -957,7 +957,7 @@ export default function AddProductForm({ allCategory }: any) {
                 <button
                   type="button"
                   onClick={() => setShowVariantForm(true)}
-                  className="w-full flex items-center justify-center gap-2 px-4 py-3 border-2 border-dashed border-gray-300 rounded-lg text-[#0970B4] hover:bg-blue-50 transition"
+                  className="w-full flex items-center justify-center gap-2 px-4 py-3 border-2 border-dashed border-gray-300 rounded-lg text-[#f58313] hover:bg-blue-50 transition"
                 >
                   <Plus size={20} />
                   Add New Variant
@@ -983,7 +983,7 @@ export default function AddProductForm({ allCategory }: any) {
                     onChange={(e) => handleNestedChange(e, "seo")}
                     placeholder="SEO title (max 60 characters)"
                     maxLength={60}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0970B4]"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#f58313]"
                   />
                   <p className="text-xs text-gray-500">
                     {formData.seo.metaTitle.length}/60 characters
@@ -1005,7 +1005,7 @@ export default function AddProductForm({ allCategory }: any) {
                     placeholder="SEO description (max 160 characters)"
                     maxLength={160}
                     rows={3}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0970B4]"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#f58313]"
                   />
                   <p className="text-xs text-gray-500">
                     {formData.seo.metaDescription.length}/160 characters
@@ -1024,7 +1024,7 @@ export default function AddProductForm({ allCategory }: any) {
                       name="isDraft"
                       checked={formData.isDraft}
                       onChange={handleInputChange}
-                      className="w-4 h-4 text-[#0970B4] border-gray-300 rounded"
+                      className="w-4 h-4 text-[#f58313] border-gray-300 rounded"
                     />
                     <span className="text-sm text-gray-700">
                       Save as Draft (not visible to customers)
@@ -1037,7 +1037,7 @@ export default function AddProductForm({ allCategory }: any) {
                       name="featured"
                       checked={formData.featured}
                       onChange={handleInputChange}
-                      className="w-4 h-4 text-[#0970B4] border-gray-300 rounded"
+                      className="w-4 h-4 text-[#f58313] border-gray-300 rounded"
                     />
                     <span className="text-sm text-gray-700">
                       Mark as Featured Product
@@ -1071,7 +1071,7 @@ export default function AddProductForm({ allCategory }: any) {
                   className={`px-6 py-3 rounded-lg transition font-medium
                 ${
                   isCurrentTabValid()
-                    ? "bg-[#0970B4] text-white hover:bg-blue-700"
+                    ? "bg-[#f58313] text-white hover:bg-[#f58313]"
                     : "bg-gray-300 text-gray-500 cursor-not-allowed"
                 }
                 `}
@@ -1085,7 +1085,7 @@ export default function AddProductForm({ allCategory }: any) {
                 <button
                   type="submit"
                   disabled={!isCurrentTabValid()}
-                  className="flex items-center justify-center gap-2 px-6 py-3 bg-[#0970B4] text-white rounded-lg hover:bg-blue-700 transition font-medium"
+                  className="flex items-center justify-center gap-2 px-6 py-3 bg-[#f58313] text-white rounded-lg hover:bg-[#f58313] transition font-medium"
                 >
                   <Save size={20} />
                   Publish Product

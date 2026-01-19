@@ -9,7 +9,7 @@ const AllOrder = async () => {
 
    if (!result.length) {
      return (
-       <div className="min-h-screen text-2xl text-[#0970B4] flex justify-center items-center">
+       <div className="min-h-screen text-2xl text-[#f58313] flex justify-center items-center">
          No Order found
        </div>
      );

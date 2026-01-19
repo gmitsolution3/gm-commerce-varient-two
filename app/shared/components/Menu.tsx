@@ -42,7 +42,7 @@ export const MenuNavbar = ({ categories }: any) => {
             open
               ? "max-h-96 opacity-100"
               : "max-h-0 opacity-0 lg:max-h-full lg:opacity-100",
-            "lg:opacity-100"
+            "lg:opacity-100",
           )}
         >
           <div className="flex flex-col lg:flex-row lg:justify-center lg:items-center gap-2 px-2 py-2 lg:py-0">
@@ -53,8 +53,8 @@ export const MenuNavbar = ({ categories }: any) => {
                 className={clsx(
                   "w-full lg:w-auto text-left px-4 py-2 text-sm font-semibold rounded-md transition whitespace-nowrap",
                   activeCategory === "home"
-                    ? "bg-linear-to-t from-[#0970B4] to-[#3CB1FF] text-white"
-                    : "text-gray-700 hover:bg-linear-to-t hover:from-[#0970B4] hover:to-[#3CB1FF] hover:text-white"
+                    ? "bg-linear-to-t from-[#f58313] to-[#f35b1c] text-white"
+                    : "text-gray-700 hover:bg-linear-to-t hover:from-[#0970B4] hover:to-[#3CB1FF] hover:text-white",
                 )}
               >
                 Home
@@ -66,8 +66,8 @@ export const MenuNavbar = ({ categories }: any) => {
                 className={clsx(
                   "w-full lg:w-auto text-left px-4 py-2 text-sm font-semibold rounded-md transition whitespace-nowrap",
                   activeCategory === "all"
-                    ? "bg-linear-to-t from-[#0970B4] to-[#3CB1FF] text-white"
-                    : "text-gray-700 hover:bg-linear-to-t hover:from-[#0970B4] hover:to-[#3CB1FF] hover:text-white"
+                    ? "bg-linear-to-t from-[#f58313] to-[#f35b1c] text-white"
+                    : "text-gray-700 hover:bg-linear-to-t hover:from-[#f35b1c] hover:to-[#f58313] hover:text-white",
                 )}
               >
                 All Product
@@ -86,8 +86,8 @@ export const MenuNavbar = ({ categories }: any) => {
                     className={clsx(
                       "w-full lg:w-auto text-left px-4 py-2 text-sm font-semibold rounded-md transition whitespace-nowrap",
                       activeCategory === category._id
-                        ? "bg-linear-to-t from-[#0970B4] to-[#3CB1FF] text-white"
-                        : "text-gray-700 hover:bg-linear-to-t hover:from-[#0970B4] hover:to-[#3CB1FF] hover:text-white"
+                        ? "bg-linear-to-t from-[#f58313] to-[#f35b1c] text-white"
+                        : "text-gray-700 hover:bg-linear-to-t hover:from-[#f35b1c] hover:to-[#f58313] hover:text-white",
                     )}
                   >
                     {category.name}

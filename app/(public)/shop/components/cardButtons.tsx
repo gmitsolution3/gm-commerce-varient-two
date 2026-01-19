@@ -45,25 +45,25 @@ export const CardButtons = ({ product }: Product) => {
     setIsCartModalOpen(true);
     setIsBuyNow(true);
   };
-
+  
   return (
     <>
       <div className="space-y-3 hidden md:block">
         <button
           onClick={handleBuyNow}
-          className="w-full bg-linear-to-t from-[#0970B4] to-[#3CB1FF] hover:from-[#3CB1FF] hover:to-[#0970B4] text-white py-3 rounded-lg font-semibold flex items-center justify-center text-sm gap-2 transition"
+          className="w-full bg-linear-to-t from-[#f58313] to-[#f35b1c] hover:from-[#f35b1c] hover:to-[#f58313] text-white py-3 rounded-lg font-semibold flex items-center justify-center text-sm gap-2 transition"
         >
           <ShoppingBag /> BUY NOW
         </button>
 
-        <button className="w-full bg-linear-to-t from-[#073d19] to-[#09b442] hover:from-[#09b442] hover:to-[#073d19] text-white py-3 rounded-lg font-semibold flex items-center justify-center text-xs   md:text-sm gap-2 transition">
+        <button className="w-full bg-linear-to-t from-[#0970B4] to-[#3CB1FF] hover:from-[#3CB1FF] hover:to-[#0970B4] text-white py-3 rounded-lg font-semibold flex items-center justify-center text-xs   md:text-sm gap-2 transition">
           <FaWhatsapp />
           ORDER VIA WHATSAPP
         </button>
 
         <button
           onClick={handleAddToCart}
-          className="w-full border border-[#269ED9] text-[#269ED9] py-2 rounded-lg font-semibold flex items-center justify-center gap-2 hover:bg-[#269ED9] hover:text-white transition"
+          className="w-full border border-[#f58313] text-[#f58313] py-2 rounded-lg font-semibold flex items-center justify-center gap-2 hover:bg-[#f58313] hover:text-white transition"
         >
           <ShoppingCart /> ADD TO CART
         </button>
@@ -84,7 +84,7 @@ export const CardButtons = ({ product }: Product) => {
 
         <button
           onClick={handleAddToCart}
-          className="w-full border border-[#269ED9] text-[#269ED9] py-2 rounded-lg font-semibold flex items-center justify-center gap-2 hover:bg-[#269ED9] hover:text-white transition"
+          className="w-full border border-[#f58313] text-[#f35b1c] py-2 rounded-lg font-semibold flex items-center justify-center gap-2 hover:bg-[#f58313] hover:text-white transition"
         >
           <ShoppingCart />
         </button>

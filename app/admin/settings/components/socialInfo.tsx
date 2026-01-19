@@ -96,7 +96,7 @@ const BrandForm = () => {
         <div>
           {uploading ? (
             <div className="flex items-center justify-center w-16 h-16 border rounded bg-gray-100">
-              <div className="w-6 h-6 border-4 border-t-blue-500 border-gray-200 rounded-full animate-spin"></div>
+              <div className="w-6 h-6 border-4 border-t-[#f58313] border-gray-200 rounded-full animate-spin"></div>
             </div>
           ) : (
             <label className="flex cursor-pointer items-center gap-2 rounded border px-3 py-2 text-sm">
@@ -185,7 +185,7 @@ const BrandForm = () => {
         <button
           type="button"
           onClick={() => append({ platform: "facebook", url: "" })}
-          className="flex items-center gap-1 text-sm text-blue-600"
+          className="flex items-center gap-1 text-sm text-[#f58313]"
         >
           <Plus size={16} />
           Add more social link
@@ -195,7 +195,7 @@ const BrandForm = () => {
       {/* Submit */}
       <button
         type="submit"
-        className="w-full rounded bg-[#0970B4] py-2 text-sm text-white"
+        className="w-full rounded bg-[#f58313] py-2 text-sm text-white"
       >
         Submit
       </button>

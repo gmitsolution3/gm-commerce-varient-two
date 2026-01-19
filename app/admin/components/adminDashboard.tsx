@@ -179,7 +179,7 @@ export function AnalyticsDashboard() {
                 <p className="text-2xl font-bold text-gray-900">
                   {dashboardMetrics.successOrders}
                 </p>
-                <p className="text-xs text-blue-600 mt-2">68% fulfillment</p>
+                <p className="text-xs text-[#f58313] mt-2">68% fulfillment</p>
               </div>
               <div className="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
                 <p className="text-xs text-gray-600 mb-1">Cart Items</p>

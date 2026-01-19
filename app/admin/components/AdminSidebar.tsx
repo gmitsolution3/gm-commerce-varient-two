@@ -83,7 +83,7 @@ export function AdminSidebar({ brandInfo }: { brandInfo: any }) {
       {/* Mobile Toggle Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="lg:hidden fixed top-4 left-4 z-50 p-2 bg-[#0970B4] text-white rounded-lg hover:bg-blue-700 transition"
+        className="lg:hidden fixed top-4 left-4 z-50 p-2 bg-[#f58313] text-white rounded-lg hover:bg-[#f58313] transition"
       >
         {isOpen ? <X size={24} /> : <Menu size={24} />}
       </button>
@@ -117,7 +117,7 @@ export function AdminSidebar({ brandInfo }: { brandInfo: any }) {
 
         {/* Brand / Logo */}
         <div className="flex items-center gap-3 p-6 border-b border-gray-200">
-          <div className="w-10 h-10 rounded-lg bg-[#0970B4] flex items-center justify-center">
+          <div className="w-10 h-10 rounded-lg bg-[#f58313] flex items-center justify-center">
             <span className="text-white font-bold text-xl">
               {brandInfo.name ? brandInfo.name.charAt(0) : "A"}
             </span>
@@ -161,7 +161,7 @@ export function AdminSidebar({ brandInfo }: { brandInfo: any }) {
                           onClick={() => setIsOpen(false)}
                           className={`block px-4 py-2 text-sm rounded-lg transition ${
                             pathname === subitem.href
-                              ? "bg-[#0970B4] text-white font-semibold"
+                              ? "bg-[#f58313] text-white font-semibold"
                               : "text-gray-600 hover:bg-gray-100"
                           }`}
                         >
@@ -177,7 +177,7 @@ export function AdminSidebar({ brandInfo }: { brandInfo: any }) {
                   onClick={() => setIsOpen(false)}
                   className={`flex items-center gap-3 px-4 py-3 rounded-lg transition ${
                     pathname === item.href
-                      ? "bg-[#0970B4] text-white font-semibold shadow-md"
+                      ? "bg-[#f58313] text-white font-semibold shadow-md"
                       : "text-gray-700 hover:bg-gray-50"
                   }`}
                 >

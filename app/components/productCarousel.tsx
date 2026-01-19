@@ -144,8 +144,8 @@ const ProductCarousel = ({
                 onClick={() => setCurrentIndex(i * visibleCards)}
                 className={`w-2 h-2 rounded-full transition-all ${
                   Math.floor(currentIndex / visibleCards) === i
-                    ? "bg-blue-600 w-8"
-                    : "bg-gray-300"
+                    ? "bg-[#f58313] w-8"
+                    : "bg-[#e9dbcd]"
                 }`}
               />
             ))}

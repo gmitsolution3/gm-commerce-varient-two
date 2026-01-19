@@ -244,7 +244,7 @@ const OrderDetailsPage = ({ orderData }: { orderData: OrderData }) => {
               render={({ field }) => (
                 <select
                   {...field}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#f58313] focus:border-transparent bg-white"
                 >
                   <option value="pending">Pending Order</option>
                   <option value="processing">Processing Order</option>
@@ -267,7 +267,7 @@ const OrderDetailsPage = ({ orderData }: { orderData: OrderData }) => {
               render={({ field }) => (
                 <select
                   {...field}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#f58313] focus:border-transparent bg-white"
                 >
                   <option value="pending">Pending</option>
                   <option value="success">Success</option>
@@ -286,7 +286,7 @@ const OrderDetailsPage = ({ orderData }: { orderData: OrderData }) => {
                 placeholder="Search order by id or title..."
                 value={searchId}
                 onChange={(e) => setSearchId(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#f58313] focus:border-transparent"
               />
             </div>
           </div>
@@ -349,10 +349,10 @@ const OrderDetailsPage = ({ orderData }: { orderData: OrderData }) => {
                           handleProductChange(
                             product.productId,
                             "size",
-                            e.target.value
+                            e.target.value,
                           )
                         }
-                        className="w-20 px-3 py-2 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-blue-500"
+                        className="w-20 px-3 py-2 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-[#f58313]"
                       />
                     </td>
                     <td className="px-6 py-4">
@@ -363,10 +363,10 @@ const OrderDetailsPage = ({ orderData }: { orderData: OrderData }) => {
                           handleProductChange(
                             product.productId,
                             "color",
-                            e.target.value
+                            e.target.value,
                           )
                         }
-                        className="w-20 px-3 py-2 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-blue-500"
+                        className="w-20 px-3 py-2 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-[#f58313]"
                       />
                     </td>
                     <td className="px-6 py-4">
@@ -377,10 +377,10 @@ const OrderDetailsPage = ({ orderData }: { orderData: OrderData }) => {
                           handleProductChange(
                             product.productId,
                             "quantity",
-                            e.target.value
+                            e.target.value,
                           )
                         }
-                        className="w-16 px-3 py-2 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-blue-500"
+                        className="w-16 px-3 py-2 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-[#f58313]"
                       />
                     </td>
                     <td className="px-6 py-4">
@@ -391,10 +391,10 @@ const OrderDetailsPage = ({ orderData }: { orderData: OrderData }) => {
                           handleProductChange(
                             product.productId,
                             "price",
-                            e.target.value
+                            e.target.value,
                           )
                         }
-                        className="w-24 px-3 py-2 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-blue-500"
+                        className="w-24 px-3 py-2 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-[#f58313]"
                       />
                     </td>
                     <td className="px-6 py-4 font-semibold text-gray-900">
@@ -434,7 +434,7 @@ const OrderDetailsPage = ({ orderData }: { orderData: OrderData }) => {
                     <input
                       {...field}
                       type="text"
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#f58313] focus:border-transparent"
                     />
                   )}
                 />
@@ -450,7 +450,7 @@ const OrderDetailsPage = ({ orderData }: { orderData: OrderData }) => {
                     <input
                       {...field}
                       type="text"
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#f58313] focus:border-transparent"
                     />
                   )}
                 />
@@ -466,7 +466,7 @@ const OrderDetailsPage = ({ orderData }: { orderData: OrderData }) => {
                     <input
                       {...field}
                       type="tel"
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#f58313] focus:border-transparent"
                     />
                   )}
                 />
@@ -482,7 +482,7 @@ const OrderDetailsPage = ({ orderData }: { orderData: OrderData }) => {
                     <input
                       {...field}
                       type="email"
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#f58313] focus:border-transparent"
                     />
                   )}
                 />
@@ -507,7 +507,7 @@ const OrderDetailsPage = ({ orderData }: { orderData: OrderData }) => {
                     <input
                       {...field}
                       type="text"
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#f58313] focus:border-transparent"
                     />
                   )}
                 />
@@ -523,7 +523,7 @@ const OrderDetailsPage = ({ orderData }: { orderData: OrderData }) => {
                     <input
                       {...field}
                       type="text"
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#f58313] focus:border-transparent"
                     />
                   )}
                 />
@@ -539,7 +539,7 @@ const OrderDetailsPage = ({ orderData }: { orderData: OrderData }) => {
                     <input
                       {...field}
                       type="text"
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#f58313] focus:border-transparent"
                     />
                   )}
                 />
@@ -563,7 +563,7 @@ const OrderDetailsPage = ({ orderData }: { orderData: OrderData }) => {
                   render={({ field }) => (
                     <select
                       {...field}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#f58313] focus:border-transparent bg-white"
                     >
                       <option value="inside">Inside Dhaka</option>
                       <option value="outside">Outside Dhaka</option>
@@ -581,7 +581,7 @@ const OrderDetailsPage = ({ orderData }: { orderData: OrderData }) => {
                   render={({ field }) => (
                     <select
                       {...field}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#f58313] focus:border-transparent bg-white"
                     >
                       <option value="">Select Courier</option>
                       <option value="pathao">Pathao</option>
@@ -603,7 +603,7 @@ const OrderDetailsPage = ({ orderData }: { orderData: OrderData }) => {
                       {...field}
                       type="text"
                       placeholder="Enter tracking ID"
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#f58313] focus:border-transparent"
                     />
                   )}
                 />
@@ -620,7 +620,7 @@ const OrderDetailsPage = ({ orderData }: { orderData: OrderData }) => {
                       {...field}
                       type="number"
                       placeholder="0"
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#f58313] focus:border-transparent"
                     />
                   )}
                 />
@@ -639,7 +639,7 @@ const OrderDetailsPage = ({ orderData }: { orderData: OrderData }) => {
                     {...field}
                     rows={4}
                     placeholder="Add any notes about this order..."
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#f58313] focus:border-transparent resize-none"
                   />
                 )}
               />
@@ -650,7 +650,7 @@ const OrderDetailsPage = ({ orderData }: { orderData: OrderData }) => {
           <div className="mt-8 flex flex-col md:flex-row gap-4">
             <button
               onClick={handleSubmit(onSubmit)}
-              className="px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition w-full md:w-auto"
+              className="px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-[#f58313] transition w-full md:w-auto"
             >
               Update Order
             </button>

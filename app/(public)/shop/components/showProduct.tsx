@@ -93,11 +93,11 @@ const CategoryCarousel = ({
                   ? Math.floor(
                       Number(pro.basePrice) -
                         (Number(pro.basePrice) * Number(pro.discount.value)) /
-                          100
+                          100,
                     )
                   : Math.max(
                       Number(pro.basePrice) - Number(pro.discount.value),
-                      0
+                      0,
                     );
 
               return (
@@ -106,7 +106,7 @@ const CategoryCarousel = ({
                   className="shrink-0 px-3"
                   style={{ width: `${100 / visibleCards}%` }}
                 >
-                  <div className="rounded-xl border border-gray-200 bg-white hover:shadow-xl hover:border-blue-700 transition-all duration-300 overflow-hidden h-full flex flex-col">
+                  <div className="rounded-xl border border-gray-200 bg-white hover:shadow-xl hover:border-[#f58313] transition-all duration-300 overflow-hidden h-full flex flex-col">
                     <Link
                       href={`/shop/${pro.categoryId}/${pro.slug}`}
                       className="flex flex-col grow"
@@ -182,7 +182,7 @@ const CategoryCarousel = ({
               onClick={() => setCurrentIndex(i * visibleCards)}
               className={`h-2 rounded-full transition-all duration-300 ${
                 Math.floor(currentIndex / visibleCards) === i
-                  ? "bg-blue-600 w-8"
+                  ? "bg-[#f58313] w-8"
                   : "bg-gray-300 w-2"
               }`}
             />

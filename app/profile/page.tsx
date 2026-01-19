@@ -13,7 +13,7 @@ const Profile = () => {
   }
 
   if (loading) {
-    <div className="h-14 w-14 rounded-full border-4 border-transparent bg-linear-to-r from-[#0970B4] to-[#60a5fa] animate-spin mask-[radial-gradient(farthest-side,transparent_40%,#000_45%)]"></div>;
+    <div className="h-14 w-14 rounded-full border-4 border-transparent bg-linear-to-r from-[#f58313] to-[#ac5a09] animate-spin mask-[radial-gradient(farthest-side,transparent_40%,#000_45%)]"></div>;
   }
 
   return (

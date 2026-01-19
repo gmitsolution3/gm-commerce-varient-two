@@ -63,15 +63,15 @@ export const ProductDetail = ({ product }: ProductDetailsProps) => {
         </div>
       </div>
 
-      <div>
+      {/* <div>
         <YouTubeVideoPlayer
           videoUrl="https://youtu.be/myJ7x029Ves?si=Xmd-zZiwf1TglrhD"
           thumbnail="https://i.postimg.cc/BQBxkN2C/maxresdefault.jpg"
         />
-      </div>
+      </div> */}
 
       <div className="px-5 pb-10 mb-20">
-        <h1 className="text-4xl font-bold text-[#0970B4] mb-2">Description</h1>
+        <h1 className="text-4xl font-bold text-[#f58313] mb-2">Description</h1>
         <p>{product.description}</p>
       </div>
     </div>

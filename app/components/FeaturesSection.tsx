@@ -27,11 +27,14 @@ export const FeaturesSection = () => {
               className="p-3 rounded-full bg-gray-100 group-hover:scale-110 transition-transform duration-300"
               style={{ color: feature.color }}
             >
-              {React.cloneElement(feature.icon as React.ReactElement, {
-                size: 28,
-              } as any)}
+              {React.cloneElement(
+                feature.icon as React.ReactElement,
+                {
+                  size: 28,
+                } as any,
+              )}
             </div>
-            <span className="text-sm sm:text-base font-medium text-gray-900 group-hover:text-[#0970B4] transition-colors duration-300">
+            <span className="text-sm sm:text-base font-medium text-gray-900 group-hover:text-[#f58313] transition-colors duration-300">
               {feature.title}
             </span>
           </div>

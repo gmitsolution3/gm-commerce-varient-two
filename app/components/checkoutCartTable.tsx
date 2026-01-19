@@ -203,7 +203,7 @@ export default function CheckoutCartTable({
                     {cartItems
                       .reduce(
                         (sum, item) => sum + item.productPrice * item.quantity,
-                        0
+                        0,
                       )
                       .toLocaleString("en-BD")}
                   </span>
@@ -217,7 +217,7 @@ export default function CheckoutCartTable({
                         .reduce(
                           (sum, item) =>
                             sum + item.productPrice * item.quantity,
-                          0
+                          0,
                         )
                         .toLocaleString("en-BD")}
                     </span>
@@ -227,14 +227,14 @@ export default function CheckoutCartTable({
 
               <div className="flex gap-3 justify-end mt-4">
                 <Link href="/">
-                  <button className="px-3 py-2 border-2 border-[#0970B4] hover:bg-[#0970B4] hover:cursor-pointer hover:text-white font-bold ">
+                  <button className="px-3 py-2 border-2 border-[#f58313] hover:bg-[#f58313] hover:cursor-pointer hover:text-white font-bold ">
                     Continue Shopping
                   </button>
                 </Link>
                 <Link href="/checkout">
                   <button
                     onClick={handleGoCheckout}
-                    className="px-3 py-2 border border-[#0970B4] bg-[#0970B4] text-white hover:cursor-pointer hover:bg-[#08629e] font-bold"
+                    className="px-3 py-2 border border-[#f58313] bg-[#f58313] text-white hover:cursor-pointer hover:bg-[#f58313] font-bold"
                   >
                     Go Checkout
                   </button>

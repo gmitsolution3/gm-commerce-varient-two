@@ -256,7 +256,7 @@ export default function ProductVariant({
                 className={`flex items-center gap-2 rounded-full border px-4 py-2 text-sm transition
                   ${
                     selectedColor.name === color.name
-                      ? "border-[#0970B4] ring-1 ring-[#0970B4]"
+                      ? "border-[#f58313] ring-1 ring-[#f58313]"
                       : "border-gray-300"
                   }`}
               >
@@ -306,7 +306,7 @@ export default function ProductVariant({
             <Minus />
           </button>
 
-          <span className="px-6 py-2 border-x border-blue-400 bg-white font-semibold">
+          <span className="px-6 py-2 border-x border-[#f58313] bg-white font-semibold">
             {quantity}
           </span>
 
@@ -323,7 +323,7 @@ export default function ProductVariant({
             {/* Add to cart */}
             <button
               onClick={() => handleAddToCart()}
-              className="flex items-center gap-2 px-4 py-2 border border-blue-500 text-blue-600 rounded-lg hover:bg-[#0970B4] hover:text-white hover:cursor-pointer"
+              className="flex items-center gap-2 px-4 py-2 border border-[#f58313] text-[#f58313] rounded-lg hover:bg-[#f58313] hover:text-white hover:cursor-pointer"
             >
               <ShoppingCart size={18} /> Add to Cart
             </button>
@@ -340,7 +340,7 @@ export default function ProductVariant({
             {/* Buy Now */}
             <button
               onClick={handleBuyNow}
-              className="px-5 py-2 bg-linear-to-t from-[#0970B4] to-[#3CB1FF] text-white rounded-lg font-semibold hover:opacity-90 hover:from-[#3CB1FF] hover:cursor-pointer hover:to-[#0970B4]"
+              className="px-5 py-2 bg-linear-to-t from-[#f58313] to-[#be650c] text-white rounded-lg font-semibold hover:opacity-90 hover:from-[#f58313] hover:cursor-pointer hover:to-[#f58313]"
             >
               Buy Now
             </button>
@@ -358,14 +358,14 @@ export default function ProductVariant({
           {isBuyNow === true ? (
             <button
               onClick={handleBuyNow}
-              className="flex-1 bg-[#269ED9] text-white py-2 rounded-lg text-sm hover:bg-[#1d82b5]"
+              className="flex-1 bg-[#f58313] text-white py-2 rounded-lg text-sm hover:bg-[#b66e25]"
             >
               Buy Now
             </button>
           ) : (
             <button
               onClick={() => handleAddToCart()}
-              className="flex-1 bg-[#269ED9] text-white py-2 rounded-lg text-sm hover:bg-[#1d82b5]"
+              className="flex-1 bg-[#f58313] text-white py-2 rounded-lg text-sm hover:bg-[#b9630d]"
             >
               Add to card
             </button>

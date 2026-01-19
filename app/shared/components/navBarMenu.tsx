@@ -23,14 +23,14 @@ export const NavBarMenu = () => {
         <>
           <Link
             href="/auth/sign-in"
-            className="hover:cursor-pointer px-3 py-2 border font-bold border-[#1594e9] rounded-lg hover:bg-white hover:text-[#0970B4]"
+            className="hover:cursor-pointer px-3 py-2 border font-bold border-[#f58313] rounded-lg hover:bg-white hover:text-[#f58313]"
           >
             Log in
           </Link>
-          <h5 className="hover:cursor-pointer px-3 py-2 border font-bold border-[#1594e9] rounded-lg hover:bg-white hover:text-[#0970B4]">
+          <h5 className="hover:cursor-pointer px-3 py-2 border font-bold border-[#f58313] rounded-lg hover:bg-white hover:text-[#f58313]">
             Order Tracking
           </h5>
-          <h5 className="hover:cursor-pointer px-3 py-2 border font-bold border-[#1594e9] rounded-lg hover:bg-white hover:text-[#0970B4]">
+          <h5 className="hover:cursor-pointer px-3 py-2 border font-bold border-[#f58313] rounded-lg hover:bg-white hover:text-[#f58313]">
             Return Policy
           </h5>
         </>

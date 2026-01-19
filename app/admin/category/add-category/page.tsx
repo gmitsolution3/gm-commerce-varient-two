@@ -114,7 +114,7 @@ export default function AddCategoryForm() {
         className="w-full max-w-2xl space-y-6 rounded-xl border bg-white p-5 sm:p-8 shadow-sm"
       >
         {/* Header */}
-        <div className="flex items-center gap-2 border-b pb-4 text-[#0970B4]">
+        <div className="flex items-center gap-2 border-b pb-4 text-[#f58313]">
           <LayoutGrid size={22} />
           <h2 className="text-xl sm:text-2xl font-bold">Add New Category</h2>
         </div>
@@ -127,7 +127,7 @@ export default function AddCategoryForm() {
             </label>
             <input
               {...register("name", { required: "Name is required" })}
-              className="mt-1 w-full rounded-lg border px-4 py-3 text-sm focus:border-[#0970B4] outline-none"
+              className="mt-1 w-full rounded-lg border px-4 py-3 text-sm focus:border-[#f58313] outline-none"
             />
             {errors.name && (
               <p className="mt-1 text-xs text-red-500">{errors.name.message}</p>
@@ -164,7 +164,7 @@ export default function AddCategoryForm() {
               </div>
             )}
 
-            <label className="cursor-pointer rounded-lg bg-[#0970B4] px-4 py-2 text-sm font-bold text-white">
+            <label className="cursor-pointer rounded-lg bg-[#f58313] px-4 py-2 text-sm font-bold text-white">
               {loading ? "Uploading..." : "Change Image"}
               <input
                 type="file"
@@ -199,7 +199,7 @@ export default function AddCategoryForm() {
                     <input
                       type="checkbox"
                       {...register(`subCategories.${index}.isActive` as const)}
-                      className="h-5 w-5 text-[#0970B4]"
+                      className="h-5 w-5 text-[#f58313]"
                     />
                     Active
                   </label>
@@ -220,7 +220,7 @@ export default function AddCategoryForm() {
           <button
             type="button"
             onClick={() => append({ name: "", isActive: true })}
-            className="mt-4 w-full sm:w-auto flex justify-center items-center gap-2 rounded-lg border px-4 py-2 text-sm font-bold text-[#0970B4]"
+            className="mt-4 w-full sm:w-auto flex justify-center items-center gap-2 rounded-lg border px-4 py-2 text-sm font-bold text-[#f58313]"
           >
             <Plus size={18} />
             Add Sub-Category
@@ -245,7 +245,7 @@ export default function AddCategoryForm() {
               <input
                 type="checkbox"
                 {...register("isActive")}
-                className="h-5 w-5 text-[#0970B4]"
+                className="h-5 w-5 text-[#f58313]"
               />
               <span className="text-sm font-bold">Category Published</span>
             </label>
@@ -254,7 +254,7 @@ export default function AddCategoryForm() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full sm:w-auto rounded-lg bg-[#0970B4] px-6 py-3 font-bold text-white shadow-md"
+            className="w-full sm:w-auto rounded-lg bg-[#f58313] px-6 py-3 font-bold text-white shadow-md"
           >
             {isSubmitting ? "Processing..." : "Save Category"}
           </button>

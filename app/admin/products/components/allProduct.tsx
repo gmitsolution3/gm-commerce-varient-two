@@ -156,7 +156,7 @@ const EditModal: React.FC<EditModalProps> = ({ product, onClose, onSave }) => {
             <input
               type="text"
               {...register("title", { required: "Title is required" })}
-              className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+              className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f58313] ${
                 errors.title ? "border-red-500" : "border-gray-300"
               }`}
             />
@@ -174,7 +174,7 @@ const EditModal: React.FC<EditModalProps> = ({ product, onClose, onSave }) => {
             <input
               type="text"
               {...register("slug", { required: "Slug is required" })}
-              className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+              className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f58313] ${
                 errors.slug ? "border-red-500" : "border-gray-300"
               }`}
             />
@@ -193,7 +193,7 @@ const EditModal: React.FC<EditModalProps> = ({ product, onClose, onSave }) => {
                 {...register("basePrice", {
                   required: "Base Price is required",
                 })}
-                className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f58313] ${
                   errors.basePrice ? "border-red-500" : "border-gray-300"
                 }`}
               />
@@ -212,7 +212,7 @@ const EditModal: React.FC<EditModalProps> = ({ product, onClose, onSave }) => {
                 {...register("stockQuantity", {
                   required: "Stock Quantity is required",
                 })}
-                className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f58313] ${
                   errors.stockQuantity ? "border-red-500" : "border-gray-300"
                 }`}
               />
@@ -232,7 +232,7 @@ const EditModal: React.FC<EditModalProps> = ({ product, onClose, onSave }) => {
               <input
                 type="text"
                 {...register("sku", { required: "SKU is required" })}
-                className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f58313] ${
                   errors.sku ? "border-red-500" : "border-gray-300"
                 }`}
               />
@@ -249,7 +249,7 @@ const EditModal: React.FC<EditModalProps> = ({ product, onClose, onSave }) => {
               <input
                 type="text"
                 {...register("category", { required: "Category is required" })}
-                className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f58313] ${
                   errors.category ? "border-red-500" : "border-gray-300"
                 }`}
               />
@@ -270,7 +270,7 @@ const EditModal: React.FC<EditModalProps> = ({ product, onClose, onSave }) => {
               {...register("shortDescription", {
                 required: "Short Description is required",
               })}
-              className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+              className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f58313] ${
                 errors.shortDescription ? "border-red-500" : "border-gray-300"
               }`}
             />
@@ -290,7 +290,7 @@ const EditModal: React.FC<EditModalProps> = ({ product, onClose, onSave }) => {
                 required: "Description is required",
               })}
               rows={4}
-              className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+              className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f58313] ${
                 errors.description ? "border-red-500" : "border-gray-300"
               }`}
             />
@@ -308,7 +308,7 @@ const EditModal: React.FC<EditModalProps> = ({ product, onClose, onSave }) => {
               </label>
               <select
                 {...register("discountType")}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f58313]"
               >
                 <option value="percentage">Percentage</option>
                 <option value="fixed">Fixed</option>
@@ -321,7 +321,7 @@ const EditModal: React.FC<EditModalProps> = ({ product, onClose, onSave }) => {
               <input
                 type="text"
                 {...register("discountValue")}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f58313]"
               />
             </div>
             <div>
@@ -330,7 +330,7 @@ const EditModal: React.FC<EditModalProps> = ({ product, onClose, onSave }) => {
               </label>
               <select
                 {...register("stockStatus")}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f58313]"
               >
                 <option value="in-stock">In Stock</option>
                 <option value="out-of-stock">Out of Stock</option>
@@ -349,7 +349,7 @@ const EditModal: React.FC<EditModalProps> = ({ product, onClose, onSave }) => {
           <button
             onClick={handleSubmit(onSubmit)}
             className="px-6 py-2 rounded-lg font-medium text-white transition-colors"
-            style={{ backgroundColor: "#0970B4" }}
+            style={{ backgroundColor: "#f58313" }}
           >
             Update Product
           </button>
@@ -530,7 +530,7 @@ const ProductTable = ({ INITIAL_PRODUCTS, description }: ProductProps) => {
                       <div className="flex gap-2">
                         <button
                           onClick={() => handleEdit(product)}
-                          className="p-2 hover:bg-blue-50 rounded-lg transition-colors text-blue-600 hover:text-blue-700"
+                          className="p-2 hover:bg-blue-50 rounded-lg transition-colors text-[#f58313] hover:text-[#f58313]"
                           title="Edit"
                         >
                           <Edit2 size={18} />
@@ -616,7 +616,7 @@ const ProductTable = ({ INITIAL_PRODUCTS, description }: ProductProps) => {
                     <button
                       onClick={() => handleEdit(product)}
                       className="flex-1 px-4 py-2 rounded-lg transition-colors font-medium text-sm text-white"
-                      style={{ backgroundColor: "#0970B4" }}
+                      style={{ backgroundColor: "#f58313" }}
                     >
                       Edit
                     </button>
@@ -656,7 +656,7 @@ const ProductTable = ({ INITIAL_PRODUCTS, description }: ProductProps) => {
                     </p>
 
                     <div className="mt-2 flex gap-4 text-xs">
-                      <span className="font-semibold text-[#0970B4]">
+                      <span className="font-semibold text-[#f58313]">
                         ৳{product.basePrice}
                       </span>
                       <span className="text-gray-600">
@@ -684,7 +684,7 @@ const ProductTable = ({ INITIAL_PRODUCTS, description }: ProductProps) => {
                   <button
                     onClick={() => handleEdit(product)}
                     className="px-4 py-2 rounded-lg text-sm font-semibold text-white"
-                    style={{ backgroundColor: "#0970B4" }}
+                    style={{ backgroundColor: "#f58313" }}
                   >
                     Edit
                   </button>

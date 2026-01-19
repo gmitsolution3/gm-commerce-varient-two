@@ -21,7 +21,7 @@ export default function AccountDropdown() {
       {!isAuthenticated ? (
         <h5
           onClick={() => setOpen(!open)}
-          className="cursor-pointer hover:underline border px-3 py-2 text-sm rounded-lg font-bold bg-[#136481] text-white"
+          className="cursor-pointer hover:underline border px-3 py-2 text-sm rounded-lg font-bold bg-[#f58313] text-white"
         >
           My Account
         </h5>
@@ -29,7 +29,7 @@ export default function AccountDropdown() {
         <div className="relative">
           {/* Profile circle */}
           <div
-            className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold cursor-pointer"
+            className="w-10 h-10 rounded-full bg-[#f58313] flex items-center justify-center text-white font-bold cursor-pointer"
             onClick={() => setDropdownOpen((prev) => !prev)}
           >
             {user?.name?.charAt(0).toUpperCase() || "U"}
@@ -44,20 +44,20 @@ export default function AccountDropdown() {
             >
               <Link
                 href="/profile"
-                className="block px-4 py-2 text-gray-700 hover:bg-[#0970B4] hover:text-white hover:cursor-pointer"
+                className="block px-4 py-2 text-gray-700 hover:bg-[#f58313] hover:text-white hover:cursor-pointer"
               >
                 Profile
               </Link>
-              <h5 className="block px-4 py-2 text-gray-700 hover:bg-[#0970B4] hover:text-white hover:cursor-pointer">
+              <h5 className="block px-4 py-2 text-gray-700 hover:bg-[#f58313] hover:text-white hover:cursor-pointer">
                 Order Tracking
               </h5>
-              <h5 className="block px-4 py-2 text-gray-700 hover:bg-[#0970B4] hover:text-white hover:cursor-pointer">
+              <h5 className="block px-4 py-2 text-gray-700 hover:bg-[#f58313] hover:text-white hover:cursor-pointer">
                 Return Policy
               </h5>
 
               <button
                 onClick={() => handleLogout()}
-                className="w-full text-left px-4 py-2 text-gray-700 hover:bg-[#0970B4] hover:text-white hover:cursor-pointer border-t border-gray-300"
+                className="w-full text-left px-4 py-2 text-gray-700 hover:bg-[#f58313] hover:text-white hover:cursor-pointer border-t border-gray-300"
               >
                 Logout
               </button>

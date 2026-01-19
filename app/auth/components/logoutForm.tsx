@@ -78,7 +78,7 @@ const LogoutForm = () => {
       <div className="p-4">
         <Link
           href="/"
-          className="px-4 py-2 border border-[#0970B4] rounded-lg hover:bg-[#0970B4] font-bold hover:text-white"
+          className="px-4 py-2 border border-[#f58313] rounded-lg hover:bg-[#f58313] font-bold hover:text-white"
         >
           Go Home
         </Link>
@@ -89,13 +89,13 @@ const LogoutForm = () => {
           {/* Card */}
           <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
             {/* Top Accent Bar */}
-            <div className="h-1 bg-linear-to-r from-[#0970B4] via-[#0855a0] to-[#064a8a]"></div>
+            <div className="h-1 bg-linear-to-r from-[#f58313] via-[#a35507] to-[#cf6c09]"></div>
 
             {/* Content */}
             <div className="p-6 sm:p-8 md:p-10">
               {/* Header Section */}
               <div className="text-center mb-8 sm:mb-10">
-                <div className="inline-flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 bg-linear-to-br from-[#0970B4] to-[#064a8a] rounded-2xl mb-4 shadow-lg">
+                <div className="inline-flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 bg-linear-to-br from-[#f58313] to-[#cf6c09] rounded-2xl mb-4 shadow-lg">
                   <UserPlus className="text-white" size={32} />
                 </div>
                 <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 mt-4">
@@ -150,7 +150,7 @@ const LogoutForm = () => {
                         className={`w-full pl-10 sm:pl-12 pr-4 sm:pr-5 py-2.5 sm:py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-opacity-20 transition text-sm sm:text-base ${
                           errors.firstName
                             ? "border-red-500 focus:border-red-500 focus:ring-red-500"
-                            : "border-gray-300 focus:border-[#0970B4] focus:ring-[#0970B4]"
+                            : "border-gray-300 focus:border-[#f58313] focus:ring-[#f58313]"
                         }`}
                       />
                     </div>
@@ -184,7 +184,7 @@ const LogoutForm = () => {
                         className={`w-full pl-10 sm:pl-12 pr-4 sm:pr-5 py-2.5 sm:py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-opacity-20 transition text-sm sm:text-base ${
                           errors.lastName
                             ? "border-red-500 focus:border-red-500 focus:ring-red-500"
-                            : "border-gray-300 focus:border-[#0970B4] focus:ring-[#0970B4]"
+                            : "border-gray-300 focus:border-[#f58313] focus:ring-[#f58313]"
                         }`}
                       />
                     </div>
@@ -220,7 +220,7 @@ const LogoutForm = () => {
                       className={`w-full pl-10 sm:pl-12 pr-4 sm:pr-5 py-2.5 sm:py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-opacity-20 transition text-sm sm:text-base ${
                         errors.email
                           ? "border-red-500 focus:border-red-500 focus:ring-red-500"
-                          : "border-gray-300 focus:border-[#0970B4] focus:ring-[#0970B4]"
+                          : "border-gray-300 focus:border-[#f58313] focus:ring-[#f58313]"
                       }`}
                     />
                   </div>
@@ -257,7 +257,7 @@ const LogoutForm = () => {
                         className={`w-full pl-10 sm:pl-12 pr-4 sm:pr-5 py-2.5 sm:py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-opacity-20 transition text-sm sm:text-base ${
                           errors.phone
                             ? "border-red-500 focus:border-red-500 focus:ring-red-500"
-                            : "border-gray-300 focus:border-[#0970B4] focus:ring-[#0970B4]"
+                            : "border-gray-300 focus:border-[#f58313] focus:ring-[#f58313]"
                         }`}
                       />
                     </div>
@@ -288,7 +288,7 @@ const LogoutForm = () => {
                             message: "Admin must be valid",
                           },
                         })}
-                        className="w-full pl-10 sm:pl-12 pr-4 sm:pr-5 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0970B4] focus:ring-2 focus:ring-[#0970B4] focus:ring-opacity-20 transition text-sm sm:text-base"
+                        className="w-full pl-10 sm:pl-12 pr-4 sm:pr-5 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#f58313] focus:ring-2 focus:ring-[#f58313] focus:ring-opacity-20 transition text-sm sm:text-base"
                       />
                     </div>
                   </div>
@@ -322,7 +322,7 @@ const LogoutForm = () => {
                       className={`w-full pl-10 sm:pl-12 pr-12 sm:pr-14 py-2.5 sm:py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-opacity-20 transition text-sm sm:text-base ${
                         errors.password
                           ? "border-red-500 focus:border-red-500 focus:ring-red-500"
-                          : "border-gray-300 focus:border-[#0970B4] focus:ring-[#0970B4]"
+                          : "border-gray-300 focus:border-[#f58313] focus:ring-[#f58313]"
                       }`}
                     />
                     <button
@@ -362,7 +362,7 @@ const LogoutForm = () => {
                       className={`w-full pl-10 sm:pl-12 pr-12 sm:pr-14 py-2.5 sm:py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-opacity-20 transition text-sm sm:text-base ${
                         errors.confirmPassword
                           ? "border-red-500 focus:border-red-500 focus:ring-red-500"
-                          : "border-gray-300 focus:border-[#0970B4] focus:ring-[#0970B4]"
+                          : "border-gray-300 focus:border-[#f58313] focus:ring-[#f58313]"
                       }`}
                     />
                     <button
@@ -395,20 +395,20 @@ const LogoutForm = () => {
                       {...register("agreeTerms", {
                         required: "You must agree to the terms and conditions",
                       })}
-                      className="w-4 h-4 mt-1 rounded border-gray-300 cursor-pointer accent-[#0970B4]"
+                      className="w-4 h-4 mt-1 rounded border-gray-300 cursor-pointer accent-[#f58313]"
                     />
                     <span className="text-gray-600 text-sm">
                       I agree to the{" "}
                       <a
                         href="#"
-                        className="text-[#0970B4] hover:underline font-semibold"
+                        className="text-[#f58313] hover:underline font-semibold"
                       >
                         Terms of Service
                       </a>{" "}
                       and{" "}
                       <a
                         href="#"
-                        className="text-[#0970B4] hover:underline font-semibold"
+                        className="text-[#f58313] hover:underline font-semibold"
                       >
                         Privacy Policy
                       </a>
@@ -426,7 +426,7 @@ const LogoutForm = () => {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full bg-linear-to-r from-[#0970B4] to-[#064a8a] hover:from-[#0855a0] hover:to-[#053d78] text-white font-semibold py-2.5 sm:py-3 rounded-lg transition duration-300 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
+                  className="w-full bg-linear-to-r from-[#f58313] to-[#cf6c09] hover:from-[#dd8125] hover:to-[#cf6c09] text-white font-semibold py-2.5 sm:py-3 rounded-lg transition duration-300 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
                 >
                   {loading ? (
                     <>
@@ -447,7 +447,7 @@ const LogoutForm = () => {
                 Already have an account?{" "}
                 <Link
                   href="/auth/sign-in"
-                  className="text-[#0970B4] hover:text-[#064a8a] font-semibold transition"
+                  className="text-[#f58313] hover:text-[#cf6c09] font-semibold transition"
                 >
                   Sign in here
                 </Link>

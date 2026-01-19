@@ -371,7 +371,7 @@ export default function CheckoutForm() {
                       className="w-full border-gray-300 bg-gray-50"
                     />
                   </div>
-                  <Button className="w-full bg-[#0970B4] hover:bg-[#085b92]">
+                  <Button className="w-full bg-[#f58313] hover:bg-[#b45f09]">
                     Apply Now
                   </Button>
                 </div>
@@ -442,7 +442,7 @@ export default function CheckoutForm() {
                         SSLCOMMERZ
                       </span>
                       <div className="flex gap-2">
-                        <span className="inline-block h-6 w-9 rounded bg-blue-600 text-xs font-bold text-white items-center justify-center">
+                        <span className="inline-block h-6 w-9 rounded bg-[#f58313] text-xs font-bold text-white items-center justify-center">
                           V
                         </span>
                         <span className="inline-block h-6 w-9 rounded bg-red-600 text-xs font-bold text-white items-center justify-center">
@@ -498,7 +498,7 @@ export default function CheckoutForm() {
                           <p className="mt-1 text-sm font-semibold text-gray-900">
                             ৳{" "}
                             {(item.productPrice * item.quantity).toLocaleString(
-                              "en-BD"
+                              "en-BD",
                             )}
                           </p>
                           <div className="mt-2 flex items-center justify-between gap-2">
@@ -573,7 +573,7 @@ export default function CheckoutForm() {
                   <Button
                     type="submit"
                     disabled={isSubmitting}
-                    className="mt-6 w-full bg-[#0970B4] hover:bg-[#085b92] py-2 text-base font-semibold"
+                    className="mt-6 w-full bg-[#f58313] hover:bg-[#aa5a0a] py-2 text-base font-semibold"
                   >
                     {isSubmitting ? "Placing Order..." : "Place Order"}
                   </Button>

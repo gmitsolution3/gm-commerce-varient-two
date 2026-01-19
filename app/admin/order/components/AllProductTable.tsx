@@ -346,7 +346,8 @@ const AllProductTable = ({ INITIAL_ORDERS }: { INITIAL_ORDERS: Order[] }) => {
   };
 
   const handlePrint = (order: Order): void => {
-    const logoUrl = "https://i.postimg.cc/WbTN2bBF/image-70.png";
+    const logoUrl =
+      "https://res.cloudinary.com/dqyfwfeed/image/upload/v1768827949/cc8lg5jdyacwfecagecg.png";
     const printWindow = window.open("", "_blank");
     if (printWindow) {
       printWindow.document.write(
@@ -490,7 +491,7 @@ const AllProductTable = ({ INITIAL_ORDERS }: { INITIAL_ORDERS: Order[] }) => {
                       <div className="flex flex-col gap-1">
                         <Badge
                           className={`text-xs flex justify-center ${getOrderStatusClass(
-                            order.orderStatus
+                            order.orderStatus,
                           )}`}
                         >
                           {order.orderStatus}
@@ -514,7 +515,7 @@ const AllProductTable = ({ INITIAL_ORDERS }: { INITIAL_ORDERS: Order[] }) => {
                       <div className="flex gap-2">
                         <button
                           onClick={() => setSelectedOrder(order)}
-                          className="p-2 hover:bg-blue-50 rounded-lg text-blue-600"
+                          className="p-2 hover:bg-blue-50 rounded-lg text-[#f58313]"
                           title="View"
                         >
                           <Eye size={18} />

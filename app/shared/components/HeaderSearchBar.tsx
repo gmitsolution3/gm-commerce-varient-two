@@ -28,7 +28,7 @@ export default function HeaderSearchBar({ categories, name, phone }: any) {
             <input
               type="text"
               placeholder="Search products..."
-              className="w-full md:w-72 px-4 py-2 text-gray-900 border bg-gray-100 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 outline-none rounded-l-2xl"
+              className="w-full md:w-72 px-4 py-2 text-gray-900 border bg-gray-100 border-gray-300 focus:border-[#f58313] focus:ring-2 focus:ring-[#f58313] outline-none rounded-l-2xl"
             />
           </div>
 
@@ -54,7 +54,7 @@ export default function HeaderSearchBar({ categories, name, phone }: any) {
                     <Link href={`/shop/${category._id}`}>
                       <button
                         key={index}
-                        className="block w-full px-4 py-2 text-sm text-left text-gray-700 font-semibold hover:cursor-pointer hover:text-white hover:bg-[#2C7BE5]"
+                        className="block w-full px-4 py-2 text-sm text-left text-gray-700 font-semibold hover:cursor-pointer hover:text-white hover:bg-[#f58313]"
                         onClick={() => {
                           setIsOpen(false);
                           setSelectCategory(category.name);
@@ -70,7 +70,7 @@ export default function HeaderSearchBar({ categories, name, phone }: any) {
           </div>
 
           {/* Search Button */}
-          <button className="px-3 py-2.5 text-gray-500 bg-gray-100 rounded-r-2xl hover:bg-[#2C7BE5] focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 hover:cursor-pointer hover:text-white border border-gray-300">
+          <button className="px-3 py-2.5 text-gray-500 bg-gray-100 rounded-r-2xl hover:bg-[#f58313] focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 hover:cursor-pointer hover:text-white border border-gray-300">
             <Search className="w-5 h-5" />
           </button>
         </div>
@@ -83,7 +83,7 @@ export default function HeaderSearchBar({ categories, name, phone }: any) {
             href={`tel:${hotlineNumber}`}
             aria-label={`Call our hotline at ${hotlineNumber}`}
           >
-            <Phone className="w-5 h-5 text-[#0970B4]" />
+            <Phone className="w-5 h-5 text-[#f58313]" />
           </a>
         </div>
         <div className="text-sm md:text-lg font-medium text-gray-800">
@@ -92,7 +92,7 @@ export default function HeaderSearchBar({ categories, name, phone }: any) {
             href={`tel:${hotlineNumber}`}
             aria-label={`Call our hotline at ${hotlineNumber}`}
           >
-            <span className="text-[#0970B4]">{phone}</span>
+            <span className="text-[#f58313]">{phone}</span>
           </a>
         </div>
       </div>

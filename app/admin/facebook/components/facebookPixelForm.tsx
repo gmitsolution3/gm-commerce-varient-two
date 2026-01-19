@@ -43,7 +43,7 @@ export default function FacebookPixelForm() {
     <div className="max-w-7xl mx-auto grid">
       <div className="max-w-xl rounded-2xl border bg-white p-6 shadow-sm">
         <div className="mb-6 flex items-center gap-2">
-          <Facebook className="h-5 w-5 text-blue-600" />
+          <Facebook className="h-5 w-5 text-[#f58313]" />
           <h2 className="text-lg font-semibold">Facebook Pixel Settings</h2>
         </div>
 
@@ -57,7 +57,7 @@ export default function FacebookPixelForm() {
               type="text"
               placeholder="123456789012345"
               {...register("fbPixelId", { required: "Pixel ID is required" })}
-              className="w-full rounded-lg border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full rounded-lg border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#f58313]"
             />
             {errors.fbPixelId && (
               <p className="mt-1 text-xs text-red-500">
@@ -80,7 +80,7 @@ export default function FacebookPixelForm() {
               {...register("fbCapiToken", {
                 required: "CAPI token is required",
               })}
-              className="w-full rounded-lg border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full rounded-lg border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#f58313]"
             />
             {errors.fbCapiToken && (
               <p className="mt-1 text-xs text-red-500">
@@ -103,7 +103,7 @@ export default function FacebookPixelForm() {
           <button
             disabled={isSubmitting}
             type="submit"
-            className="flex w-full items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 disabled:opacity-50"
+            className="flex w-full items-center justify-center gap-2 rounded-lg bg-[#f58313] px-4 py-2 text-sm font-medium text-white hover:bg-[#f58313] disabled:opacity-50"
           >
             <Save className="h-4 w-4" />
             Add Credential

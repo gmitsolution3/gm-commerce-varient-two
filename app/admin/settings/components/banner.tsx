@@ -209,7 +209,7 @@ export const Banner = () => {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="flex items-center gap-2 px-6 py-2 bg-[#0970B4] text-white rounded-lg hover:bg-[#075c92] disabled:opacity-50"
+          className="flex items-center gap-2 px-6 py-2 bg-[#f58313] text-white rounded-lg hover:bg-[#ad5d0c] disabled:opacity-50"
         >
           {isSubmitting && <Loader2 className="animate-spin" size={18} />}
           Save Banner

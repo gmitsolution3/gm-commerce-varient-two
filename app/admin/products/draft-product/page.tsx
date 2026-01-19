@@ -21,7 +21,7 @@ export const DraftProducts = async () => {
     return (
       <div className="flex flex-col min-h-screen justify-center items-center">
         <h2 className="text-2xl font-semibold mb-4">Draft Product</h2>
-        <p className="text-2xl text-[#0970B4]">No draft products available.</p>
+        <p className="text-2xl text-[#f58313]">No draft products available.</p>
       </div>
     );
   }

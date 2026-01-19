@@ -96,7 +96,7 @@ const CategoryManagement = ({ allCategories }: AllCategoriesProps) => {
   if(!categories || categories.length===0){
     return (
       <div className="min-h-screen flex justify-center items-center">
-        <h1 className="text-3xl text-center text-[#0970B4]">
+        <h1 className="text-3xl text-center text-[#f58313]">
           No Categories found
         </h1>
       </div>
@@ -129,7 +129,7 @@ const CategoryManagement = ({ allCategories }: AllCategoriesProps) => {
             <table className="w-full">
               <thead>
                 <tr
-                  className="bg-[#0970B4] border-b-2 text-white"
+                  className="bg-[#f58313] border-b-2 text-white"
                 >
                   <th className="px-6 py-4 text-left text-sm font-semibold">
                     Category Name
@@ -184,7 +184,7 @@ const CategoryManagement = ({ allCategories }: AllCategoriesProps) => {
                             })
                           }
                           className="p-2 rounded-lg transition hover:bg-blue-50"
-                          style={{ color: "#0970B4" }}
+                          style={{ color: "#f58313" }}
                           title="Change Status"
                           aria-label={`Change status for ${category.name}`}
                         >
@@ -251,7 +251,7 @@ const CategoryManagement = ({ allCategories }: AllCategoriesProps) => {
                         })
                       }
                       className="flex-1 p-2 rounded-lg transition flex items-center justify-center gap-2"
-                      style={{ backgroundColor: "#0970B4", color: "white" }}
+                      style={{ backgroundColor: "#f58313", color: "white" }}
                       title="Change Status"
                     >
                       <Edit2 size={16} />
@@ -298,7 +298,7 @@ const CategoryManagement = ({ allCategories }: AllCategoriesProps) => {
               <button
                 onClick={() => handleStatusToggle(statusPopup.categoryId!)}
                 className="flex-1 px-4 py-2 rounded-lg text-white font-medium transition flex items-center justify-center gap-2"
-                style={{ backgroundColor: "#0970B4" }}
+                style={{ backgroundColor: "#f58313" }}
               >
                 <Check size={18} />
                 <span>Confirm</span>
