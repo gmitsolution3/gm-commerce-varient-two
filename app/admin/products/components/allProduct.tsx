@@ -50,6 +50,7 @@ interface Product {
   gallery: string[];
   variants: Variant[];
   seo: SEO;
+  seoMetaTitle: string;
   isDraft: boolean;
   featured: boolean;
   isDelete: boolean;
@@ -79,6 +80,10 @@ interface EditFormData {
   stockQuantity: string;
   stockStatus: "in-stock" | "out-of-stock";
   category: string;
+  seoMetaTitle?: string;
+  seoMetaDescription?: string;
+  variants?: Variant[];
+  seo: SEO;
 }
 
 // ============ EDIT MODAL COMPONENT ============
@@ -95,6 +100,7 @@ const EditModal: React.FC<EditModalProps> = ({ product, onClose, onSave }) => {
     formState: { errors },
     reset,
     watch,
+    setValue,
   } = useForm<EditFormData>({
     defaultValues: product
       ? {
@@ -109,9 +115,12 @@ const EditModal: React.FC<EditModalProps> = ({ product, onClose, onSave }) => {
           stockQuantity: product.stockQuantity,
           stockStatus: product.stockStatus,
           category: product.category,
+          seoMetaTitle: product.seo?.metaTitle,
+          seoMetaDescription: product.seo?.metaDescription,
         }
       : undefined,
   });
+  const [variants, setVariants] = React.useState(product?.variants || []);
 
   React.useEffect(() => {
     if (product) {
@@ -127,15 +136,55 @@ const EditModal: React.FC<EditModalProps> = ({ product, onClose, onSave }) => {
         stockQuantity: product.stockQuantity,
         stockStatus: product.stockStatus,
         category: product.category,
+        seoMetaTitle: product.seo?.metaTitle,
+        seoMetaDescription: product.seo?.metaDescription,
       });
     }
   }, [product, reset]);
 
+  const handleVariantChange = (
+    index: number,
+    field: "color" | "size" | "sku" | "stock",
+    value: any,
+  ) => {
+    const updated = [...variants];
+
+    if (field === "color" || field === "size") {
+      updated[index].attributes[field] = value;
+    } else if (field === "stock") {
+      updated[index].stock = Number(value);
+    } else if (field === "sku") {
+      updated[index].sku = value;
+    }
+
+    setVariants(updated);
+  };
+
+  // Auto generate slug
+  const generateSlug = (title: string) => {
+    return title
+      .toLowerCase()
+      .trim()
+      .replace(/[^\w\s-]/g, "")
+      .replace(/\s+/g, "-");
+  };
+
   const onSubmit = (data: EditFormData) => {
-    onSave(data);
+    onSave({
+      ...data,
+      seo: {
+        metaTitle: data.seoMetaTitle!,
+        metaDescription: data.seoMetaDescription!,
+      },
+      variants,
+    });
+
+    console.log({ data: data });
   };
 
   if (!product) return null;
+
+  console.log({ product: product });
 
   return (
     <div className="fixed inset-0 bg-white/30 backdrop-blur-md flex items-center justify-center z-50 p-4">
@@ -157,7 +206,13 @@ const EditModal: React.FC<EditModalProps> = ({ product, onClose, onSave }) => {
             </label>
             <input
               type="text"
-              {...register("title", { required: "Title is required" })}
+              {...register("title", {
+                required: "Title is required",
+                onChange: (e) => {
+                  const slug = generateSlug(e.target.value);
+                  setValue("slug", slug);
+                },
+              })}
               className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f58313] ${
                 errors.title ? "border-red-500" : "border-gray-300"
               }`}
@@ -173,10 +228,18 @@ const EditModal: React.FC<EditModalProps> = ({ product, onClose, onSave }) => {
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Slug
             </label>
-            <input
+            {/* <input
               type="text"
               {...register("slug", { required: "Slug is required" })}
               className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f58313] ${
+                errors.slug ? "border-red-500" : "border-gray-300"
+              }`}
+            /> */}
+            <input
+              type="text"
+              readOnly
+              {...register("slug", { required: "Slug is required" })}
+              className={`w-full px-4 py-2 border rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#f58313] ${
                 errors.slug ? "border-red-500" : "border-gray-300"
               }`}
             />
@@ -339,6 +402,92 @@ const EditModal: React.FC<EditModalProps> = ({ product, onClose, onSave }) => {
               </select>
             </div>
           </div>
+          <div className="pt-6">
+            <h3 className="text-lg font-semibold mb-3">Variants</h3>
+
+            {variants.map((variant: any, index: number) => (
+              <div
+                key={index}
+                className="grid grid-cols-1 md:grid-cols-4 gap-3 p-4 mb-3 border rounded-lg bg-gray-50"
+              >
+                <div>
+                  <label className="text-xs">Color</label>
+                  <input
+                    value={variant.attributes.color}
+                    onChange={(e) =>
+                      handleVariantChange(index, "color", e.target.value)
+                    }
+                    className="w-full px-2 py-2 border rounded"
+                  />
+                </div>
+
+                <div>
+                  <label className="text-xs">Size</label>
+                  <input
+                    value={variant.attributes.size}
+                    onChange={(e) =>
+                      handleVariantChange(index, "size", e.target.value)
+                    }
+                    className="w-full px-2 py-2 border rounded"
+                  />
+                </div>
+
+                <div>
+                  <label className="text-xs">SKU</label>
+                  <input
+                    value={variant.sku}
+                    onChange={(e) =>
+                      handleVariantChange(index, "sku", e.target.value)
+                    }
+                    className="w-full px-2 py-2 border rounded"
+                  />
+                </div>
+
+                <div>
+                  <label className="text-xs">Stock</label>
+                  <input
+                    type="number"
+                    value={variant.stock}
+                    onChange={(e) =>
+                      handleVariantChange(index, "stock", e.target.value)
+                    }
+                    className="w-full px-2 py-2 border rounded"
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="pt-4">
+            <h3 className="text-lg font-semibold mb-2">SEO Settings</h3>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium mb-1">
+                  Meta Title
+                </label>
+                <input
+                  {...register("seoMetaTitle")}
+                  className="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-[#f58313]"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium mb-1">
+                  Meta Description
+                </label>
+                <textarea
+                  {...register("seoMetaDescription")}
+                  rows={2}
+                  className="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-[#f58313]"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <label htmlFor=""></label>
+          </div>
         </div>
 
         <div className="bg-gray-50 px-6 py-4 border-t border-gray-200 flex gap-3 justify-end">
@@ -374,13 +523,51 @@ const ProductTable = ({ INITIAL_PRODUCTS, description }: ProductProps) => {
               ...p,
               stockStatus: status,
             }
-          : p
-      )
+          : p,
+      ),
     );
   };
 
   const handleEdit = (product: Product): void => {
     setEditingProduct(product);
+  };
+
+  const handleUpdateProduct = async (formData: any) => {
+
+    if (!editingProduct) return;
+
+    try {
+      // const res = await fetch(
+      //   `${process.env.NEXT_PUBLIC_EXPRESS_SERVER_BASE_URL}/api/products/${editingProduct?._id}`,
+      //   {
+      //     method: "PUT",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //     body: JSON.stringify(formData),
+      //   },
+      // );
+
+      // const result = await res.json();
+
+      // if (!res.ok) {
+      //   throw new Error(result.message || "Update failed");
+      // }
+
+      console.log(formData)
+
+      toast.success("Product updated successfully");
+      setProducts((prev) =>
+        prev.map((p) =>
+          p._id === editingProduct._id ? { ...p, ...formData } : p,
+        ),
+      );
+
+      setEditingProduct(null);
+    } catch (error: any) {
+      console.error(error);
+      toast.error(error.message || "Something went wrong");
+    }
   };
 
   const handleSaveEdit = (data: EditFormData): void => {
@@ -404,8 +591,8 @@ const ProductTable = ({ INITIAL_PRODUCTS, description }: ProductProps) => {
                 stockStatus: data.stockStatus,
                 category: data.category,
               }
-            : p
-        )
+            : p,
+        ),
       );
       setEditingProduct(null);
     }
@@ -426,7 +613,7 @@ const ProductTable = ({ INITIAL_PRODUCTS, description }: ProductProps) => {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
-    }).then(async(result) => {
+    }).then(async (result) => {
       if (result.isConfirmed) {
         try {
           const response = await axios.patch(
@@ -441,7 +628,7 @@ const ProductTable = ({ INITIAL_PRODUCTS, description }: ProductProps) => {
               prevProducts.filter((p) => p._id !== id),
             );
 
-            toast.success("Product deleted successfully")
+            toast.success("Product deleted successfully");
           }
         } catch (error) {
           console.error("Error delete product:", error);
@@ -573,77 +760,6 @@ const ProductTable = ({ INITIAL_PRODUCTS, description }: ProductProps) => {
           </div>
         </div>
 
-        {/* Tablet & Mobile Cards */}
-        {/* <div className="lg:hidden space-y-4">
-          {products.map((product) => (
-            <div key={product._id} className="bg-white rounded-lg shadow">
-              <div className="p-4 md:p-6">
-                <div className="flex gap-4 mb-4">
-                  <img
-                    src={product.thumbnail}
-                    alt={product.title}
-                    className="w-20 h-20 md:w-24 md:h-24 rounded object-cover shrink-0"
-                  />
-                  <div className="flex-1 min-w-0">
-                    <h3 className="text-sm md:text-base font-semibold text-gray-900 truncate">
-                      {product.title}
-                    </h3>
-                    <p className="text-xs md:text-sm text-gray-600 truncate mt-1">
-                      {product.slug}
-                    </p>
-                    <div className="mt-3 space-y-2">
-                      <div className="flex justify-between text-sm">
-                        <span className="text-gray-600">Price:</span>
-                        <span className="font-semibold text-gray-900">
-                          ৳{product.basePrice}
-                        </span>
-                      </div>
-                      <div className="flex justify-between text-sm">
-                        <span className="text-gray-600">Category:</span>
-                        <span className="text-gray-900">
-                          {product.category}
-                        </span>
-                      </div>
-                      <div className="flex justify-between text-sm">
-                        <span className="text-gray-600">Stock:</span>
-                        <span className="font-semibold text-gray-900">
-                          {product.stockQuantity}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="space-y-3">
-                  <div className="flex gap-2">
-                    
-                    <StockStatusDropdown
-                      product={product}
-                      handleStatusToggle={handleStatusToggle}
-                    />
-                  </div>
-
-                  <div className="flex gap-2">
-                    <button
-                      onClick={() => handleEdit(product)}
-                      className="flex-1 px-4 py-2 rounded-lg transition-colors font-medium text-sm text-white"
-                      style={{ backgroundColor: "#f58313" }}
-                    >
-                      Edit
-                    </button>
-                    <button
-                      onClick={() => handleDelete(product._id)}
-                      className="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors font-medium text-sm"
-                    >
-                      Delete
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div> */}
-
         <div className="lg:hidden space-y-4 max-w-75">
           {products.map((product) => (
             <div
@@ -717,7 +833,8 @@ const ProductTable = ({ INITIAL_PRODUCTS, description }: ProductProps) => {
       <EditModal
         product={editingProduct}
         onClose={() => setEditingProduct(null)}
-        onSave={handleSaveEdit}
+        // onSave={handleSaveEdit}
+        onSave={handleUpdateProduct}
       />
     </div>
   );

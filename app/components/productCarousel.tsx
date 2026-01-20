@@ -120,7 +120,7 @@ const ProductCarousel = ({
           {/* Navigation Arrows */}
           <button
             onClick={handlePrev}
-            className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 bg-white/90 hover:bg-white rounded-full shadow-lg flex items-center justify-center z-10 backdrop-blur"
+            className="absolute -left-4 md:-left-8 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 bg-white/90 hover:bg-white rounded-full shadow-lg flex items-center justify-center z-10 backdrop-blur"
             aria-label="Previous"
           >
             <ChevronLeft className="w-6 h-6 text-gray-800" />

@@ -66,8 +66,9 @@ export const TopCategories = ({ categories }: TopCategoriesProps) => {
                       <Image
                         src={cat?.image}
                         alt={cat.name}
-                        width={30}
-                        height={30}
+                        priority
+                        width={100}
+                        height={50}
                       />
                     </div>
                   ) : (

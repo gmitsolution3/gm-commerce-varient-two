@@ -103,7 +103,7 @@ const CategoryCarousel = ({
               return (
                 <div
                   key={pro._id}
-                  className="shrink-0 px-3"
+                  className="shrink-0 "
                   style={{ width: `${100 / visibleCards}%` }}
                 >
                   <div className="rounded-xl border border-gray-200 bg-white hover:shadow-xl hover:border-[#f58313] transition-all duration-300 overflow-hidden h-full flex flex-col">
@@ -111,7 +111,7 @@ const CategoryCarousel = ({
                       href={`/shop/${pro.categoryId}/${pro.slug}`}
                       className="flex flex-col grow"
                     >
-                      <div className="relative h-56 md:h-64 overflow-hidden bg-linear-to-br from-gray-900 to-gray-700">
+                      <div className="relative h-30 md:h-50 overflow-hidden bg-linear-to-br from-gray-900 to-gray-700">
                         <Image
                           src={
                             typeof pro.thumbnail === "string"
@@ -158,7 +158,7 @@ const CategoryCarousel = ({
         {/* Arrows - Desktop/Tablet */}
         <button
           onClick={handlePrev}
-          className="absolute left-0 md:left-4 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 bg-white/90 hover:bg-white rounded-full shadow-lg items-center justify-center z-10 hidden md:flex"
+          className="absolute left-0 md:-left-10 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 bg-white/90 hover:bg-white rounded-full shadow-lg items-center justify-center z-10 hidden md:flex"
           aria-label="Previous"
         >
           <ChevronLeft className="w-6 h-6 text-gray-800" />
@@ -166,7 +166,7 @@ const CategoryCarousel = ({
 
         <button
           onClick={handleNext}
-          className="absolute right-0 md:right-4 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 bg-white/90 hover:bg-white rounded-full shadow-lg flex items-center justify-center z-10 md:flex"
+          className="absolute right-0 md:-right-10 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 bg-white/90 hover:bg-white rounded-full shadow-lg flex items-center justify-center z-10 md:flex"
           aria-label="Next"
         >
           <ChevronRight className="w-6 h-6 text-gray-800" />
