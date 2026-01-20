@@ -17,7 +17,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/app/context/AuthContext";
 
-const LoginForm = () => {
+export const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -29,8 +29,9 @@ const LoginForm = () => {
   const { refetchUser, isAuthenticated } = useAuth();
 
   if (isAuthenticated) {
-    return router.push("/");
+    return
   }
+  
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -60,6 +61,8 @@ const LoginForm = () => {
         { withCredentials: true },
       );
 
+      console.log({user: user.data.data.role})
+
       setLoading(false);
       setSuccessMessage("User Login in successfully");
       toast.success(res.data.message);
@@ -67,7 +70,7 @@ const LoginForm = () => {
 
       if (user.data.data.role === "admin") {
         router.push("/admin");
-      }else{
+      } else {
         router.push("/");
       }
     } catch (err: any) {
@@ -79,6 +82,9 @@ const LoginForm = () => {
       setErrorMessage(`${message}`);
     }
   };
+
+  
+
 
   return (
     <div className="max-w-7xl mx-auto">
@@ -267,4 +273,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+
