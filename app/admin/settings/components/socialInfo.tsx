@@ -17,6 +17,8 @@ type FormValues = {
   logo: FileList;
   name: string;
   phone: string;
+  email: string;
+  address: string;
   socials: SocialLink[];
 };
 
@@ -140,6 +142,24 @@ const BrandForm = () => {
           className="w-full rounded border px-3 py-2 text-sm"
           placeholder="Phone number"
           {...register("phone", { required: true })}
+        />
+      </div>
+      {/* email */}
+      <div>
+        <label className="mb-1 block text-sm font-medium">Email</label>
+        <input
+          className="w-full rounded border px-3 py-2 text-sm"
+          placeholder="info@gmail.com"
+          {...register("email", { required: true })}
+        />
+      </div>
+      {/* address */}
+      <div>
+        <label className="mb-1 block text-sm font-medium">Address</label>
+        <input
+          className="w-full rounded border px-3 py-2 text-sm"
+          placeholder="add your address"
+          {...register("address", { required: true })}
         />
       </div>
 

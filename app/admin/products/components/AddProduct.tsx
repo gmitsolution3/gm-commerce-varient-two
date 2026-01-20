@@ -491,8 +491,8 @@ export default function AddProductForm({ allCategory }: any) {
                     ))}
                   </select>
                 </div>
-
-                <div>
+                  {/* sub category */}
+                {/* <div>
                   <label className="block text-sm font-medium text-gray-900 mb-2">
                     Sub Category
                   </label>
@@ -512,7 +512,7 @@ export default function AddProductForm({ allCategory }: any) {
                       </option>
                     ))}
                   </select>
-                </div>
+                </div> */}
               </div>
 
               <div>

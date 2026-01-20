@@ -34,6 +34,8 @@ const ShowFooter: React.FC = async () => {
     name: brandInfoRaw?.data?.name ?? "GMIT",
     phone: brandInfoRaw?.data?.phone ?? "+88001234567",
     socials: brandInfoRaw?.data?.socials ?? [],
+    email: brandInfoRaw?.data?.email ?? "info@gmail.com",
+    address: brandInfoRaw?.data?.address ?? "Dhaka, Bangladesh",
   };
 
 
@@ -89,7 +91,7 @@ const ShowFooter: React.FC = async () => {
             <div className="space-y-3">
               <div className="flex items-start gap-3">
                 <MapPin size={20} className="text-[#0970B4] shrink-0 mt-0.5" />
-                <p className="text-gray-300 text-sm">Dhaka, Bangladesh</p>
+                <p className="text-gray-300 text-sm">{brandInfo.address}</p>
               </div>
               <div className="flex items-start gap-3">
                 <Phone size={20} className="text-[#0970B4] shrink-0 mt-0.5" />
@@ -98,7 +100,7 @@ const ShowFooter: React.FC = async () => {
               <div className="flex items-start gap-3">
                 <Mail size={20} className="text-[#0970B4] shrink-0 mt-0.5" />
                 <p className="text-gray-300 text-sm break-all">
-                  info@brand.com
+                  {brandInfo.email}
                 </p>
               </div>
             </div>

@@ -5,7 +5,7 @@ export const getProductDetails = async (slug: string) => {
     {
       next: {
         tags: ["productDetails"],
-        revalidate: 300,
+        revalidate: 60,
       },
     }
   );
@@ -62,7 +62,7 @@ export async function getProductByCategory(category: string) {
   const res = await fetch(
     `${process.env.NEXT_EXPRESS_SERVER_BASE_URL}/get-product-by-category/${category}`,
     {
-      next: { revalidate: 300 },
+      next: { revalidate: 60 },
     }
   );
 
@@ -74,8 +74,8 @@ export async function AllProduct() {
   const res = await fetch(
     `${process.env.NEXT_EXPRESS_SERVER_BASE_URL}/api/products`,
     {
-      next: { revalidate: 300 },
-    }
+      cache: "no-store",
+    },
   );
 
   return res.json();
@@ -85,7 +85,7 @@ export async function getDraftProduct() {
   const res = await fetch(
     `${process.env.NEXT_EXPRESS_SERVER_BASE_URL}/api/products/draft`,
     {
-      next: { revalidate: 300 },
+      next: { revalidate: 60 },
     }
   );
 
@@ -96,7 +96,7 @@ export async function getDeletedProduct() {
   const res = await fetch(
     `${process.env.NEXT_EXPRESS_SERVER_BASE_URL}/api/products/delete-product`,
     {
-      next: { revalidate: 300 },
+      next: { revalidate: 60 },
     }
   );
 

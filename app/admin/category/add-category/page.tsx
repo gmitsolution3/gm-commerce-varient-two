@@ -177,7 +177,7 @@ export default function AddCategoryForm() {
         </div>
 
         {/* Sub Categories */}
-        <div className="rounded-lg border bg-gray-50 p-4">
+        {/* <div className="rounded-lg border bg-gray-50 p-4">
           <p className="mb-3 text-sm font-bold text-gray-700 uppercase">
             Sub-Categories
           </p>
@@ -225,7 +225,7 @@ export default function AddCategoryForm() {
             <Plus size={18} />
             Add Sub-Category
           </button>
-        </div>
+        </div> */}
 
         {/* Footer */}
         <div className="space-y-4 sm:space-y-0 sm:flex sm:items-center sm:justify-between border-t pt-6">

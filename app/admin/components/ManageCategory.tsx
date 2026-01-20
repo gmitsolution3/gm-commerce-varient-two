@@ -59,8 +59,6 @@ const CategoryManagement = ({ allCategories }: AllCategoriesProps) => {
         return;
       }
 
-      console.log(result)
-
       // if (!response.ok) {
       //   throw new Error('Failed to update status');
       // }

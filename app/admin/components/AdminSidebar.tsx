@@ -106,13 +106,16 @@ export function AdminSidebar({ brandInfo }: { brandInfo: any }) {
     flex flex-col
   `}
       >
-        <div className="w-full flex justify-center mt-12 border-b border-b-gray-300">
-          <Image
-            src={brandInfo.logo}
-            alt={brandInfo.name}
-            width={80}
-            height={40}
-          />
+        <div className="w-full flex justify-center mt-12 border-b border-b-gray-300 ">
+          <Link href={"/"}>
+            <Image
+              src={brandInfo.logo}
+              alt={brandInfo.name}
+              width={80}
+              height={40}
+              className="mb-6"
+            />
+          </Link>
         </div>
 
         {/* Brand / Logo */}
