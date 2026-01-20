@@ -36,7 +36,6 @@ const ShowFooter: React.FC = async () => {
     socials: brandInfoRaw?.data?.socials ?? [],
   };
 
-  console.log({ brandInfo: brandInfo.socials });
 
   const quickLinks: FooterLink[] = [
     { label: "Home", url: "#" },
