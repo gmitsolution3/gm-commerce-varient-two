@@ -24,8 +24,6 @@ export default function AdminDashboard() {
       const loadData = async () => {
         try {
           const result = await MainDashboardAnalytics();
-         
-
           setData(result.data);
         } catch (err) {
           console.error("Dashboard load failed", err);

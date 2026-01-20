@@ -60,8 +60,6 @@ const LoginForm = () => {
         { withCredentials: true },
       );
 
-
-
       setLoading(false);
       setSuccessMessage("User Login in successfully");
       toast.success(res.data.message);
