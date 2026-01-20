@@ -12,7 +12,9 @@ const ProductDetails = async ({ params }: ProductPageProps) => {
   const { slug } = await params;
   const result = await getProductDetails(slug);
 
-  if (!result || !result.data.length) {
+  console.log({result: result})
+
+  if (!result || !result.data) {
     return (
       <div className="text-2xl text-[#f58313] flex justify-center min-h-screen items-center">
         No Data found

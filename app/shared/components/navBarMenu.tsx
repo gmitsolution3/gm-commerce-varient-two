@@ -38,7 +38,7 @@ export const NavBarMenu = () => {
         <div className="relative">
           {/* Profile circle */}
           <div
-            className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold cursor-pointer"
+            className="w-10 h-10 rounded-full bg-[#b35901] flex items-center justify-center text-white font-bold cursor-pointer"
             onMouseEnter={() => setDropdownOpen(true)}
             // onMouseLeave={() => setDropdownOpen(false)}
           >
@@ -48,26 +48,26 @@ export const NavBarMenu = () => {
           {/* Dropdown menu */}
           {dropdownOpen && (
             <div
-              className="absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded-lg shadow-lg z-50"
+              className="absolute right-0 mt-4 w-40 bg-white border border-gray-200 rounded-lg shadow-lg z-50"
               onMouseEnter={() => setDropdownOpen(true)}
               onMouseLeave={() => setDropdownOpen(false)}
             >
               <Link
                 href="/profile"
-                className="block px-4 py-2 text-gray-700 hover:bg-[#0970B4] hover:text-white hover:cursor-pointer"
+                className="block px-4 py-2 text-gray-700 hover:bg-[#f58313] hover:text-white hover:cursor-pointer"
               >
                 Profile
               </Link>
-              <h5 className="block px-4 py-2 text-gray-700 hover:bg-[#0970B4] hover:text-white hover:cursor-pointer">
+              <h5 className="block px-4 py-2 text-gray-700 hover:bg-[#f58313] hover:text-white hover:cursor-pointer">
                 Order Tracking
               </h5>
-              <h5 className="block px-4 py-2 text-gray-700 hover:bg-[#0970B4] hover:text-white hover:cursor-pointer">
+              <h5 className="block px-4 py-2 text-gray-700 hover:bg-[#f58313] hover:text-white hover:cursor-pointer">
                 Return Policy
               </h5>
 
               <button
                 onClick={handleLogout}
-                className="w-full text-left px-4 py-2 text-gray-700 hover:bg-[#0970B4] hover:text-white hover:cursor-pointer border-t border-gray-300"
+                className="w-full text-left px-4 py-2 text-gray-700 hover:bg-[#f58313] hover:text-white hover:cursor-pointer border-t border-gray-300"
               >
                 Logout
               </button>
