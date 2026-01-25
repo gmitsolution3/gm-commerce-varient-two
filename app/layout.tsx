@@ -18,9 +18,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "GM Logistic",
+  title: "Crab Fashion BD",
   description: "Build your trust",
 };
+
 
 export default async function RootLayout({
   children,
