@@ -1,143 +1,274 @@
 import { Metadata } from "next";
-import { Users } from "lucide-react";
+import { Users, Target, Eye, Heart, Sparkles, Crown } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "About Us | GMIT Solution",
+  title: "About Us | CRAB Fashion",
   description:
-    "Learn about GMIT Solution, our mission, vision, values, and the team behind our success.",
+    "Discover CRAB Fashion - a premium clothing brand crafted for those who value style, quality, and confidence. Learn about our story, mission, vision, and values.",
   alternates: {
-    canonical: "https://www.gmitsolution.net/about-us",
+    canonical: "http://crabfashionbd.com/support/about-us",
   },
   openGraph: {
-    title: "About Us | GMIT Solution",
+    title: "About Us | CRAB Fashion",
     description:
-      "Discover GMIT Solution, our story, mission, vision, values, and team.",
-    url: "https://www.gmitsolution.net/about-us",
-    siteName: "GMIT Solution",
+      "Premium clothing brand blending contemporary fashion with refined craftsmanship. Elegance, comfort, and individuality in every piece.",
+    url: "https://www.crab-fashion.com/about-us",
+    siteName: "CRAB Fashion",
     type: "website",
   },
 };
 
 export default function AboutUsPage() {
   return (
-    <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
-      {/* Header */}
+    <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
+      {/* Hero Header */}
       <header className="text-center mb-16">
-        <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
-          About Us
+        <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-rose-100 to-pink-100 mb-6">
+          <Crown className="w-8 h-8 text-rose-600" />
+        </div>
+        <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
+          🖤 About CRAB Fashion
         </h1>
-        <p className="text-gray-600 mt-3 max-w-2xl mx-auto">
-          Learn about our mission, vision, and the people behind GMIT Solution.
+        <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          A premium clothing brand crafted for those who value style, quality, 
+          and confidence. We blend contemporary fashion with refined craftsmanship 
+          to create apparel that speaks <span className="font-semibold text-gray-900">elegance</span>,{" "}
+          <span className="font-semibold text-gray-900">comfort</span>, and{" "}
+          <span className="font-semibold text-gray-900">individuality</span>.
         </p>
+        <div className="mt-6 text-sm text-gray-500 max-w-2xl mx-auto">
+          Every piece is thoughtfully designed using superior fabrics, ensuring a 
+          timeless yet modern look for today's lifestyle.
+        </div>
       </header>
 
       {/* Our Story */}
-      <section className="mb-16 space-y-6 text-gray-700 leading-relaxed">
-        <h2 className="text-2xl font-semibold text-gray-900 flex items-center gap-2">
-          <Users size={28} />
-          Our Story
-        </h2>
-        <p>
-          GMIT Solution was founded with a vision to provide seamless digital
-          solutions for businesses and e-commerce stores. We specialize in
-          creating modern, user-friendly websites and platforms that empower
-          businesses to grow online.
-        </p>
-        <p>
-          Our journey started with a small team of passionate developers and
-          designers, and today we have helped hundreds of businesses succeed
-          online.
-        </p>
+      <section className="mb-20">
+        <div className="flex items-center gap-3 mb-8">
+          <div className="p-2 rounded-lg bg-gradient-to-r from-amber-100 to-orange-100">
+            <Sparkles className="w-6 h-6 text-amber-600" />
+          </div>
+          <h2 className="text-3xl font-bold text-gray-900">✨ Our Story</h2>
+        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="space-y-6 text-gray-700 leading-relaxed">
+            <p className="text-lg">
+              CRAB Fashion was born from a passion for elevated fashion and 
+              attention to detail. What started as a vision to redefine everyday 
+              wear has evolved into a brand that represents sophistication and reliability.
+            </p>
+            <p>
+              Our journey is guided by <span className="font-semibold text-gray-900">creativity</span>,{" "}
+              <span className="font-semibold text-gray-900">precision</span>, and an uncompromising 
+              commitment to <span className="font-semibold text-gray-900">excellence</span>.
+            </p>
+          </div>
+          <div className="relative">
+            <div className="aspect-video rounded-2xl overflow-hidden bg-gradient-to-br from-amber-50 to-orange-50 p-8">
+              <div className="w-full h-full border-2 border-dashed border-amber-200 rounded-xl flex items-center justify-center">
+                <div className="text-center p-8">
+                  <Sparkles className="w-12 h-12 text-amber-400 mx-auto mb-4" />
+                  <p className="text-amber-700 font-medium">From vision to reality</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* Mission & Vision */}
-      <section className="mb-16 grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="p-6 border rounded-2xl hover:shadow-lg transition bg-white">
-          <h3 className="text-xl font-semibold text-gray-900 mb-2">
-            Our Mission
-          </h3>
-          <p>
-            To provide innovative and reliable digital solutions that help our
-            clients succeed in the competitive online marketplace.
-          </p>
-        </div>
-        <div className="p-6 border rounded-2xl hover:shadow-lg transition bg-white">
-          <h3 className="text-xl font-semibold text-gray-900 mb-2">
-            Our Vision
-          </h3>
-          <p>
-            To be a trusted partner for businesses worldwide, delivering
-            high-quality digital solutions with integrity and excellence.
-          </p>
+      <section className="mb-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="relative group">
+            <div className="absolute -inset-0.5 bg-gradient-to-r from-rose-400 to-pink-400 rounded-2xl blur opacity-25 group-hover:opacity-40 transition duration-300"></div>
+            <div className="relative p-8 rounded-2xl bg-white border border-gray-100 hover:shadow-2xl transition-all duration-300 h-full">
+              <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-gradient-to-br from-rose-100 to-pink-100 mb-6">
+                <Target className="w-7 h-7 text-rose-600" />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                🎯 Our Mission
+              </h3>
+              <p className="text-gray-700 leading-relaxed text-lg">
+                To deliver premium-quality clothing that enhances personal style, 
+                ensures comfort, and builds lasting confidence—while maintaining 
+                exceptional standards in design and service.
+              </p>
+            </div>
+          </div>
+
+          <div className="relative group">
+            <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-400 to-purple-400 rounded-2xl blur opacity-25 group-hover:opacity-40 transition duration-300"></div>
+            <div className="relative p-8 rounded-2xl bg-white border border-gray-100 hover:shadow-2xl transition-all duration-300 h-full">
+              <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-gradient-to-br from-indigo-100 to-purple-100 mb-6">
+                <Eye className="w-7 h-7 text-indigo-600" />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                🌍 Our Vision
+              </h3>
+              <p className="text-gray-700 leading-relaxed text-lg">
+                To become a distinguished clothing brand recognized for luxury 
+                aesthetics, superior quality, and enduring trust in the fashion industry.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* Our Values */}
-      <section className="mb-16 space-y-6">
-        <h2 className="text-2xl font-semibold text-gray-900 mb-4">
-          Our Values
-        </h2>
-        <ul className="list-disc list-inside space-y-2 text-gray-700">
-          <li>Customer-first approach in everything we do</li>
-          <li>Innovation and continuous learning</li>
-          <li>Integrity, transparency, and reliability</li>
-          <li>Collaboration and teamwork</li>
-          <li>Commitment to quality and excellence</li>
-        </ul>
+      <section className="mb-20">
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-emerald-100 to-teal-100 mb-6">
+            <Heart className="w-8 h-8 text-emerald-600" />
+          </div>
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">💎 Our Values</h2>
+          <p className="text-gray-600 max-w-2xl mx-auto">
+            The principles that guide every stitch, every design, and every interaction.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {[
+            {
+              title: "Excellence in Quality",
+              description: "Finest fabrics, flawless finishing",
+              icon: "✨",
+              color: "from-blue-100 to-cyan-100",
+            },
+            {
+              title: "Timeless Design",
+              description: "Elegant styles beyond seasonal trends",
+              icon: "🎨",
+              color: "from-amber-100 to-orange-100",
+            },
+            {
+              title: "Customer Prestige",
+              description: "Every customer is valued",
+              icon: "👑",
+              color: "from-rose-100 to-pink-100",
+            },
+            {
+              title: "Integrity & Trust",
+              description: "Transparency in every step",
+              icon: "🤝",
+              color: "from-emerald-100 to-teal-100",
+            },
+            {
+              title: "Innovation",
+              description: "Modern techniques, classic elegance",
+              icon: "💡",
+              color: "from-purple-100 to-violet-100",
+            },
+            {
+              title: "Sustainability",
+              description: "Mindful creation, lasting value",
+              icon: "🌿",
+              color: "from-green-100 to-lime-100",
+            },
+          ].map((value, index) => (
+            <div
+              key={index}
+              className="group p-6 rounded-2xl border border-gray-100 hover:border-gray-200 bg-white hover:shadow-xl transition-all duration-300"
+            >
+              <div className="flex items-start gap-4">
+                <div className={`p-3 rounded-xl bg-gradient-to-br ${value.color}`}>
+                  <span className="text-2xl">{value.icon}</span>
+                </div>
+                <div>
+                  <h4 className="text-lg font-semibold text-gray-900 mb-1">
+                    {value.title}
+                  </h4>
+                  <p className="text-gray-600">{value.description}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </section>
 
-      {/* Team Section */}
-      <section className="mb-16">
-        <h2 className="text-2xl font-semibold text-gray-900 mb-6">
-          Meet Our Team
-        </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-          {/* Example Team Member */}
-          <div className="p-6 border rounded-2xl hover:shadow-lg transition text-center">
-            <img
-              src="/placeholder.svg"
-              alt="Team Member"
-              className="mx-auto w-32 h-32 rounded-full object-cover mb-4"
-            />
-            <h3 className="text-lg font-semibold text-gray-900">
-              Sabbir Ahmed
-            </h3>
-            <p className="text-gray-500 text-sm">Founder & CEO</p>
-          </div>
-          <div className="p-6 border rounded-2xl hover:shadow-lg transition text-center">
-            <img
-              src="/placeholder.svg"
-              alt="Team Member"
-              className="mx-auto w-32 h-32 rounded-full object-cover mb-4"
-            />
-            <h3 className="text-lg font-semibold text-gray-900">Jane Doe</h3>
-            <p className="text-gray-500 text-sm">Lead Developer</p>
-          </div>
-          <div className="p-6 border rounded-2xl hover:shadow-lg transition text-center">
-            <img
-              src="/placeholder.svg"
-              alt="Team Member"
-              className="mx-auto w-32 h-32 rounded-full object-cover mb-4"
-            />
-            <h3 className="text-lg font-semibold text-gray-900">John Smith</h3>
-            <p className="text-gray-500 text-sm">UI/UX Designer</p>
-          </div>
+      {/* Team Preview */}
+      <section className="mb-20">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">
+            👥 Meet The Crafters
+          </h2>
+          <p className="text-gray-600 max-w-2xl mx-auto">
+            The passionate individuals who bring our vision to life with 
+            dedication and expertise.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {[
+            {
+              name: "Alex Morgan",
+              role: "Creative Director",
+              specialty: "Design & Vision",
+            },
+            {
+              name: "Sarah Chen",
+              role: "Lead Designer",
+              specialty: "Pattern & Fabric",
+            },
+            {
+              name: "Marcus Rivera",
+              role: "Quality Manager",
+              specialty: "Craftsmanship",
+            },
+            {
+              name: "Elena Petrova",
+              role: "Client Relations",
+              specialty: "Customer Experience",
+            },
+          ].map((member, index) => (
+            <div
+              key={index}
+              className="group text-center relative"
+            >
+              <div className="relative mb-6 mx-auto w-40 h-40">
+                <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full group-hover:from-rose-50 group-hover:to-pink-50 transition-all duration-300"></div>
+                <div className="absolute inset-4 bg-gradient-to-br from-white to-gray-50 rounded-full flex items-center justify-center">
+                  <Users className="w-16 h-16 text-gray-300 group-hover:text-rose-200 transition-colors duration-300" />
+                </div>
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-1">
+                {member.name}
+              </h3>
+              <p className="text-rose-600 font-medium mb-2">{member.role}</p>
+              <p className="text-sm text-gray-500">{member.specialty}</p>
+            </div>
+          ))}
         </div>
       </section>
 
       {/* CTA */}
-      <section className="rounded-2xl bg-linear-to-br from-primary to-blue-500 p-10 text-white text-center">
-        <h2 className="text-2xl font-semibold mb-3">Work With Us</h2>
-        <p className="text-blue-100 mb-6">
-          Interested in joining our team? Check out our Careers page for current
-          openings.
-        </p>
-        <a
-          href="/careers"
-          className="inline-flex items-center gap-2 bg-white text-primary px-6 py-3 rounded-full font-medium hover:bg-blue-50 transition"
-        >
-          Careers
-        </a>
+      <section className="relative overflow-hidden rounded-3xl">
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-black"></div>
+        <div className="relative p-12 text-center">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-rose-500 to-pink-500 mb-8">
+            <Heart className="w-8 h-8 text-white" />
+          </div>
+          <h2 className="text-3xl font-bold text-white mb-4">
+            Experience CRAB Fashion
+          </h2>
+          <p className="text-gray-300 text-lg mb-8 max-w-2xl mx-auto">
+            Join us in redefining premium fashion. Explore our collections or 
+            reach out to learn more about our brand.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <a
+              href="/collections"
+              className="inline-flex items-center justify-center gap-2 bg-white text-gray-900 px-8 py-4 rounded-full font-semibold hover:bg-gray-100 transition-all duration-300 hover:scale-105"
+            >
+              Explore Collections
+            </a>
+            <a
+              href="/contact"
+              className="inline-flex items-center justify-center gap-2 bg-transparent border-2 border-white text-white px-8 py-4 rounded-full font-semibold hover:bg-white/10 transition-all duration-300"
+            >
+              Contact Us
+            </a>
+          </div>
+        </div>
       </section>
     </main>
   );
