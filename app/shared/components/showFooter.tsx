@@ -38,7 +38,7 @@ const ShowFooter: React.FC = async () => {
     address: brandInfoRaw?.data?.address ?? "Dhaka, Bangladesh",
   };
 
-  console.log(brandInfoRaw);
+
 
   const quickLinks: FooterLink[] = [
     { label: "Home", url: "#" },

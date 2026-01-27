@@ -5,6 +5,7 @@ import { getCart } from "@/utils/cartStorage";
 import CheckoutCartTable from "@/app/components/checkoutCartTable";
 import { ComLogo } from "@/app/shared/components/ComLogo";
 import Image from "next/image";
+import Link from "next/link";
 
 export const CheckoutCart = ({ brandInfo }: any) => {
   const [cartData, setCartData] = useState([]);
@@ -23,14 +24,16 @@ export const CheckoutCart = ({ brandInfo }: any) => {
   return (
     <div>
       <nav className="min-h-30 bg-gray-200 w-full flex justify-center items-center">
-        <div className="p-4 rounded-xl bg-white">
-          <Image
-            src={brandInfo.logo}
-            alt={brandInfo.name}
-            width={80}
-            height={40}
-          />
-        </div>
+        <Link href={"/"}>
+          <div className="p-4 rounded-xl bg-white">
+            <Image
+              src={brandInfo.logo}
+              alt={brandInfo.name}
+              width={80}
+              height={40}
+            />
+          </div>
+        </Link>
       </nav>
 
       {cartData === undefined || cartData.length === 0 ? (

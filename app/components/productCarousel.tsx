@@ -85,9 +85,9 @@ const ProductCarousel = ({
                   className="shrink-0 px-3"
                   style={{ width: `${100 / visibleCards}%` }}
                 >
-                  <Link href={`/shop/${product.categoryId}/${product.slug}`}>
-                    <div className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 h-full flex flex-col">
-                      {/* Fixed Aspect Ratio Image */}
+                  <div className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 h-full flex flex-col">
+                    {/* Fixed Aspect Ratio Image */}
+                    <Link href={`/shop/${product.categoryId}/${product.slug}`}>
                       <div className="relative w-full aspect-4/3 overflow-hidden bg-gray-100">
                         <img
                           src={product.thumbnail!}
@@ -105,13 +105,12 @@ const ProductCarousel = ({
                           {product.shortDescription}
                         </p>
                       </div>
-
-                      {/* Buttons at bottom */}
-                      <div className="px-2 pb-5 mt-auto">
-                        <CardButtons product={product} />
-                      </div>
+                    </Link>
+                    {/* Buttons at bottom */}
+                    <div className="px-2 pb-5 mt-auto">
+                      <CardButtons product={product} />
                     </div>
-                  </Link>
+                  </div>
                 </div>
               ))}
             </div>

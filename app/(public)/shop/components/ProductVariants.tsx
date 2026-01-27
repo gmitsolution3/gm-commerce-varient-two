@@ -162,7 +162,7 @@ export default function ProductVariant({
 
   // redirect on the what 's app
   const handleOrderWhatsApp = () => {
-    const phoneNumber = "8801234567890"; // replace with your number
+    const phoneNumber = "01706310521"; // replace with your number
     const message = `I want to order ${quantity} item(s)`;
     window.open(
       `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`,
@@ -321,7 +321,7 @@ export default function ProductVariant({
             {/* Add to cart */}
             <button
               onClick={() => handleAddToCart()}
-              className="flex items-center gap-2 px-4 py-2 border border-primary text-primary rounded-lg hover:bg-primary hover:text-white hover:cursor-pointer"
+              className="flex items-center gap-2 px-4 py-2 border text-primary-foreground border-primary rounded-lg hover:cursor-pointer hover:bg-primary hover:text-white"
             >
               <ShoppingCart size={18} /> Add to Cart
             </button>
@@ -338,7 +338,7 @@ export default function ProductVariant({
             {/* Buy Now */}
             <button
               onClick={handleBuyNow}
-              className="px-5 py-2 bg-linear-to-t from-primary to-[#be650c] text-white rounded-lg font-semibold hover:opacity-90 hover:from-primary hover:cursor-pointer hover:to-primary"
+              className="px-5 py-2 bg-linear-to-t from-primary to-primary-foreground text-white rounded-lg font-semibold hover:opacity-90 hover:from-primary-foreground hover:cursor-pointer hover:to-primary"
             >
               Buy Now
             </button>
@@ -356,14 +356,14 @@ export default function ProductVariant({
           {isBuyNow === true ? (
             <button
               onClick={handleBuyNow}
-              className="flex-1 bg-primary text-white py-2 rounded-lg text-sm hover:bg-[#b66e25]"
+              className="flex-1 bg-primary text-white py-2 rounded-lg text-sm hover:bg-primary"
             >
               Buy Now
             </button>
           ) : (
             <button
               onClick={() => handleAddToCart()}
-              className="flex-1 bg-primary text-white py-2 rounded-lg text-sm hover:bg-[#b9630d]"
+              className="flex-1 bg-primary text-white py-2 rounded-lg text-sm hover:bg-primary"
             >
               Add to card
             </button>

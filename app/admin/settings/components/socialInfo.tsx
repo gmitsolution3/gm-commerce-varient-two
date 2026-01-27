@@ -64,7 +64,7 @@ const BrandForm = () => {
   const onSubmit = async (data: FormValues) => {
     if (!logoPreview) return alert("Please upload a logo");
 
-    console.log(data)
+
     const payload = {
       logo: logoPreview,
       name: data.name,
@@ -79,7 +79,7 @@ const BrandForm = () => {
         payload,
       );
 
-      console.log(result)
+
 
       toast.success("Brand information updated successfully");
       reset({

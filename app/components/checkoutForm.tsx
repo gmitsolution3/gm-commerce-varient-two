@@ -368,7 +368,7 @@ export default function CheckoutForm() {
                       className="w-full border-gray-300 bg-gray-50"
                     />
                   </div>
-                  <Button className="w-full bg-primary hover:bg-primary-foreground">
+                  <Button className="w-full text-white bg-primary">
                     Apply Now
                   </Button>
                 </div>
@@ -595,7 +595,7 @@ export default function CheckoutForm() {
                   <Button
                     type="submit"
                     disabled={isSubmitting}
-                    className="mt-6 w-full bg-primary hover:bg-[#aa5a0a] py-2 text-base font-semibold"
+                    className="mt-6 w-full bg-primary py-2 text-white hover:bg-accent-foreground hover:cursor-pointer font-semibold"
                   >
                     {isSubmitting ? "Placing Order..." : "Place Order"}
                   </Button>
