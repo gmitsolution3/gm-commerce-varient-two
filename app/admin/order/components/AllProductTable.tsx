@@ -584,7 +584,7 @@ const AllProductTable = ({
                     </td>
                     <td className="px-6 py-4">
                       <div className="text-sm font-semibold text-gray-900">
-                        ৳{order.grandTotal.toFixed(2)}
+                        ৳{order.grandTotal?.toFixed(2)}
                       </div>
                     </td>
                     <td className="px-6 py-4">
@@ -684,7 +684,7 @@ const AllProductTable = ({
 
         {/* Mobile & Tablet Cards */}
         <div className="lg:hidden space-y-4">
-          {orders.map((order) => (
+          {orders?.map((order) => (
             <div
               key={order._id}
               className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200"
@@ -748,7 +748,7 @@ const AllProductTable = ({
                       Total:
                     </span>
                     <span className="text-lg font-semibold text-gray-900">
-                      ৳{order.grandTotal.toFixed(2)}
+                      ৳{order.grandTotal?.toFixed(2)}
                     </span>
                   </div>
                   <div className="flex justify-between text-xs">
