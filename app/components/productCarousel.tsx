@@ -2,9 +2,8 @@
 
 import React, { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import Link from "next/link";
-import { CardButtons } from "../(public)/shop/components/cardButtons";
 import { ProductFormData } from "@/utils/product";
+import ProductCard from "./ProductCard";
 
 const ProductCarousel = ({
   products,
@@ -27,12 +26,15 @@ const ProductCarousel = ({
   useEffect(() => {
     updateVisibleCards();
     window.addEventListener("resize", updateVisibleCards);
-    return () => window.removeEventListener("resize", updateVisibleCards);
+    return () =>
+      window.removeEventListener("resize", updateVisibleCards);
   }, []);
 
   const handlePrev = () => {
     setCurrentIndex((prev) =>
-      prev <= 0 ? Math.max(products.length - visibleCards, 0) : prev - 1,
+      prev <= 0
+        ? Math.max(products.length - visibleCards, 0)
+        : prev - 1,
     );
   };
 
@@ -50,16 +52,17 @@ const ProductCarousel = ({
       <div className="max-w-7xl mx-auto">
         {topSelling ? (
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-2">
+            <h2 className="text-3xl md:text-4xl font-semibold text-center text-gray-900 mb-2 uppercase">
               Top Selling Products
             </h2>
             <p className="text-gray-600 text-center mb-10">
-              Check out our latest top selling products and bestsellers.
+              Check out our latest top selling products and
+              bestsellers.
             </p>
           </div>
         ) : (
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-2">
+            <h2 className="text-3xl md:text-4xl font-semibold text-center text-gray-900 mb-2 uppercase">
               Featured Products
             </h2>
             <p className="text-gray-600 text-center mb-10">
@@ -70,48 +73,20 @@ const ProductCarousel = ({
 
         <div className="relative">
           {/* Carousel Container */}
-          <div className="overflow-hidden rounded-xl">
+          <div className="overflow-hidden">
             <div
-              className="flex transition-transform duration-500 ease-in-out"
+              className="flex gap-2 transition-transform duration-500 ease-in-out"
               style={{
                 transform: `translateX(-${
                   (currentIndex * 100) / visibleCards
                 }%)`,
               }}
             >
-              {products.map((product) => (
-                <div
-                  key={product._id}
-                  className="shrink-0 px-3"
-                  style={{ width: `${100 / visibleCards}%` }}
-                >
-                  <div className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 h-full flex flex-col">
-                    {/* Fixed Aspect Ratio Image */}
-                    <Link href={`/shop/${product.categoryId}/${product.slug}`}>
-                      <div className="relative w-full aspect-4/3 overflow-hidden bg-gray-100">
-                        <img
-                          src={product.thumbnail!}
-                          alt={product.title}
-                          className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-500 hover:scale-105"
-                        />
-                      </div>
-
-                      {/* Content - Fixed height & consistent layout */}
-                      <div className="p-5 flex flex-col grow">
-                        <h3 className="font-semibold text-lg line-clamp-2 text-gray-900 mb-3">
-                          {product.title}
-                        </h3>
-                        <p className="text-gray-600 text-sm line-clamp-3 grow">
-                          {product.shortDescription}
-                        </p>
-                      </div>
-                    </Link>
-                    {/* Buttons at bottom */}
-                    <div className="px-2 pb-5 mt-auto">
-                      <CardButtons product={product} />
-                    </div>
-                  </div>
-                </div>
+              {products.map((product, i) => (
+                <ProductCard
+                  key={i}
+                  product={product}
+                />
               ))}
             </div>
           </div>
