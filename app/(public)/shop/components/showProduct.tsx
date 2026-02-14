@@ -6,18 +6,26 @@ import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { CardButtons } from "./cardButtons";
+import ProductSingleCard from './../../../components/ProductCard';
 
 interface GroupedProducts {
   [categoryName: string]: ProductFormData[];
 }
 
-const ProductCard = ({ products }: { products: ProductFormData[] }) => {
-  const groupedProducts: GroupedProducts = products.reduce((acc, pro) => {
-    const catName = pro.category;
-    if (!acc[catName]) acc[catName] = [];
-    acc[catName].push(pro);
-    return acc;
-  }, {} as GroupedProducts);
+const ProductCard = ({
+  products,
+}: {
+  products: ProductFormData[];
+}) => {
+  const groupedProducts: GroupedProducts = products.reduce(
+    (acc, pro) => {
+      const catName = pro.category;
+      if (!acc[catName]) acc[catName] = [];
+      acc[catName].push(pro);
+      return acc;
+    },
+    {} as GroupedProducts,
+  );
 
   return (
     <div className="w-full space-y-16 py-8 px-3">
@@ -55,12 +63,15 @@ const CategoryCarousel = ({
   useEffect(() => {
     updateVisibleCards();
     window.addEventListener("resize", updateVisibleCards);
-    return () => window.removeEventListener("resize", updateVisibleCards);
+    return () =>
+      window.removeEventListener("resize", updateVisibleCards);
   }, []);
 
   const handlePrev = () => {
     setCurrentIndex((prev) =>
-      prev <= 0 ? Math.max(products.length - visibleCards, 0) : prev - 1,
+      prev <= 0
+        ? Math.max(products.length - visibleCards, 0)
+        : prev - 1,
     );
   };
 
@@ -74,84 +85,22 @@ const CategoryCarousel = ({
 
   return (
     <section className="w-full">
-      <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-8 text-center md:text-left">
+      <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-8 text-center md:text-left font-semibold uppercase">
         {categoryName}
       </h2>
 
       {/* Carousel */}
       <div className="relative">
-        <div className="overflow-hidden rounded-xl">
+        <div className="overflow-hidden">
           <div
-            className="flex transition-transform duration-500 ease-in-out"
+            className="flex gap-2 transition-transform duration-500 ease-in-out"
             style={{
               transform: `translateX(-${(currentIndex * 100) / visibleCards}%)`,
             }}
           >
-            {products.map((pro) => {
-              const discountedPrice =
-                pro.discount.type === "percentage"
-                  ? Math.floor(
-                      Number(pro.basePrice) -
-                        (Number(pro.basePrice) * Number(pro.discount.value)) /
-                          100,
-                    )
-                  : Math.max(
-                      Number(pro.basePrice) - Number(pro.discount.value),
-                      0,
-                    );
-
-              return (
-                <div
-                  key={pro._id}
-                  className="shrink-0 "
-                  style={{ width: `${100 / visibleCards}%` }}
-                >
-                  <div className="rounded-xl border border-gray-200 bg-white hover:shadow-xl hover:border-primary transition-all duration-300 overflow-hidden h-full flex flex-col">
-                    <Link
-                      href={`/shop/${pro.categoryId}/${pro.slug}`}
-                      className="flex flex-col grow"
-                    >
-                      <div className="relative h-30 md:h-50 overflow-hidden bg-linear-to-br from-gray-900 to-gray-700">
-                        <Image
-                          src={
-                            typeof pro.thumbnail === "string"
-                              ? pro.thumbnail
-                              : ""
-                          }
-                          alt={pro.title}
-                          fill
-                          className="object-cover transition-transform duration-500 hover:scale-105"
-                        />
-                      </div>
-
-                      <div className="p-4 space-y-3 flex flex-col grow">
-                        <h3 className="font-semibold text-base md:text-lg text-gray-900 line-clamp-2">
-                          {pro.title}
-                        </h3>
-                        <p className="text-xs md:text-sm text-gray-600 line-clamp-3 grow">
-                          {pro.shortDescription}
-                        </p>
-
-                        <div className="flex items-center gap-3">
-                          <span className="text-lg md:text-xl font-bold text-gray-900">
-                            {discountedPrice}৳
-                          </span>
-                          {Number(pro.discount.value) > 0 && (
-                            <span className="text-sm md:text-base text-red-500 line-through">
-                              {pro.basePrice}৳
-                            </span>
-                          )}
-                        </div>
-                      </div>
-                    </Link>
-
-                    <div className="px-2 border-t border-gray-100 mt-auto">
-                      <CardButtons product={pro} />
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
+            {products.map((pro, i) => (
+              <ProductSingleCard key={i} product={pro} />
+            ))}
           </div>
         </div>
 
