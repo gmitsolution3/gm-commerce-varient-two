@@ -6,9 +6,14 @@ import { useState } from "react";
 import { ChevronDown, ChevronUp, Search, Phone } from "lucide-react"; // optional: lucide icons
 import Link from "next/link";
 
-export default function HeaderSearchBar({ categories, name, phone }: any) {
+export default function HeaderSearchBar({
+  categories,
+  name,
+  phone,
+}: any) {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectCategory, setSelectCategory] = useState<string>("Categories");
+  const [selectCategory, setSelectCategory] =
+    useState<string>("Categories");
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -75,23 +80,34 @@ export default function HeaderSearchBar({ categories, name, phone }: any) {
       </div>
 
       {/* Call Us Now */}
-      <div className="flex items-center space-x-2 ml-3 md:ml-8 lg:ml-11">
-        <div className="p-3 rounded-full bg-gray-100">
-          <a
-            href={`tel:${hotlineNumber}`}
-            aria-label={`Call our hotline at ${hotlineNumber}`}
-          >
-            <Phone className="w-5 h-5 text-primary" />
-          </a>
+      <div className="flex items-center gap-3 ml-3 md:ml-8 lg:ml-11 group">
+        <div className="relative flex-shrink-0">
+          <div className="w-11 h-11 md:w-12 md:h-12 rounded-lg bg-white flex items-center justify-center border-2 border-primary shadow-md group-hover:shadow-lg group-hover:scale-105 transition-all duration-300">
+            <a
+              href={`tel:${hotlineNumber}`}
+              aria-label={`Call our hotline at ${hotlineNumber}`}
+              className="w-full h-full flex items-center justify-center"
+            >
+              <Phone className="w-5 h-5 md:w-5.5 md:h-5.5 text-primary group-hover:rotate-12 transition-transform duration-300" />
+            </a>
+          </div>
+          <div className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-500 rounded-full border border-white shadow-sm"></div>
         </div>
-        <div className="text-sm md:text-lg font-medium text-gray-800">
-          {`${name} Hotline`} <br />
+
+        <div className="flex flex-col leading-tight">
+          <span className="text-[10px] md:text-xs text-gray-400 uppercase tracking-wide font-semibold">
+            Call Us Now
+          </span>
           <a
             href={`tel:${hotlineNumber}`}
             aria-label={`Call our hotline at ${hotlineNumber}`}
+            className="text-sm md:text-lg font-medium text-gray-800 group-hover:text-primary transition-colors duration-200 tracking-tight"
           >
-            <span className="text-primary">{phone}</span>
+            {phone}
           </a>
+          <span className="text-[9px] md:text-[10px] text-emerald-600 font-medium mt-0.5">
+            Available 24/7
+          </span>
         </div>
       </div>
     </div>

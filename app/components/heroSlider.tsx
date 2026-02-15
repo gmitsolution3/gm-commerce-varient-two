@@ -1,460 +1,322 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { ChevronLeft, ChevronRight } from "lucide-react"
-import Image from "next/image"
+import { useRef, useState, useEffect } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import {
+  Navigation,
+  Pagination,
+  Autoplay,
+  EffectCreative,
+  Parallax,
+} from "swiper/modules";
+import type { Swiper as SwiperType } from "swiper";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Pause,
+  Play,
+  ShoppingBag,
+  ArrowRight,
+  Sparkles,
+} from "lucide-react";
+import Image from "next/image";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/effect-creative";
+import "swiper/css/parallax";
 
 interface SliderContainer {
-  id: string
-  title?: string
-  description?: string
-  images: string[]
+  id: string;
+  title?: string;
+  description?: string;
+  images: string[];
+  link?: string;
+  badge?: string;
+  price?: string;
 }
 
 export interface ProductSliderSectionProps {
-  mainSlider: SliderContainer
-  sideSliders: SliderContainer[]
+  mainSlider: SliderContainer;
+  sideSliders: SliderContainer[];
 }
 
-const SingleSlider = ({
-  slider,
-  isMain = false,
-}: {
-  slider: SliderContainer
-  isMain?: boolean
-}) => {
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const [direction, setDirection] = useState<"left" | "right">("right")
+const MainHeroSlider = ({ slider }: { slider: SliderContainer }) => {
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const swiperRef = useRef<SwiperType | null>(null);
 
-  const handlePrev = () => {
-    setDirection("left")
-    setCurrentIndex((prev) => (prev === 0 ? slider.images.length - 1 : prev - 1))
-  }
-
-  const handleNext = () => {
-    setDirection("right")
-    setCurrentIndex((prev) => (prev === slider.images.length - 1 ? 0 : prev + 1))
-  }
-
-  // Auto-slide effect
-  useEffect(() => {
-    const interval = setInterval(() => {
-      handleNext()
-    }, 5000)
-    return () => clearInterval(interval)
-  }, [currentIndex, slider.images.length])
+  const toggleAutoplay = () => {
+    if (swiperRef.current) {
+      if (isAutoPlaying) {
+        swiperRef.current.autoplay.stop();
+      } else {
+        swiperRef.current.autoplay.start();
+      }
+      setIsAutoPlaying(!isAutoPlaying);
+    }
+  };
 
   return (
-    <div
-      className={`relative w-full overflow-hidden rounded-md bg-linear-to-br from-slate-900 to-slate-800 ${
-        isMain ? "h-[20vh] md:h-[77vh]" : "h-[15vh] md:h-80"
-      }`}
-    >
-      {/* ${isMain ? "h-96 md:h-full" : "h-64 md:h-80"} */}
-      <div className="relative w-full h-full">
+    <div className="relative w-full overflow-hidden bg-black">
+      {/* Main Swiper */}
+      <Swiper
+        onSwiper={(swiper) => (swiperRef.current = swiper)}
+        onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
+        modules={[
+          Navigation,
+          Pagination,
+          Autoplay,
+          EffectCreative,
+          Parallax,
+        ]}
+        spaceBetween={0}
+        slidesPerView={1}
+        parallax={true}
+        speed={1200}
+        navigation={{
+          prevEl: ".main-hero-prev",
+          nextEl: ".main-hero-next",
+        }}
+        pagination={{
+          el: ".custom-pagination",
+          clickable: true,
+          renderBullet: function (index, className) {
+            return `<span class="${className} custom-bullet"></span>`;
+          },
+        }}
+        autoplay={{
+          delay: 6000,
+          disableOnInteraction: false,
+        }}
+        loop={slider.images.length > 1}
+        effect="creative"
+        creativeEffect={{
+          prev: {
+            shadow: true,
+            translate: ["-20%", 0, -1],
+          },
+          next: {
+            translate: ["100%", 0, 0],
+          },
+        }}
+        className="w-full h-[70vh] md:h-[60vh] lg:h-[70vh]"
+      >
         {slider.images.map((image, index) => (
-          <div
-            key={index}
-            className={`absolute inset-0 transition-all duration-700 ease-out ${
-              index === currentIndex
-                ? "opacity-100 scale-100"
-                : "opacity-0 scale-105"
-            }`}
-          >
-            <Image
-              src={image || "/placeholder.svg"}
-              alt={`${slider.title} - Image ${index + 1}`}
-              className="w-full h-full object-cover"
-              priority
-              fetchPriority="high"
-              fill
-              sizes="100vw"
-            />
-            {/* Overlay gradient */}
-            <div className="absolute inset-0 bg-linear-to-t from-black/40 to-transparent" />
-          </div>
+          <SwiperSlide key={index}>
+            <div className="relative w-full h-full">
+              {/* Image with Parallax */}
+              <div
+                className="absolute inset-0"
+                data-swiper-parallax="-23%"
+              >
+                <Image
+                  src={image}
+                  alt={`${slider.title || "Slide"} ${index + 1}`}
+                  fill
+                  className="object-cover scale-110"
+                  priority={index === 0}
+                />
+              </div>
+            </div>
+          </SwiperSlide>
         ))}
+      </Swiper>
+
+      {/* Custom Navigation - Luxury Style */}
+      <button
+        className="main-hero-prev absolute left-6 md:left-12 top-1/2 -translate-y-1/2 z-30 w-12 h-12 
+          bg-black/30 hover:bg-white/20 backdrop-blur-xl
+          text-white border border-white/20
+          rounded-full shadow-2xl
+          transition-all duration-500 hover:scale-110
+          disabled:opacity-30 disabled:cursor-not-allowed
+          group"
+        aria-label="Previous slide"
+      >
+        <ChevronLeft className="w-6 h-6 md:w-8 md:h-8 mx-auto transition-transform group-hover:-translate-x-1" />
+      </button>
+
+      <button
+        className="main-hero-next absolute right-6 md:right-12 top-1/2 -translate-y-1/2 z-30 
+            w-12 h-12
+            bg-black/30 hover:bg-white/20 backdrop-blur-xl
+            text-white border border-white/20
+            rounded-full shadow-2xl
+            transition-all duration-500 hover:scale-110
+            disabled:opacity-30 disabled:cursor-not-allowed
+            group"
+        aria-label="Next slide"
+      >
+        <ChevronRight className="w-6 h-6 md:w-8 md:h-8 mx-auto transition-transform group-hover:translate-x-1" />
+      </button>
+
+      {/* Slide Counter & Controls - Bottom Left */}
+      <div className="absolute bottom-8 md:bottom-12 left-6 md:left-12 z-30 flex items-center gap-6">
+        {/* Slide Counter */}
+        <div
+          className="flex items-center gap-3 px-5 py-3 !p-2 bg-black/40 backdrop-blur-xl 
+                       border border-white/20 rounded-full"
+        >
+          <span className="text-lg font-semibold text-white">
+            {String(activeIndex + 1).padStart(2, "0")}
+          </span>
+          <span className="text-white/50">/</span>
+          <span className="text-sm text-white/70">
+            {String(slider.images.length).padStart(2, "0")}
+          </span>
+        </div>
       </div>
 
-      {/* Navigation Arrows - Hidden on mobile, visible on tablet+ */}
-      <>
-        <button
-          onClick={handlePrev}
-          className="absolute left-4 md:left-6 top-1/2 -translate-y-1/2 z-20 bg-white/20 hover:bg-white/40 backdrop-blur-sm text-white p-2 md:p-3 rounded-full transition-all duration-300 flex items-center justify-center"
-          aria-label="Previous slide"
-        >
-          <ChevronLeft className="w-5 h-5 md:w-6 md:h-6" />
-        </button>
+      {/* Custom Pagination - Bottom Center */}
+      <div className="absolute bottom-8 md:bottom-12 left-1/2 -translate-x-1/2 z-30">
+        <div className="custom-pagination flex items-center gap-3" />
+      </div>
 
-        <button
-          onClick={handleNext}
-          className="absolute right-4 md:right-6 top-1/2 -translate-y-1/2 z-20 bg-white/20 hover:bg-white/40 backdrop-blur-sm text-white p-2 md:p-3 rounded-full transition-all duration-300 flex items-center justify-center"
-          aria-label="Next slide"
+      {/* Scroll Indicator */}
+      <div className="absolute bottom-8 md:bottom-12 right-6 md:right-12 z-30 flex flex-col items-center gap-2">
+        <span
+          className="text-white/60 text-xs uppercase tracking-widest rotate-90 origin-center mb-8"
+          style={{ fontFamily: "'DM Sans', sans-serif" }}
         >
-          <ChevronRight className="w-5 h-5 md:w-6 md:h-6" />
-        </button>
-      </>
-
-      {/* Dot Indicators */}
-      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex gap-2">
-        {slider.images.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => setCurrentIndex(index)}
-            className={`rounded-full transition-all duration-300 ${
-              index === currentIndex
-                ? "bg-orange-500 w-8 h-2"
-                : "bg-white/50 hover:bg-white/70 w-2 h-2"
-            }`}
-            aria-label={`Go to slide ${index + 1}`}
-          />
-        ))}
+          Scroll
+        </span>
+        <div className="w-[1px] h-16 bg-gradient-to-b from-white/60 to-transparent animate-scroll-line" />
       </div>
     </div>
   );
-}
+};
 
-export default function ProductSliderSection({ mainSlider, sideSliders }: ProductSliderSectionProps) {
-
+export default function HeroSlider({
+  mainSlider,
+}: ProductSliderSectionProps) {
   return (
-    <section className="w-full bg-white px-4 md:px-6 lg:px-8 py-8 md:py-12 lg:py-16">
-      <div className="max-w-full mx-auto">
-        {/* Main Grid Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
-          {/* Main Slider - Takes full width on mobile, 2 cols on desktop */}
-          <div className="lg:col-span-2">
-            <SingleSlider slider={mainSlider} isMain={true} />
-          </div>
+    <>
+      {/* Main Hero Slider - Full Width */}
+      <section className="w-full">
+        <MainHeroSlider slider={mainSlider} />
+      </section>
 
-          {/* Side Sliders Container */}
-          <div className="grid grid-cols-2 gap-2 md:gap-6 lg:flex lg:flex-col lg:gap-6">
-            {sideSliders.map((slider) => (
-              <div key={slider.id} className={`${sideSliders.length === 2 ? "col-span-1" : ""}`}>
-                <SingleSlider slider={slider} isMain={false} />
-                {/* {slider.title && (
-                  <h3 className="text-sm md:text-base font-semibold mt-3 md:mt-4 text-gray-900">{slider.title}</h3>
-                )} */}
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  )
+      {/* Global Styles */}
+      <style jsx global>{`
+        @import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap");
+
+        .custom-bullet {
+          width: 12px;
+          height: 12px;
+          background: rgba(255, 255, 255, 0.3);
+          border-radius: 50%;
+          transition: all 0.3s ease;
+          cursor: pointer;
+          position: relative;
+        }
+
+        .custom-bullet:hover {
+          background: rgba(255, 255, 255, 0.5);
+          transform: scale(1.2);
+        }
+
+        .swiper-pagination-bullet-active.custom-bullet {
+          width: 40px;
+          border-radius: 6px;
+          background: linear-gradient(90deg, #f97316, #ec4899);
+        }
+
+        @keyframes gradient-shift {
+          0%,
+          100% {
+            opacity: 0.5;
+          }
+          50% {
+            opacity: 0.8;
+          }
+        }
+
+        @keyframes pulse-slow {
+          0%,
+          100% {
+            opacity: 0.3;
+            transform: scale(1);
+          }
+          50% {
+            opacity: 0.5;
+            transform: scale(1.1);
+          }
+        }
+
+        @keyframes pulse-slower {
+          0%,
+          100% {
+            opacity: 0.2;
+            transform: scale(1);
+          }
+          50% {
+            opacity: 0.4;
+            transform: scale(1.15);
+          }
+        }
+
+        @keyframes scroll-line {
+          0% {
+            transform: translateY(0);
+            opacity: 1;
+          }
+          100% {
+            transform: translateY(40px);
+            opacity: 0;
+          }
+        }
+
+        @keyframes fade-in-up {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        .animate-gradient-shift {
+          animation: gradient-shift 8s ease infinite;
+        }
+
+        .animate-pulse-slow {
+          animation: pulse-slow 4s ease-in-out infinite;
+        }
+
+        .animate-pulse-slower {
+          animation: pulse-slower 6s ease-in-out infinite;
+        }
+
+        .animate-scroll-line {
+          animation: scroll-line 2s ease-in-out infinite;
+        }
+
+        .animate-fade-in-up {
+          animation: fade-in-up 0.8s ease-out forwards;
+          opacity: 0;
+        }
+
+        .bg-gradient-radial {
+          background: radial-gradient(
+            circle at 30% 50%,
+            transparent 0%,
+            transparent 40%,
+            rgba(0, 0, 0, 0.4) 100%
+          );
+        }
+
+        /* Clash Display Font Fallback */
+        @font-face {
+          font-family: "Clash Display";
+          src: local("Impact"), local("Arial Black");
+          font-weight: 900;
+        }
+      `}</style>
+    </>
+  );
 }
-
-// "use client";
-
-// import { useState, useEffect, useCallback } from "react";
-// import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
-// import Image from "next/image";
-
-// interface SliderContainer {
-//   id: string;
-//   title?: string;
-//   description?: string;
-//   images: string[];
-// }
-
-// export interface ProductSliderSectionProps {
-//   mainSlider: SliderContainer;
-//   sideSliders: SliderContainer[];
-// }
-
-// const SingleSlider = ({
-//   slider,
-//   isMain = false,
-// }: {
-//   slider: SliderContainer;
-//   isMain?: boolean;
-// }) => {
-//   const [currentIndex, setCurrentIndex] = useState(0);
-//   const [direction, setDirection] = useState<"left" | "right">("right");
-//   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
-//   const [isHovered, setIsHovered] = useState(false);
-
-//   const handlePrev = useCallback(() => {
-//     setDirection("left");
-//     setCurrentIndex((prev) =>
-//       prev === 0 ? slider.images.length - 1 : prev - 1,
-//     );
-//   }, [slider.images.length]);
-
-//   const handleNext = useCallback(() => {
-//     setDirection("right");
-//     setCurrentIndex((prev) =>
-//       prev === slider.images.length - 1 ? 0 : prev + 1,
-//     );
-//   }, [slider.images.length]);
-
-//   const goToSlide = (index: number) => {
-//     setDirection(index > currentIndex ? "right" : "left");
-//     setCurrentIndex(index);
-//   };
-
-//   // Auto-slide effect
-//   useEffect(() => {
-//     if (!isAutoPlaying || isHovered) return;
-
-//     const interval = setInterval(() => {
-//       handleNext();
-//     }, 4000);
-
-//     return () => clearInterval(interval);
-//   }, [isAutoPlaying, isHovered, handleNext]);
-
-//   // Keyboard navigation
-//   useEffect(() => {
-//     const handleKeyDown = (e: KeyboardEvent) => {
-//       if (e.key === "ArrowLeft") handlePrev();
-//       if (e.key === "ArrowRight") handleNext();
-//       if (e.key === " ") {
-//         e.preventDefault();
-//         setIsAutoPlaying(!isAutoPlaying);
-//       }
-//     };
-
-//     window.addEventListener("keydown", handleKeyDown);
-//     return () => window.removeEventListener("keydown", handleKeyDown);
-//   }, [handlePrev, handleNext, isAutoPlaying]);
-
-//   const imageHeight = isMain
-//     ? "h-[300px] sm:h-[400px] md:h-[450px] lg:h-[550px] xl:h-[600px]"
-//     : "h-[150px] sm:h-[180px] md:h-[200px] lg:h-[220px] xl:h-[240px]";
-
-//   return (
-//     <div
-//       className="relative w-full group"
-//       onMouseEnter={() => setIsHovered(true)}
-//       onMouseLeave={() => setIsHovered(false)}
-//     >
-//       {/* Slider Container */}
-//       <div
-//         className={`relative w-full overflow-hidden rounded-xl shadow-lg ${imageHeight}`}
-//       >
-//         {/* Images with smooth transitions */}
-//         {slider.images.map((image, index) => (
-//           <div
-//             key={index}
-//             className={`absolute inset-0 transition-all duration-700 ease-in-out ${
-//               index === currentIndex
-//                 ? "opacity-100 translate-x-0"
-//                 : direction === "right"
-//                   ? "translate-x-full opacity-0"
-//                   : "-translate-x-full opacity-0"
-//             }`}
-//           >
-//             <div className="relative w-full h-full">
-//               <Image
-//                 src={image || "/placeholder.svg"}
-//                 alt={`${slider.title || "Slider"} - Image ${index + 1}`}
-//                 className="object-cover"
-//                 fill
-//                 priority={index === 0}
-//                 sizes={
-//                   isMain
-//                     ? "(max-width: 640px) 100vw, (max-width: 1024px) 66vw, 66vw"
-//                     : "(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 33vw"
-//                 }
-//                 quality={90}
-//               />
-//               {/* Gradient overlay for better text visibility */}
-//               <div className="absolute inset-0 bg-linear-to-t from-black/30 via-black/10 to-transparent" />
-//             </div>
-//           </div>
-//         ))}
-
-//         {/* Title Overlay (if exists) */}
-//         {slider.title && (
-//           <div className="absolute bottom-0 left-0 right-0 z-10 p-4 md:p-6 bg-linear-to-t from-black/80 to-transparent">
-//             <h3 className="text-white text-lg md:text-xl font-bold">
-//               {slider.title}
-//             </h3>
-//             {slider.description && (
-//               <p className="text-white/90 text-sm md:text-base mt-1">
-//                 {slider.description}
-//               </p>
-//             )}
-//           </div>
-//         )}
-
-//         {/* Navigation Arrows */}
-//         <div className="absolute inset-0 z-20">
-//           {/* Left Arrow */}
-//           <button
-//             onClick={handlePrev}
-//             className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-30
-//                        bg-black/40 hover:bg-black/60 backdrop-blur-sm
-//                        text-white p-2 md:p-3 rounded-full
-//                        transition-all duration-300
-//                        opacity-0 group-hover:opacity-100 md:opacity-100
-//                        transform -translate-x-2 group-hover:translate-x-0"
-//             aria-label="Previous slide"
-//           >
-//             <ChevronLeft className="w-4 h-4 md:w-5 md:h-5" />
-//           </button>
-
-//           {/* Right Arrow */}
-//           <button
-//             onClick={handleNext}
-//             className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-30
-//                        bg-black/40 hover:bg-black/60 backdrop-blur-sm
-//                        text-white p-2 md:p-3 rounded-full
-//                        transition-all duration-300
-//                        opacity-0 group-hover:opacity-100 md:opacity-100
-//                        transform translate-x-2 group-hover:translate-x-0"
-//             aria-label="Next slide"
-//           >
-//             <ChevronRight className="w-4 h-4 md:w-5 md:h-5" />
-//           </button>
-
-//           {/* Auto-play Toggle */}
-//           <button
-//             onClick={() => setIsAutoPlaying(!isAutoPlaying)}
-//             className="absolute top-3 right-3 z-30
-//                        bg-black/40 hover:bg-black/60 backdrop-blur-sm
-//                        text-white p-2 rounded-full
-//                        transition-all duration-300
-//                        opacity-0 group-hover:opacity-100 md:opacity-100"
-//             aria-label={isAutoPlaying ? "Pause slideshow" : "Play slideshow"}
-//           >
-//             {isAutoPlaying ? (
-//               <Pause className="w-4 h-4" />
-//             ) : (
-//               <Play className="w-4 h-4" />
-//             )}
-//           </button>
-//         </div>
-
-//         {/* Progress Bar */}
-//         {isAutoPlaying && (
-//           <div className="absolute bottom-0 left-0 right-0 h-1 bg-black/30 z-30 overflow-hidden">
-//             <div
-//               className="h-full bg-orange-500 transition-all duration-300 ease-linear"
-//               style={{
-//                 width: `${(currentIndex + 1) * (100 / slider.images.length)}%`,
-//               }}
-//             />
-//           </div>
-//         )}
-
-//         {/* Dot Indicators */}
-//         {slider.images.length > 1 && (
-//           <div
-//             className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20
-//                          flex gap-1.5 md:gap-2"
-//           >
-//             {slider.images.map((_, index) => (
-//               <button
-//                 key={index}
-//                 onClick={() => goToSlide(index)}
-//                 className={`transition-all duration-300 rounded-full ${
-//                   index === currentIndex
-//                     ? "bg-orange-500 w-6 h-2 md:w-8 md:h-2.5"
-//                     : "bg-white/60 hover:bg-white/80 w-2 h-2"
-//                 }`}
-//                 aria-label={`Go to slide ${index + 1}`}
-//                 aria-current={index === currentIndex ? "true" : "false"}
-//               />
-//             ))}
-//           </div>
-//         )}
-//       </div>
-
-//       {/* Slide Counter */}
-//       <div
-//         className="absolute top-3 left-3 z-20
-//                      bg-black/40 backdrop-blur-sm
-//                      text-white text-xs md:text-sm
-//                      px-2 py-1 rounded-md"
-//       >
-//         {currentIndex + 1} / {slider.images.length}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default function ProductSliderSection({
-//   mainSlider,
-//   sideSliders,
-// }: ProductSliderSectionProps) {
-//   return (
-//     <section className="w-full bg-white px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-12">
-//       <div className="max-w-7xl mx-auto">
-//         {/* Main Grid Layout */}
-//         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
-//           {/* Main Slider */}
-//           <div className="lg:col-span-2">
-//             <SingleSlider slider={mainSlider} isMain={true} />
-//           </div>
-
-//           {/* Side Sliders Container */}
-//           <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-1 gap-3 sm:gap-4 lg:gap-6">
-//             {sideSliders.map((slider, index) => (
-//               <div
-//                 key={slider.id}
-//                 className={`
-//                   ${sideSliders.length === 1 ? "col-span-2 sm:col-span-2" : ""}
-//                   ${sideSliders.length === 2 ? "col-span-1" : ""}
-//                   ${sideSliders.length >= 3 && index === 0 ? "lg:row-span-2 h-full" : ""}
-//                 `}
-//               >
-//                 <SingleSlider slider={slider} isMain={false} />
-
-//                 {/* Optional title below slider for mobile */}
-//                 {slider.title && (
-//                   <div className="mt-2 lg:hidden">
-//                     <h3 className="text-sm font-semibold text-gray-900 line-clamp-1">
-//                       {slider.title}
-//                     </h3>
-//                     {slider.description && (
-//                       <p className="text-xs text-gray-600 line-clamp-2">
-//                         {slider.description}
-//                       </p>
-//                     )}
-//                   </div>
-//                 )}
-//               </div>
-//             ))}
-//           </div>
-//         </div>
-
-//         {/* Mobile view for side slider titles (alternative approach) */}
-//         {sideSliders.length > 0 && (
-//           <div className="grid grid-cols-2 gap-3 mt-4 lg:hidden">
-//             {sideSliders.map((slider, index) => (
-//               <div key={`mobile-title-${index}`} className="text-center">
-//                 {slider.title && (
-//                   <h3 className="text-sm font-medium text-gray-800">
-//                     {slider.title}
-//                   </h3>
-//                 )}
-//               </div>
-//             ))}
-//           </div>
-//         )}
-//       </div>
-
-//       {/* Responsive CSS for different breakpoints */}
-//       <style jsx>{`
-//         @media (max-width: 640px) {
-//           .grid-cols-2 > * {
-//             min-height: 150px;
-//           }
-//         }
-
-//         @media (min-width: 641px) and (max-width: 768px) {
-//           .grid-cols-2 > * {
-//             min-height: 180px;
-//           }
-//         }
-
-//         @media (min-width: 769px) and (max-width: 1024px) {
-//           .lg\\:grid-cols-3 {
-//             grid-template-columns: 2fr 1fr;
-//           }
-//         }
-//       `}</style>
-//     </section>
-//   );
-// }

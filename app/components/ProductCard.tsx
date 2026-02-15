@@ -4,6 +4,7 @@ import { FaWhatsapp } from "react-icons/fa";
 import { handleWhatsApp } from "./../(public)/shop/components/handleWhatsApp";
 import { createPortal } from "react-dom";
 import ProductVariant from "./../(public)/shop/components/ProductVariants";
+import Link from "next/link";
 
 const ProductCard = ({ product }: { product: any }) => {
   const [isCartModalOpen, setIsCartModalOpen] = useState(false);
@@ -72,55 +73,58 @@ const ProductCard = ({ product }: { product: any }) => {
   return (
     <div className="group bg-white w-80 overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 relative border border-gray-100">
       {/* Image Container */}
-      <div className="relative overflow-hidden bg-gray-50">
-        {/* Badges */}
-        <div className="absolute top-4 left-4 z-20 flex flex-col gap-2">
-          {hasDiscount && (
-            <span className="bg-primary text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg backdrop-blur-sm">
-              {getDiscountLabel()}
-            </span>
-          )}
-          {product.stockQuantity <= 10 && (
-            <span className="bg-orange-500 text-white text-xs font-semibold px-3 py-1.5 rounded-full shadow-lg">
-              Only {product.stockQuantity} left
-            </span>
-          )}
+      <Link href={`/shop/${product.categoryId}/${product.slug}`}>
+        <div className="relative overflow-hidden bg-gray-50">
+          {/* Badges */}
+          <div className="absolute top-4 left-4 z-20 flex flex-col gap-2">
+            {hasDiscount && (
+              <span className="bg-primary text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg backdrop-blur-sm">
+                {getDiscountLabel()}
+              </span>
+            )}
+            {product.stockQuantity <= 10 && (
+              <span className="bg-orange-500 text-white text-xs font-semibold px-3 py-1.5 rounded-full shadow-lg">
+                Only {product.stockQuantity} left
+              </span>
+            )}
+          </div>
+
+          {/* Quick Actions */}
+          <div className="absolute top-4 right-4 z-20 flex flex-col gap-2">
+            <button
+              onClick={() => setIsFavorite(!isFavorite)}
+              className={`p-2.5 rounded-full backdrop-blur-md transition-all duration-300 shadow-lg ${
+                isFavorite
+                  ? "bg-red-500 text-white"
+                  : "bg-white/90 text-gray-700 hover:bg-red-50"
+              }`}
+            >
+              <Heart
+                className={`w-5 h-5 ${isFavorite ? "fill-current" : ""}`}
+              />
+            </button>
+            <Link
+              href={`/shop/${product.categoryId}/${product.slug}`}
+              className="p-2.5 bg-white/90 backdrop-blur-md rounded-full text-gray-700 hover:bg-gray-100 transition-all duration-300 shadow-lg opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0"
+            >
+              <Eye className="w-5 h-5" />
+            </Link>
+          </div>
+
+          {/* Product Image */}
+
+          <img
+            src={product.thumbnail}
+            alt={product.title}
+            className="w-full h-80 object-cover transition-transform duration-700 group-hover:scale-110"
+          />
+
+          {/* Hover Overlay */}
+          <div
+            className={`absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent transition-opacity duration-500 opacity-0 group-hover:opacity-100 `}
+          />
         </div>
-
-        {/* Quick Actions */}
-        <div className="absolute top-4 right-4 z-20 flex flex-col gap-2">
-          <button
-            onClick={() => setIsFavorite(!isFavorite)}
-            className={`p-2.5 rounded-full backdrop-blur-md transition-all duration-300 shadow-lg ${
-              isFavorite
-                ? "bg-red-500 text-white"
-                : "bg-white/90 text-gray-700 hover:bg-red-50"
-            }`}
-          >
-            <Heart
-              className={`w-5 h-5 ${isFavorite ? "fill-current" : ""}`}
-            />
-          </button>
-          <button
-            onClick={handleBuyNow}
-            className="p-2.5 bg-white/90 backdrop-blur-md rounded-full text-gray-700 hover:bg-gray-100 transition-all duration-300 shadow-lg opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0"
-          >
-            <Eye className="w-5 h-5" />
-          </button>
-        </div>
-
-        {/* Product Image */}
-        <img
-          src={product.thumbnail}
-          alt={product.title}
-          className="w-full h-80 object-cover transition-transform duration-700 group-hover:scale-110"
-        />
-
-        {/* Hover Overlay */}
-        <div
-          className={`absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent transition-opacity duration-500 opacity-0 group-hover:opacity-100 `}
-        />
-      </div>
+      </Link>
 
       {/* Content */}
       <div className="p-5">
@@ -131,7 +135,9 @@ const ProductCard = ({ product }: { product: any }) => {
 
         {/* Title */}
         <h3 className="text-gray-900 font-semibold text-lg font-semibold mt-2 mb-1 line-clamp-2 leading-snug min-h-[3rem]">
-          {product.title}
+          <Link href={`/shop/${product.categoryId}/${product.slug}`}>
+            {product.title}
+          </Link>
         </h3>
 
         <p className="text-sm text-gray-600 my-5">

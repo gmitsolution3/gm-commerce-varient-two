@@ -22,61 +22,78 @@ export const MenuNavbar = ({ categories }: any) => {
   }, []);
 
   return (
-    <div className="border-t border-gray-200 lg:py-3">
+    <div className="border-b border-gray-200 py-2">
       <div className="max-w-7xl mx-auto px-4">
-        {/* 🔹 Mobile Header */}
+        {/* Mobile Header */}
         <div className="flex items-center justify-between py-3 lg:hidden">
-          <span className="font-semibold text-gray-800">Categories</span>
+          <span className="font-medium text-gray-800">Menu</span>
           <button
             onClick={() => setOpen(!open)}
-            className={clsx("transition-transform", open && "rotate-90")}
+            className="text-gray-700"
+            aria-label="Toggle menu"
           >
-            {open ? <X /> : <Menu />}
+            {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
 
-        {/* 🔹 Menu Items */}
+        {/* Menu Items */}
         <div
           className={clsx(
-            "overflow-hidden transition-all duration-300 ease-in-out lg:overflow-visible",
-            open
-              ? "max-h-96 opacity-100"
-              : "max-h-0 opacity-0 lg:max-h-full lg:opacity-100",
-            "lg:opacity-100",
+            "overflow-hidden transition-all duration-300 lg:overflow-visible",
+            open ? "max-h-96 pb-3" : "max-h-0 lg:max-h-full"
           )}
         >
-          <div className="flex flex-col lg:flex-row lg:justify-center lg:items-center gap-2 px-2 py-2 lg:py-0">
-            {/* All Products */}
+          <div className="flex flex-col lg:flex-row lg:justify-center lg:items-center gap-1 lg:gap-8">
+            {/* Home */}
             <Link href={`/`}>
               <button
                 onClick={() => handleClick("home")}
                 className={clsx(
-                  "w-full lg:w-auto text-left px-4 py-2 text-sm font-semibold rounded-md transition whitespace-nowrap",
+                  "w-full lg:w-auto text-left lg:text-center px-2 py-3 text-sm font-medium transition-colors relative",
                   activeCategory === "home"
-                    ? "bg-linear-to-t from-primary to-primary-foreground text-white"
-                    : "text-gray-700 hover:bg-linear-to-t hover:from-primary hover:to-primary-foreground hover:text-white",
+                    ? "text-primary"
+                    : "text-gray-600 hover:text-gray-900"
                 )}
               >
                 Home
+                <span
+                  className={clsx(
+                    "absolute bottom-0 left-0 w-full h-0.5 bg-primary transition-transform duration-200",
+                    activeCategory === "home"
+                      ? "scale-x-100"
+                      : "scale-x-0 group-hover:scale-x-100"
+                  )}
+                />
               </button>
             </Link>
+
+            {/* All Products */}
             <Link href={`/shop/all`}>
               <button
                 onClick={() => handleClick("all")}
                 className={clsx(
-                  "w-full lg:w-auto text-left px-4 py-2 text-sm font-semibold rounded-md transition whitespace-nowrap",
+                  "w-full lg:w-auto text-left lg:text-center px-2 py-3 text-sm font-medium transition-colors relative group",
                   activeCategory === "all"
-                    ? "bg-linear-to-t from-primary to-primary-foreground text-white"
-                    : "text-gray-700 hover:bg-linear-to-t hover:from-primary-foreground hover:to-primary hover:text-white",
+                    ? "text-primary"
+                    : "text-gray-600 hover:text-primary"
                 )}
               >
-                All Product
+                All Products
+                <span
+                  className={clsx(
+                    "absolute bottom-0 left-0 w-full h-0.5 bg-primary transition-transform duration-200",
+                    activeCategory === "all"
+                      ? "scale-x-100"
+                      : "scale-x-0 group-hover:scale-x-100"
+                  )}
+                />
               </button>
             </Link>
 
+            {/* Categories */}
             {!categories || !categories.length ? (
-              <div className="text-center text-primary text-2xl">
-                No Category found
+              <div className="text-center text-gray-500 py-3 text-sm">
+                No categories found
               </div>
             ) : (
               categories.map((category: any) => (
@@ -84,19 +101,25 @@ export const MenuNavbar = ({ categories }: any) => {
                   <button
                     onClick={() => handleClick(category._id)}
                     className={clsx(
-                      "w-full lg:w-auto text-left px-4 py-2 text-sm font-semibold rounded-md transition whitespace-nowrap",
+                      "w-full lg:w-auto text-left lg:text-center px-2 py-3 text-sm font-medium transition-colors relative group",
                       activeCategory === category._id
-                        ? "bg-linear-to-t from-primary to-primary-foreground text-white"
-                        : "text-gray-700 hover:bg-linear-to-t hover:from-primary-foreground hover:to-primary hover:text-white",
+                        ? "text-primary"
+                        : "text-gray-600 hover:text-primary"
                     )}
                   >
                     {category.name}
+                    <span
+                      className={clsx(
+                        "absolute bottom-0 left-0 w-full h-0.5 bg-primary transition-transform duration-200",
+                        activeCategory === category._id
+                          ? "scale-x-100"
+                          : "scale-x-0 group-hover:scale-x-100"
+                      )}
+                    />
                   </button>
                 </Link>
               ))
             )}
-
-            {/* Categories */}
           </div>
         </div>
       </div>

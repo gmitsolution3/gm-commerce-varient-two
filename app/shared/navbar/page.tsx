@@ -9,11 +9,10 @@ import Link from "next/link";
 import { NavBarMenu } from "../components/navBarMenu";
 import AccountDropdown from "../components/AccountDropdown";
 
-
 const Navbar = async () => {
   const getAllCategories = await getCategories();
   const brandInfoRaw = await getBrandInfo();
-  const marqueeText = await getMarquee()
+  const marqueeText = await getMarquee();
 
   const brandInfo = {
     logo: brandInfoRaw?.data?.logo ?? "/placeholder.svg",
@@ -25,9 +24,15 @@ const Navbar = async () => {
   return (
     <header className="w-full bg-white">
       <div className="max-w-full bg-white">
-        <div className="border-b border-gray-100 bg-linear-to-r from-primary-foreground to-primary ">
-          <div className="h-14 max-w-400 mx-auto px-4 flex justify-between items-center text-white">
-            <h5>Welcome to our website</h5>
+        {/* // Top bar component */}
+        <div className="bg-gradient-to-r from-primary/90 via-primary to-primary/90 border-b border-primary/20">
+          <div className="h-12 max-w-7xl mx-auto px-4 flex justify-between items-center">
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+              <p className="text-sm text-white/80 font-medium">
+                Welcome to our premium store
+              </p>
+            </div>
             <div>
               <NavBarMenu />
             </div>
@@ -51,9 +56,6 @@ const Navbar = async () => {
         </div>
         <div className="bg-white border-b border-gray-300 shadow-md">
           <MenuNavbar categories={getAllCategories.data} />
-        </div>
-        <div className="bg-white border-b border-gray-300 shadow-md">
-          <MarqueeText text={marqueeText?.data?.text}/>
         </div>
       </div>
     </header>
